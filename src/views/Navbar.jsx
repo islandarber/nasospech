@@ -1,32 +1,34 @@
 
 export const Navbar = () => {
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="bg-transparent p-4 font-montserrat">
       <ul className="flex justify-between items-center">
         <li>
-          <a href="/" className="text-white font-bold text-xl">
-            Nasos
+          <a href="/" className="text-white text-l">
+            Nasos<strong>Pechlivanidis</strong>
+            <br />
+            Nocturnal<strong>AudioDesign</strong>
           </a>
         </li>
-        <ul className="flex space-x-4">
+        <ul className="flex space-x-4 text-xs">
           <li>
             <a href="/" className="text-white">
-              Home
+              Short-Movies
             </a>
           </li>
           <li>
             <a href="/about" className="text-white">
-              About
+              Theater
             </a>
           </li>
           <li>
             <a href="/projects" className="text-white">
-              Projects
+              Bio
             </a>
           </li>
           <li>
             <a href="/contact" className="text-white">
-              Contact
+              On going
             </a>
           </li>
         </ul>

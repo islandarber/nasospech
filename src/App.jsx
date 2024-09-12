@@ -6,7 +6,7 @@ import {Navbar} from './views/Navbar.jsx';
 
 function App() {
   return (
-    <div>
+    <div className="bg-cover bg-repeat custom-bg">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
