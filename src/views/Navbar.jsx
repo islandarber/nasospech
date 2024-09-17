@@ -1,35 +1,56 @@
+import React from "react";
+import { NavLink } from "react-router-dom";
 
 export const Navbar = () => {
   return (
     <nav className="bg-transparent p-4 font-montserrat">
       <ul className="flex justify-between items-center">
         <li>
-          <a href="/" className="text-white text-l">
+          <NavLink 
+            to="/" 
+            className="text-white text-lg"
+          >
             Nasos<strong>Pechlivanidis</strong>
             <br />
             Nocturnal<strong>AudioDesign</strong>
-          </a>
+          </NavLink>
         </li>
-        <ul className="flex space-x-4 text-xs">
+        <ul className="flex space-x-4 text-sm">
           <li>
-            <a href="/" className="text-white">
+            <NavLink 
+              to="/" 
+              className="font-bold text-white hover:underline hover:underline-white"
+              activeClassName="underline underline-white"
+            >
               Short-Movies
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a href="/about" className="text-white">
+            <NavLink 
+              to="/about" 
+              className="font-bold text-white hover:underline hover:underline-white"
+              activeClassName="underline underline-white"
+            >
               Theater
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a href="/projects" className="text-white">
+            <NavLink 
+              to="/projects" 
+              className="font-bold text-white hover:underline hover:underline-white"
+              activeClassName="underline underline-white"
+            >
               Bio
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a href="/contact" className="text-white">
+            <NavLink 
+              to="/contact" 
+              className="font-bold text-white hover:underline hover:underline-white"
+              activeClassName="underline underline-white"
+            >
               On going
-            </a>
+            </NavLink>
           </li>
         </ul>
       </ul>

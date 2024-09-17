@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css';
 import {Routes, Route} from 'react-router-dom';
-import {Home} from './views/Home.jsx';
-import {Navbar} from './views/Navbar.jsx';
-import {Footer} from './views/Footer.jsx';
+import {Home} from './views/Home';
+import {Navbar} from './views/Navbar';
+import {Footer} from './views/Footer';
+
 
 function App() {
   return (

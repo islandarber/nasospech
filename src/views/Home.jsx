@@ -1,39 +1,106 @@
-import React from "react";
-import ProjectCard from "../components/ProjectCard";
+import React, { useState } from "react";
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
 export const Home = () => {
+  const [clickedSlide, setClickedSlide] = useState(null);
+
+  // Responsive settings for the carousel
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 1
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 1
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 1
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+  };
+
+  const slideInfo = [
+    {
+      title: "''Insektensterben - Alles wird gut'' @ Natural History Museum of Bern / Exhibition",
+      info: "My work: Audio design, Foley design, Ambience and Soundtrack\nImportant info: Exhibition running from 03.11.2023 to 31.05.2025",
+      video: "https://www.youtube.com/embed/N1AXKNIDlzg",
+    },
+    {
+      title: "A Pia (The Sink) [2023]  Short film / Audio Postproduction",
+      info: "My work: Audio cleanup, Audio and Foley design, Stereo and 5.1 Mixing/Mastering",
+      video: "https://player.vimeo.com/video/837296390"
+    },
+    {
+      title: "RIAS choir performance @ Philharmonie Berlin / Commercial video",
+      info: "My work: Audio recording, Audio design and postproduction, Stereo and 5.1 Mixing/Mastering Important info: Aired in all Yorck Kinos Berlin for 2 months",
+      video: "https://www.youtube.com/watch?v=j5rS3qjs3aw&list=LL&index=17",
+    },
+  ];
+
+  const handleSlideClick = (index) => {
+    setClickedSlide(index);
+  };
+
+  const handleCloseCard = () => {
+    setClickedSlide(null);
+  };
+
   return (
-    <div className="font-Montserrat mt-10">
-      <ProjectCard 
-        videoUrl="https://www.youtube.com/embed/j5rS3qjs3aw"
-        title="RIAS Choir Performance @ Philharmonie Berlin / Commercial Video"
-        work="Audio recording, Audio design and postproduction, Stereo and 5.1 Mixing/Mastering"
-        info="Aired in all Yorck Kinos Berlin for 2 months"
-        videoType="iframe"
-        reverse={false} // First card, normal layout
-      />
-       <div className="my-8 flex justify-center">
-        <hr className="w-1/2 border-t border-gray-300" />
-      </div>
-      <ProjectCard 
-        videoUrl="https://www.youtube.com/embed/N1AXKNIDlzg"
-        title="Insektensterben - Alles wird gut @ Natural History Museum of Bern / Exhibition"
-        work="Audio design, Foley design, Ambience and Soundtrack"
-        info="Exhibition running from 03.11.2023 to 31.05.2025"
-        videoType="iframe"
-        reverse={true} // Second card, reversed layout
-      />
-       <div className="my-8 flex justify-center">
-        <hr className="w-1/2 border-t border-gray-300" />
-      </div>
-      <ProjectCard 
-        videoUrl="https://player.vimeo.com/video/837296390"
-        title="A Pia (The Sink) [2023] Short Film / Audio Postproduction"
-        work="Audio cleanup, Audio and Foley design, Stereo and 5.1 Mixing/Mastering"
-        info="Available on Vimeo"
-        videoType="iframe"
-        reverse={false} // Third card, normal layout
-      />
+    <div className="bg-custom-gradient">
+      {/* Carousel */}
+      {clickedSlide === null ? (
+        <Carousel 
+          responsive={responsive}
+          infinite={true}  // Allows infinite scrolling
+          autoPlay={true}  // Enable autoplay
+          autoPlaySpeed={3000}  // Speed of autoplay
+          arrows={true}  // Show arrows
+          swipeable={true}  // Allow swipe gestures
+          draggable={true}  // Allow drag gestures
+          showDots={true}  // Show pagination dots
+        >
+          {slideInfo.map((slide, index) => (
+            <div
+              key={index}
+              className={`img-background${index} bg-cover bg-no-repeat bg-center h-96 flex items-center justify-center cursor-pointer`}
+              onClick={() => handleSlideClick(index)}
+            >
+              <h3 className="bg-black bg-opacity-60 text-white text-center text-xs p-2">{slide.title}</h3>
+            </div>
+          ))}
+        </Carousel>
+      ) : (
+        <div className="absolute inset-0 flex bg-black bg-opacity-80 p-4">
+          <div className="flex flex-col md:flex-row max-w-4xl mx-auto bg-black bg-opacity-90 p-4 rounded-lg relative">
+            <button
+              className="absolute top-2 right-2 text-white text-2xl font-bold"
+              onClick={handleCloseCard}
+            >
+              ×
+            </button>
+            <div className="flex-1 mb-4 md:mb-0 md:mr-4 flex items-center justify-center">
+              <iframe
+                className="w-full h-full md:w-[600px] md:h-[337px] aspect-w-16 aspect-h-9"
+                src={slideInfo[clickedSlide].video}
+                frameBorder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title="Project Video"
+              />
+            </div>
+            <div className="flex-1 flex flex-col justify-center text-center md:text-left">
+              <h3 className="text-xl text-white font-bold mb-2">{slideInfo[clickedSlide].title}</h3>
+              <p className="text-white">{slideInfo[clickedSlide].info}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
