@@ -11,9 +11,9 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="bg-transparent p-4 font-montserrat">
+    <nav className="bg-transparent p-2 font-montserrat">
       <div className="flex justify-between items-center">
-        <NavLink to="/" className="text-white flex text-lg">
+        <NavLink to="/" className="text-white flex text-lg mt-2">
           <img 
             src={logo} 
             alt="logo" 
@@ -23,7 +23,7 @@ export const Navbar = () => {
               WebkitMaskImage: "linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%)",
             }}
           />
-          <div className="text-sm md:text-lg mt-4">
+          <div className="text-sm">
             Nasos<strong>Pechlivanidis</strong>
             <br />
             Nocturnal<strong>AudioDesign</strong>
