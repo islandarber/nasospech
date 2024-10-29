@@ -1,18 +1,60 @@
-.custom-bg {
-  background-image: url('./assets/34885711_10212103000507362_8628556806236405760_o.jpg');
+/* .custom-bg {
+  background-image: url('/src/assets/image3.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
+
+.img-background{
+  background-image: url('/src/assets/sink.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100%;
+  height: 100%;
 }
 
-.img-background0 {
-  background-image: url('./assets/movie.png');
+
+/* NightSky.css */
+.night-sky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1; /* Background layer */
+  background: #000; /* Darker base color for depth */
 }
 
-.img-background1 {
-  background-image: url('./assets/8ccddfb1-13db-4fe9-935a-0bd72d3f64ee.jpg');
+.stars, .twinkling, .clouds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
 }
 
-.img-background2 {
-  background-image: url('./assets/Christina-Watkins-Photography-76.jpg');
+.stars {
+  background: url('/src/assets/stars.png') repeat top center;
+  z-index: 1;
+  background-size: cover;
 }
+
+.twinkling {
+  background: url('/src/assets/twinkling.png') repeat top center;
+  z-index: 2;
+  opacity: 1;
+  background-size: cover;
+}
+
+.clouds {
+  background: url('/src/assets/clouds.png') repeat top center;
+  z-index: 3;
+  opacity: 0.3;
+  background-size: cover;
+}
+
 
 
 

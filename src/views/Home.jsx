@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 export const Home = () => {
   const [clickedSlide, setClickedSlide] = useState(null);
@@ -9,32 +9,33 @@ export const Home = () => {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
-      items: 1
+      items: 1,
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 1
+      items: 1,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 1
+      items: 1,
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
-      items: 1
-    }
+      items: 1,
+    },
   };
 
   const slideInfo = [
     {
-      title: "''Insektensterben - Alles wird gut'' @ Natural History Museum of Bern / Exhibition",
+      title:
+        "''Insektensterben - Alles wird gut'' \n @Natural History Museum of Bern / Exhibition",
       info: "My work: Audio design, Foley design, Ambience and Soundtrack\nImportant info: Exhibition running from 03.11.2023 to 31.05.2025",
       video: "https://www.youtube.com/embed/N1AXKNIDlzg",
     },
     {
       title: "A Pia (The Sink) [2023]  Short film / Audio Postproduction",
       info: "My work: Audio cleanup, Audio and Foley design, Stereo and 5.1 Mixing/Mastering",
-      video: "https://player.vimeo.com/video/837296390"
+      video: "https://player.vimeo.com/video/837296390",
     },
     {
       title: "RIAS choir performance @ Philharmonie Berlin / Commercial video",
@@ -52,26 +53,33 @@ export const Home = () => {
   };
 
   return (
-    <div className="bg-custom-gradient">
+    <div className="bg-custom-gradient h-screen">
       {/* Carousel */}
       {clickedSlide === null ? (
-        <Carousel 
+        <Carousel
           responsive={responsive}
-          infinite={true}  // Allows infinite scrolling
-          autoPlay={true}  // Enable autoplay
-          autoPlaySpeed={3000}  // Speed of autoplay
-          arrows={true}  // Show arrows
-          swipeable={true}  // Allow swipe gestures
-          draggable={true}  // Allow drag gestures
-          showDots={true}  // Show pagination dots
+          infinite={true} // Allows infinite scrolling
+          autoPlay={true} // Enable autoplay
+          autoPlaySpeed={3000} // Speed of autoplay
+          arrows={true} // Show arrows
+          swipeable={true} // Allow swipe gestures
+          draggable={true} // Allow drag gestures
+          className="shadow-lg ml-4 mr-4 rounded-lg"
         >
           {slideInfo.map((slide, index) => (
             <div
               key={index}
-              className={`img-background${index} bg-cover bg-no-repeat bg-center h-96 flex items-center justify-center cursor-pointer`}
+              className="relative flex flex-col items-center justify-center h-[450px] cursor-pointer"
               onClick={() => handleSlideClick(index)}
             >
-              <h3 className="bg-black bg-opacity-60 text-white text-center text-xs p-2">{slide.title}</h3>
+              {/* Image */}
+              <div
+                className={`img-background rounded-lg`} // Add rounded corners
+              ></div>
+              {/* Title underneath the image */}
+              <h3 className="bg-white bg-opacity-10 text-white text-xs p-1 rounded mt-2 p-2 text-center">
+                {slide.title}
+              </h3>
             </div>
           ))}
         </Carousel>
@@ -95,7 +103,9 @@ export const Home = () => {
               />
             </div>
             <div className="flex-1 flex flex-col justify-center text-center md:text-left">
-              <h3 className="text-xl text-white font-bold mb-2">{slideInfo[clickedSlide].title}</h3>
+              <h3 className="text-xl text-white font-bold mb-2">
+                {slideInfo[clickedSlide].title}
+              </h3>
               <p className="text-white">{slideInfo[clickedSlide].info}</p>
             </div>
           </div>
