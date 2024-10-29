@@ -1,77 +1,116 @@
-import React from "react";
+import React, { useState } from "react";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 export const Home = () => {
+  const [clickedSlide, setClickedSlide] = useState(null);
+
+  // Responsive settings for the carousel
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 1,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 1,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 1,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+
+  const slideInfo = [
+    {
+      title:
+        "''Insektensterben - Alles wird gut'' \n @Natural History Museum of Bern / Exhibition",
+      info: "My work: Audio design, Foley design, Ambience and Soundtrack\nImportant info: Exhibition running from 03.11.2023 to 31.05.2025",
+      video: "https://www.youtube.com/embed/N1AXKNIDlzg",
+    },
+    {
+      title: "A Pia (The Sink) [2023]  Short film / Audio Postproduction",
+      info: "My work: Audio cleanup, Audio and Foley design, Stereo and 5.1 Mixing/Mastering",
+      video: "https://player.vimeo.com/video/837296390",
+    },
+    {
+      title: "RIAS choir performance @ Philharmonie Berlin / Commercial video",
+      info: "My work: Audio recording, Audio design and postproduction, Stereo and 5.1 Mixing/Mastering Important info: Aired in all Yorck Kinos Berlin for 2 months",
+      video: "https://www.youtube.com/watch?v=j5rS3qjs3aw&list=LL&index=17",
+    },
+  ];
+
+  const handleSlideClick = (index) => {
+    setClickedSlide(index);
+  };
+
+  const handleCloseCard = () => {
+    setClickedSlide(null);
+  };
+
   return (
-    <div className="font-Montserrat">
-      {/* RIAS Choir Performance */}
-      <div className="max-w-3xl mx-auto p-6 rounded-lg bg-gray-700 bg-opacity-40 flex items-start space-x-6 mb-8 shadow-lg border border-gray-600">
-        <iframe 
-          className="w-1/2 h-64 object-cover rounded-lg" 
-          src="https://www.youtube.com/embed/j5rS3qjs3aw" 
-          title="RIAS Choir Performance" 
-          frameBorder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowFullScreen>
-        </iframe>
-        <div className="w-1/2 text-gray-200">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-100">
-            RIAS Choir Performance @ Philharmonie Berlin / Commercial Video
-          </h2>
-          <p className="mb-2"><strong>My work:</strong> Audio recording, Audio design and postproduction, Stereo and 5.1 Mixing/Mastering</p>
-          <p><strong>Important info:</strong> Aired in all Yorck Kinos Berlin for 2 months</p>
-        </div>
-      </div>
-
-      {/* Insektensterben - Alles wird gut */}
-      <div className="max-w-3xl mx-auto p-6 rounded-lg bg-gray-700 bg-opacity-50 flex items-start space-x-6 mb-8 shadow-lg border border-gray-600">
-        <a 
-          href="https://youtu.be/N1AXKNIDlzg" 
-          className="w-1/2" 
-          target="_blank" 
-          rel="noopener noreferrer"
+    <div className="bg-custom-gradient h-screen">
+      {/* Carousel */}
+      {clickedSlide === null ? (
+        <Carousel
+          responsive={responsive}
+          infinite={true} // Allows infinite scrolling
+          autoPlay={true} // Enable autoplay
+          autoPlaySpeed={3000} // Speed of autoplay
+          arrows={true} // Show arrows
+          swipeable={true} // Allow swipe gestures
+          draggable={true} // Allow drag gestures
+          className="shadow-lg ml-4 mr-4 rounded-lg"
         >
-          <iframe 
-            className="w-full h-64 object-cover rounded-lg" 
-            src="https://www.youtube.com/embed/N1AXKNIDlzg" 
-            title="Insektensterben Exhibition Video" 
-            frameBorder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowFullScreen>
-          </iframe>
-        </a>
-        <div className="w-1/2 text-gray-200">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-100">
-            Insektensterben - Alles wird gut @ Natural History Museum of Bern / Exhibition
-          </h2>
-          <p className="mb-2"><strong>My work:</strong> Audio design, Foley design, Ambience and Soundtrack</p>
-          <p><strong>Important info:</strong> Exhibition running from 03.11.2023 to 31.05.2025</p>
+          {slideInfo.map((slide, index) => (
+            <div
+              key={index}
+              className="relative flex flex-col items-center justify-center h-[450px] cursor-pointer"
+              onClick={() => handleSlideClick(index)}
+            >
+              {/* Image */}
+              <div
+                className={`img-background rounded-lg`} // Add rounded corners
+              ></div>
+              {/* Title underneath the image */}
+              <h3 className="bg-white bg-opacity-10 text-white text-xs p-1 rounded mt-2 p-2 text-center">
+                {slide.title}
+              </h3>
+            </div>
+          ))}
+        </Carousel>
+      ) : (
+        <div className="absolute inset-0 flex bg-black bg-opacity-80 p-4">
+          <div className="flex flex-col md:flex-row max-w-4xl mx-auto bg-black bg-opacity-90 p-4 rounded-lg relative">
+            <button
+              className="absolute top-2 right-2 text-white text-2xl font-bold"
+              onClick={handleCloseCard}
+            >
+              ×
+            </button>
+            <div className="flex-1 mb-4 md:mb-0 md:mr-4 flex items-center justify-center">
+              <iframe
+                className="w-full h-full md:w-[600px] md:h-[337px] aspect-w-16 aspect-h-9"
+                src={slideInfo[clickedSlide].video}
+                frameBorder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title="Project Video"
+              />
+            </div>
+            <div className="flex-1 flex flex-col justify-center text-center md:text-left">
+              <h3 className="text-xl text-white font-bold mb-2">
+                {slideInfo[clickedSlide].title}
+              </h3>
+              <p className="text-white">{slideInfo[clickedSlide].info}</p>
+            </div>
+          </div>
         </div>
-      </div>
-
-      {/* A Pia (The Sink) */}
-      <div className="max-w-3xl mx-auto p-6 rounded-lg bg-gray-700 bg-opacity-50 flex items-start space-x-6 mb-8 shadow-lg border border-gray-600">
-        <a 
-          href="https://vimeo.com/837296390" 
-          className="w-1/2" 
-          target="_blank" 
-          rel="noopener noreferrer"
-        >
-          <iframe 
-            className="w-full h-64 object-cover rounded-lg" 
-            src="https://player.vimeo.com/video/837296390" 
-            title="A Pia (The Sink) Short Film" 
-            allow="autoplay; fullscreen; picture-in-picture" 
-            allowFullScreen>
-          </iframe>
-        </a>
-        <div className="w-1/2 text-gray-200">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-100">
-            A Pia (The Sink) [2023] Short Film / Audio Postproduction
-          </h2>
-          <p className="mb-2"><strong>My work:</strong> Audio cleanup, Audio and Foley design, Stereo and 5.1 Mixing/Mastering</p>
-          <p><strong>Important info:</strong> Available on Vimeo</p>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
