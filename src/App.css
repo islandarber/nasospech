@@ -1,17 +1,7 @@
-/* .custom-bg {
-  background-image: url('/src/assets/image3.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-} */
-
 .img-background{
-  background-image: url('/src/assets/sink.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 100%;
-  height: 100%;
+  background-image: url('https://cdn.pixabay.com/photo/2018/03/11/23/59/sunset-3218412_640.jpg');
 }
+
 
 
 /* NightSky.css */

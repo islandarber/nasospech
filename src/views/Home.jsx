@@ -29,17 +29,17 @@ export const Home = () => {
     {
       title:
         "''Insektensterben - Alles wird gut'' \n @Natural History Museum of Bern / Exhibition",
-      info: "My work: Audio design, Foley design, Ambience and Soundtrack\nImportant info: Exhibition running from 03.11.2023 to 31.05.2025",
+      info: "Audio design, Foley design, Ambience and Soundtrack\nImportant info: Exhibition running from 03.11.2023 to 31.05.2025",
       video: "https://www.youtube.com/embed/N1AXKNIDlzg",
     },
     {
       title: "A Pia (The Sink) [2023]  Short film / Audio Postproduction",
-      info: "My work: Audio cleanup, Audio and Foley design, Stereo and 5.1 Mixing/Mastering",
+      info: "Audio cleanup, Audio and Foley design, Stereo and 5.1 Mixing/Mastering",
       video: "https://player.vimeo.com/video/837296390",
     },
     {
       title: "RIAS choir performance @ Philharmonie Berlin / Commercial video",
-      info: "My work: Audio recording, Audio design and postproduction, Stereo and 5.1 Mixing/Mastering Important info: Aired in all Yorck Kinos Berlin for 2 months",
+      info: "Audio recording, Audio design and postproduction, Stereo and 5.1 Mixing/Mastering Important info: Aired in all Yorck Kinos Berlin for 2 months",
       video: "https://www.youtube.com/watch?v=j5rS3qjs3aw&list=LL&index=17",
     },
   ];
@@ -69,21 +69,22 @@ export const Home = () => {
           {slideInfo.map((slide, index) => (
             <div
               key={index}
-              className="relative flex flex-col items-center justify-center h-[450px] cursor-pointer"
+              className="relative flex flex-col items-center justify-center h-[400px] cursor-pointer"
               onClick={() => handleSlideClick(index)}
             >
               {/* Image */}
               <div
-                className={`img-background rounded-lg`} // Add rounded corners
+                className={`img-background bg-center bg-no-repeat bg-contain w-full h-full`} 
               ></div>
               {/* Title underneath the image */}
-              <h3 className="bg-white bg-opacity-10 text-white text-xs p-1 rounded mt-2 p-2 text-center">
+              <h3 className="text-white text-xs p-1 text-center">
                 {slide.title}
               </h3>
             </div>
           ))}
         </Carousel>
       ) : (
+        //After clicking to show details of the featured project
         <div className="absolute inset-0 flex bg-black bg-opacity-80 p-4">
           <div className="flex flex-col md:flex-row max-w-4xl mx-auto bg-black bg-opacity-90 p-4 rounded-lg relative">
             <button
@@ -96,7 +97,6 @@ export const Home = () => {
               <iframe
                 className="w-full h-full md:w-[600px] md:h-[337px] aspect-w-16 aspect-h-9"
                 src={slideInfo[clickedSlide].video}
-                frameBorder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 title="Project Video"
