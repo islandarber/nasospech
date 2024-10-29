@@ -23,7 +23,7 @@ export const Navbar = () => {
               WebkitMaskImage: "linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%)",
             }}
           />
-          <div className="text-sm md:text-xl mt-4">
+          <div className="text-sm md:text-lg mt-4">
             Nasos<strong>Pechlivanidis</strong>
             <br />
             Nocturnal<strong>AudioDesign</strong>
@@ -47,7 +47,7 @@ export const Navbar = () => {
       
 
       {/* Normal Menu Links (Visible on larger screens) */}
-      <ul className={`hidden md:flex md:flex-row space-x-10 text-lg ${isOpen ? 'block' : 'hidden'}`}>
+      <ul className={`hidden md:flex md:flex-row space-x-10 mr-10 ${isOpen ? 'block' : 'hidden'}`}>
         {["Projects", "Bio", "Contact"].map((item, index) => (
           <li key={index}>
             <NavLink 
