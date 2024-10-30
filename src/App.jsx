@@ -6,6 +6,8 @@ import {Navbar} from './components/Navbar';
 import {Footer} from './components/Footer';
 import NightSky from './components/NightSky';
 import { Projects } from './views/Projects';
+import { CategoryProjects } from './components/CategoryProjects';
+
 
 
 function App() {
@@ -17,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:category" element={<CategoryProjects />} />
         </Routes>
       </div>
       <Footer />

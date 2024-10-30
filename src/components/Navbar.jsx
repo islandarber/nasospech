@@ -13,7 +13,7 @@ export const Navbar = () => {
   return (
     <nav className="bg-transparent p-2 font-montserrat">
       <div className="flex justify-between items-center">
-        <NavLink to="/" className="text-white flex text-lg mt-2">
+        <NavLink to="/" className="text-white flex items-center text-lg mt-2">
           <img 
             src={logo} 
             alt="logo" 

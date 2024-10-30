@@ -1,4 +1,6 @@
-import { SoundWaves } from "../components/SoundWaves";
+import SoundWaves from "../components/SoundWaves";
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 export const Projects = () => {
   const projects = [
@@ -48,40 +50,39 @@ export const Projects = () => {
   ];
 
   return (
-    <div>
-      <div className="flex justify-between gap-4 ml-10 mr-10">
+    <div className="bg-custom-gradient h-screen">
+      <div className="flex justify-center gap-2 ml-10 mr-10">
         <div>
-          <h1 className="text-white text-5xl font-bold">Projects</h1>
-          <p className="text-white mt-4">Check out my projects where beats meet creativity. From raw recordings to slick soundscapes, each piece tells a story. Dive in and feel the vibe!</p>
+          <h1 className="text-white text-4xl font-bold">Projects</h1>
+          <p className="text-white text-sm mt-4 w-3/4">
+            Check out my projects where beats meet creativity. From raw recordings to slick soundscapes, each piece tells a story. Dive in and feel the vibe!
+          </p>
         </div>
-        <iframe
-          width="100%"
-          height="166"
-          allow="autoplay"
-          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1486995763&color=%23080808&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-          className="w-full h-40 bg-gray-900 rounded-lg shadow-md transition-transform transform hover:scale-105"
-        ></iframe>
+        <SoundWaves />
       </div>
 
-      <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3">
-  {categories.map((category, index) => (
-    <div
-      key={index}
-      className="bg-gray-900 rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105"
-    >
-      <img
-        src={category.imgPath}
-        alt={category.title}
-        className="w-full h-40 object-cover"
-      />
-      <div className="p-4">
-        <h2 className="text-xl font-bold text-white mb-2">{category.title}</h2>
-        <p className="text-gray-300">{category.description}</p>
+      <div className="grid grid-cols-2 gap-4 p-4 sm:grid-cols-5 lg:grid-cols-5">
+        {categories.map((category, index) => (
+          <Link to={`/projects/${index}`} key={index}>
+            <motion.div
+              className="bg-transparent rounded-lg border border-white shadow-md"
+              whileHover={{ scale: 1.05 }} // Smooth scaling effect
+              transition={{ duration: 0.3 }} // Transition duration for smoothness
+              style={{ cursor: "pointer", height: "300px" }} // Fixed height for all cards
+            >
+              <img
+                src={category.imgPath}
+                alt={category.title}
+                className="w-full h-32 object-cover" // Ensuring consistent height for the image
+              />
+              <div className="p-2 h-full flex flex-col justify-between"> 
+                <h2 className="text-lg text-white mb-1">{category.title}</h2> 
+                <p className="text-xs text-gray-300 flex-grow">{category.description}</p>
+              </div>
+            </motion.div>
+          </Link>
+        ))}
       </div>
-    </div>
-  ))}
-</div>
-
     </div>
   );
 };
