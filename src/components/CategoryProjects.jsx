@@ -9,28 +9,28 @@ export const CategoryProjects = () => {
       work: "Sound Designer",
       info: "A captivating audio experience featuring natural soundscapes recorded in various environments, blending technology with the beauty of nature.",
       video: "https://www.youtube.com/embed/xyz1234",
-      img: "https://blog.landr.com/wp-content/uploads/2024/04/Top-10-Best-DAW-Apps-for-Production-in-20242024Featured.png", 
+      img: "https://i.ytimg.com/vi/W61e-qTaVgU/sddefault.jpg", 
     },
     {
       title: "City Symphony",
       work: "Audio Engineer",
       info: "An innovative audio project capturing the sounds of urban life, combining field recordings and musical elements to create a unique sound journey.",
       video: "https://www.youtube.com/embed/abc5678",
-      img: "https://blog.landr.com/wp-content/uploads/2024/04/Top-10-Best-DAW-Apps-for-Production-in-20242024Featured.png", 
+      img: "https://images.squarespace-cdn.com/content/v1/52afa15ce4b042c7f0089b22/1636990402970-26XQFASTQUXFQUDDI0UY/SKYSCRAPER+SYMPHONY3.jpeg", 
     },
     {
       title: "Whispers of the Forest",
       work: "Foley Artist",
       info: "A short film focused on the delicate sounds of the forest, meticulously crafted foley effects to enhance the viewer's experience.",
       video: "https://www.youtube.com/embed/def91011",
-      img: "https://blog.landr.com/wp-content/uploads/2024/04/Top-10-Best-DAW-Apps-for-Production-in-20242024Featured.png", 
+      img: "https://i.ytimg.com/vi/5_qMEY8Vdeg/maxresdefault.jpg", 
     },
     {
       title: "The Sound of Silence",
       work: "Mixing Engineer",
       info: "An immersive audio installation exploring the theme of silence and sound, utilizing innovative mixing techniques to evoke deep emotions.",
       video: "https://www.youtube.com/embed/ghi1213",
-      img: "https://blog.landr.com/wp-content/uploads/2024/04/Top-10-Best-DAW-Apps-for-Production-in-20242024Featured.png",
+      img: "https://i.scdn.co/image/ab67616d0000b273efdd027223403ba22b6a62f1",
     },
   ];
 
@@ -54,9 +54,16 @@ export const CategoryProjects = () => {
               style={{ height: '400px', cursor: "pointer" }}
             >
               <div 
-                className="h-48 bg-center bg-no-repeat bg-cover" 
-                style={{ backgroundImage: `url('${project.img}')` }}
-              ></div>
+                className="h-48 bg-center bg-no-repeat bg-cover overflow-hidden relative" 
+                style={{ backgroundImage: `url('${project.img}')`, backgroundSize: 'cover' }}
+              >
+                <img 
+                  src={project.img} 
+                  alt="Project"
+                  className="absolute top-1/2 left-1/2 w-auto h-full min-w-full min-h-full transform -translate-x-1/2 -translate-y-1/2"
+                />
+              </div>
+
               <div className="p-4 flex-grow">
                 <h3 className="text-white text-lg font-semibold">{project.title}</h3>
                 <p className="text-gray-300 text-sm">{project.work}</p>

@@ -69,13 +69,17 @@ export const Home = () => {
           {slideInfo.map((slide, index) => (
             <div
               key={index}
-              className="relative flex flex-col items-center justify-center h-[400px] cursor-pointer"
+              className="relative flex flex-col items-center justify-center h-[400px] lg:h-[550px] cursor-pointer"
               onClick={() => handleSlideClick(index)}
             >
               {/* Image */}
-              <div
-                className={`img-background bg-center bg-no-repeat bg-contain w-full h-full`} 
-              ></div>
+              <div className="relative w-full h-full overflow-hidden">
+                <img
+                  src="/src/assets/wall.jpg"
+                  alt="proj"
+                  className="absolute top-0 left-0 w-full h-full object-cover"
+                />
+                </div>
               {/* Title underneath the image */}
               <h3 className="text-white text-xs p-1 text-center">
                 {slide.title}

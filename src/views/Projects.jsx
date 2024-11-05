@@ -25,60 +25,69 @@ export const Projects = () => {
     {
       title: "Audio Design",
       description: "Creating soundscapes and sound effects to enhance visual media, ensuring audio complements the intended mood and atmosphere.",
-      imgPath: "https://blog.landr.com/wp-content/uploads/2024/04/Top-10-Best-DAW-Apps-for-Production-in-20242024Featured.png",
+      imgPath: "https://www.newaudiotechnology.com/wp-content/uploads/2021/10/banner-professional.jpg",
     },
     {
       title: "Audio Postproduction",
       description: "Editing and refining recorded audio to achieve clarity and quality, including mixing, mastering, and adding effects for final production.",
-      imgPath: "https://recorder.easeus.com/images/en/screen-recorder/resource/adobe-audition.jpg",
+      imgPath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaaK9IP4ieFeSw7-8Xp5C8_BsNT9n5OPpFZQ&s",
     },
     {
       title: "Audio Recording",
       description: "Capturing sound through various techniques and equipment, whether in a studio or live setting, to produce high-quality audio tracks.",
-      imgPath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMVRs5-RiHfDr6pwVzM_BhVg77W9eEH-dVMw&s",
+      imgPath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTR1ZQ_mgMACsHoOJyyvfvxOjpSZ4hUBV6kQ&s",
     },
     {
       title: "Composition / Film Scoring",
       description: "Writing original music for film, television, and other media, tailored to enhance storytelling and emotional impact.",
-      imgPath: "https://www.premiumbeat.com/blog/wp-content/uploads/2015/10/love-score.jpg?w=875&h=490&crop=1",
+      imgPath: "/src/assets/sink.jpg",
     },
     {
       title: "Audio Engineering / Installations",
       description: "Designing and implementing audio systems for various environments, ensuring optimal sound quality for events, venues, or installations.",
-      imgPath: "https://images.squarespace-cdn.com/content/v1/62013be1bef1e95a2d5c406d/1649969430252-K48N2WSAJ9ZH39IA0F66/sound-image-touring-banner-pa-systems-v2.jpg",
+      imgPath: "/src/assets/sink.jpg",
     },
   ];
 
   return (
     <div className="bg-custom-gradient h-screen">
-      <div className="flex justify-center gap-2 ml-10 mr-10">
-        <div>
-          <h1 className="text-white text-4xl font-bold">Projects</h1>
-          <p className="text-white text-sm mt-4 w-3/4">
-            Check out my projects where beats meet creativity. From raw recordings to slick soundscapes, each piece tells a story. Dive in and feel the vibe!
+      <div className="flex justify-between gap-10 ml-10 mr-10">
+        <div className="ml-12">
+          <h1 className="text-white text-xl font-bold">Projects</h1>
+          <p className="text-white text-xs w-3/4 mt-2">
+          Explore my portfolio by browsing projects tailored to each of my specialized services.
           </p>
         </div>
         <SoundWaves />
       </div>
 
-      <div className="grid grid-cols-2 gap-4 p-4 sm:grid-cols-5 lg:grid-cols-5">
+      <div className="p-4">
         {categories.map((category, index) => (
           <Link to={`/projects/${index}`} key={index}>
             <motion.div
-              className="bg-transparent rounded-lg border border-white shadow-md"
-              whileHover={{ scale: 1.05 }} // Smooth scaling effect
-              transition={{ duration: 0.3 }} // Transition duration for smoothness
-              style={{ cursor: "pointer", height: "300px" }} // Fixed height for all cards
+              className={`bg-transparent rounded-lg shadow-md p-2 flex flex-col justify-between hover:border-2 border-white 
+                min-h-12 md:min-h-16 lg:min-h-24`}
+              style={{
+                minHeight: '70px',
+                cursor: "pointer",
+                background: `
+                  linear-gradient(
+                    to ${index % 2 === 0 ? 'left' : 'right'}, 
+                    rgba(0, 0, 0, 0) 40%, 
+                    rgba(0, 0, 0, 0.7) 50%,
+                    rgba(0, 0, 0, 1) 60%
+                  ),
+                  url(${category.imgPath})
+                `,
+                backgroundSize: 'contain, cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+            }}
+            
             >
-              <img
-                src={category.imgPath}
-                alt={category.title}
-                className="w-full h-32 object-cover" // Ensuring consistent height for the image
-              />
-              <div className="p-2 h-full flex flex-col justify-between"> 
-                <h2 className="text-lg text-white mb-1">{category.title}</h2> 
-                <p className="text-xs text-gray-300 flex-grow">{category.description}</p>
-              </div>
+              <h2
+                className={`text-lg text-white mb-1 ${index % 2 === 0 ? 'text-left' : 'text-right'}`} 
+                >{category.title}</h2>
             </motion.div>
           </Link>
         ))}

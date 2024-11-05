@@ -1,6 +1,3 @@
-.img-background{
-  background-image: url('https://cdn.pixabay.com/photo/2018/03/11/23/59/sunset-3218412_640.jpg');
-}
 
 
 
@@ -26,7 +23,7 @@
 }
 
 .stars {
-  background: url('/src/assets/stars.png') repeat top center;
+  background: url('/src/assets/nasosstar.jpg') repeat top center;
   z-index: 1;
   background-size: cover;
 }
