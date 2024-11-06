@@ -70,7 +70,7 @@ export const Home = () => {
 
             <div
               key={index}
-              className="relative flex flex-col items-center justify-center h-[600px] lg:h-[700px] cursor-pointer"
+              className="relative flex flex-col items-center justify-center h-[300px] sm:h-[600px] lg:h-[700px] cursor-pointer"
               onClick={() => handleSlideClick(index)}
             >
               
