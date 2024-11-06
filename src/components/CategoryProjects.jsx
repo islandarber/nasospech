@@ -76,21 +76,23 @@ export const CategoryProjects = () => {
 
   return (
     <div className="bg-custom-gradient min-h-screen relative">
+
       <button
         onClick={() => navigate("/projects")}
-        className="absolute top-4 left-4 text-white text-sm font-semibold transition-opacity duration-200 hover:opacity-70"
+        className="text-white text-xs sm:text-sm font-semibold transition-opacity duration-200 hover:opacity-70 ml-2"
       ><span>&#8592;</span>
         Back to Categories
       </button>
-      <div className="flex flex-col items-center">
+      
+      <div className="flex flex-col items-center mt-2">
         <h1 className="text-white text-4xl font-bold mb-6">Audio Design</h1>
-        <p className="text-gray-300 text-xs max-w-lg text-center mb-8">
+        <p className="text-gray-300 w-[250px] sm:w-full text-xs max-w-lg text-center mb-8">
           Explore a selection of audio design projects showcasing innovative soundscapes, foley effects, and mixing techniques.
         </p>
 
         {/* Embedded YouTube video */}
         <iframe
-          width="560"
+          width="100%"
           height="315"
           src="https://www.youtube.com/embed/zFWPE9kfOZs?si=UxVTGdfNWPhNg_Nu"
           title="YouTube video player"
@@ -98,11 +100,11 @@ export const CategoryProjects = () => {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
-          className="mb-10"
+          className="mb-4"
         ></iframe>
 
         {/* Project Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-6 px-4 mt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 px-4 mt-10">
           {AudioDesignProj.map((project, index) => (
             <div
               key={index}
