@@ -61,7 +61,7 @@ export const Projects = () => {
         <SoundWaves />
       </div>
 
-      <div className="p-4">
+      <div className="p-2">
         {categories.map((category, index) => (
           <Link to={`/projects/${index}`} key={index}>
             <motion.div
