@@ -36,7 +36,7 @@ export const Navbar = () => {
             }}
             
           />
-          <div className="text-sm">
+          <div className="text-md">
             Nasos<strong>Pechlivanidis</strong>
             <br />
             Nocturnal<strong>AudioDesign</strong>
@@ -65,7 +65,7 @@ export const Navbar = () => {
           <li key={index}>
             <NavLink 
               to={`/${item.toLowerCase()}`} 
-              className="text-white text-sm font-semibold"
+              className="text-white text-md font-semibold"
             >
               <motion.span 
                 whileHover={{ 

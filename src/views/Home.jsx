@@ -76,7 +76,7 @@ export const Home = () => {
               
               <div className="relative w-full h-full overflow-hidden">
                 <img
-                  src="/src/assets/wall.jpg?v=1"
+                  src="https://images.unsplash.com/photo-1563860429-8a9ee43167bc?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8MTYlM0E5fGVufDB8fDB8fHww"
                   alt="proj"
                   className="absolute top-0 left-0 w-full h-full object-cover"
                 />
