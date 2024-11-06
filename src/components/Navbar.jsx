@@ -19,9 +19,18 @@ export const Navbar = () => {
             alt="logo" 
             className="rounded h-20 w-auto mr-2 mb-2" 
             style={{
-              maskImage: "linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%)",
+              maskImage: `
+                radial-gradient(circle, 
+                  rgba(255, 255, 255, 1) 30%, 
+                  rgba(255, 255, 255, 0) 70%)
+              `,
+              WebkitMaskImage: `
+                radial-gradient(circle, 
+                  rgba(255, 255, 255, 1) 30%, 
+                  rgba(255, 255, 255, 0) 70%)
+              `,
             }}
+            
           />
           <div className="text-sm">
             Nasos<strong>Pechlivanidis</strong>
@@ -52,7 +61,7 @@ export const Navbar = () => {
           <li key={index}>
             <NavLink 
               to={`/${item.toLowerCase()}`} 
-              className="text-white"
+              className="text-white text-sm font-semibold"
             >
               <motion.span 
                 whileHover={{ 

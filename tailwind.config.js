@@ -9,7 +9,7 @@ export default {
         montserrat: ['Montserrat', 'sans-serif'],
       },
       backgroundImage: {
-        'custom-gradient': 'linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 20%)',
+        'custom-gradient': 'linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 15%)',
       },      
     },
   },
