@@ -51,10 +51,11 @@ export const Projects = () => {
 
   return (
     <div className="bg-custom-gradient h-screen">
-      <div className="flex justify-between gap-10 ml-10 mr-10">
-        <div className="ml-12">
-          <h1 className="text-white text-xl font-bold">Projects</h1>
-          <p className="text-white text-xs w-3/4 mt-2">
+
+      <div className="sm:flex justify-between gap-20 mr-4 sm:ml-10 sm:mr-10">
+        <div className="ml-4 sm:ml-12">
+          <h1 className="text-white text-center sm:text-left text-xl font-bold">Projects</h1>
+          <p className="text-white text-center sm:text-left text-xs w-full sm:w-3/4 mt-2">
           Explore my portfolio by browsing projects tailored to each of my specialized services.
           </p>
         </div>
