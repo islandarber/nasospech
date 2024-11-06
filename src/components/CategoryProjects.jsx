@@ -13,7 +13,7 @@ export const CategoryProjects = () => {
       work: "Sound Designer",
       info: "A captivating audio experience featuring natural soundscapes recorded in various environments, blending technology with the beauty of nature.",
       video: "https://www.youtube.com/embed/xyz1234",
-      img: "https://www.youtube.com/embed/--LUL5ri-FY?si=jlozv28iwZn5X5C8",
+      img: "https://images.squarespace-cdn.com/content/v1/61c4da8eb1b30a201b9669f2/e2e0e62f-0064-4f86-b9d8-5a55cb7110ca/Korembi-January-2024.jpg",
     },
     {
       title: "City Symphony",
@@ -86,14 +86,14 @@ export const CategoryProjects = () => {
       
       <div className="flex flex-col items-center mt-2">
         <h1 className="text-white text-4xl font-bold mb-6">Audio Design</h1>
-        <p className="text-gray-300 w-[250px] sm:w-full text-xs max-w-lg text-center mb-8">
+        <p className="text-gray-300 w-[250px] sm:w-full text-md max-w-lg text-center mb-8">
           Explore a selection of audio design projects showcasing innovative soundscapes, foley effects, and mixing techniques.
         </p>
 
         {/* Embedded YouTube video */}
         <iframe
-          width="100%"
-          height="315"
+          width="85%"
+          height="400"
           src="https://www.youtube.com/embed/zFWPE9kfOZs?si=UxVTGdfNWPhNg_Nu"
           title="YouTube video player"
           frameBorder="0"
@@ -108,7 +108,7 @@ export const CategoryProjects = () => {
           {AudioDesignProj.map((project, index) => (
             <div
               key={index}
-              className="bg-gray-800 h-[200px] rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col"
+              className="bg-gray-400 bg-opacity-20 h-[300px] rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col"
               onClick={() => handleClick(project)}
             >
               {/* Thumbnail container */}
@@ -119,8 +119,8 @@ export const CategoryProjects = () => {
 
               {/* Project details */}
               <div className="p-4 flex-grow">
-                <h3 className="text-white text-[0.7em] font-semibold">{project.title}</h3>
-                <p className="text-gray-400 text-[0.5em] mt-2">{project.info}</p>
+                <h3 className="text-white text-md font-semibold">{project.title}</h3>
+                <p className="text-gray-400 text-sm mt-2">{project.info}</p>
               </div>
             </div>
           ))}

@@ -54,8 +54,8 @@ export const Projects = () => {
 
       <div className="sm:flex justify-between gap-20 mr-4 sm:ml-10 sm:mr-10">
         <div className="ml-4 sm:ml-12">
-          <h1 className="text-white text-center sm:text-left text-xl font-bold">Projects</h1>
-          <p className="text-white text-center sm:text-left text-xs w-full sm:w-3/4 mt-2">
+          <h1 className="text-white text-center sm:text-left text-4xl font-bold">Projects</h1>
+          <p className="text-white text-center sm:text-left text-md w-full mt-2">
           Explore my portfolio by browsing projects tailored to each of my specialized services.
           </p>
         </div>
@@ -69,7 +69,7 @@ export const Projects = () => {
               className={`bg-transparent rounded-lg shadow-md p-2 flex flex-col justify-between hover:border-2 border-white 
                 min-h-12 md:min-h-16 lg:min-h-24`}
               style={{
-                minHeight: '70px',
+                minHeight: '120px',
                 cursor: "pointer",
                 background: `
                   linear-gradient(

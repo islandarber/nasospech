@@ -10,7 +10,7 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
         </button>
         <div className="flex-1 mb-4 md:mb-0 md:mr-4 flex items-center justify-center">
           <iframe
-            className="w-full h-full md:w-[600px] md:h-[337px] aspect-w-16 aspect-h-9"
+            className="w-full h-full md:w-[800px] md:h-[537px] aspect-w-16 aspect-h-9"
             src={project.video} 
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
