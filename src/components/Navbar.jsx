@@ -10,6 +10,10 @@ export const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
   return (
     <nav className="bg-transparent p-2 font-montserrat">
       <div className="flex justify-between items-center">
@@ -82,7 +86,10 @@ export const Navbar = () => {
         <ul className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}>
         {["Projects", "Bio", "Contact"].map((item, index) => (
           <li key={index} className="text-white p-2">
-            <NavLink to={`/${item.toLowerCase()}`}>{item}</NavLink>
+            <NavLink 
+            to={`/${item.toLowerCase()}`}
+            onClick={closeMenu}
+            >{item}</NavLink>
           </li>
         ))}
       </ul>
