@@ -41,7 +41,7 @@ export const CategoryProjects = () => {
       work: "Sound Designer",
       info: "A captivating audio experience featuring natural soundscapes recorded in various environments, blending technology with the beauty of nature.",
       video: "https://www.youtube.com/embed/xyz1234",
-      img: "https://i.ytimg.com/vi/W61e-qTaVgU/sddefault.jpg",
+      img: "https://images.squarespace-cdn.com/content/v1/61c4da8eb1b30a201b9669f2/e2e0e62f-0064-4f86-b9d8-5a55cb7110ca/Korembi-January-2024.jpg",
     },
     {
       title: "City Symphony",
@@ -90,8 +90,17 @@ export const CategoryProjects = () => {
           Explore a selection of audio design projects showcasing innovative soundscapes, foley effects, and mixing techniques.
         </p>
 
+        <div
+              className="bg-gray-400 bg-opacity-20 w-[400px] h-[200px] rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col"
+            >
+              {/* Thumbnail container */}
+              <div
+                className="h-full bg-center bg-cover overflow-hidden relative"
+                style={{ backgroundImage: `url(https://images.squarespace-cdn.com/content/v1/61c4da8eb1b30a201b9669f2/e2e0e62f-0064-4f86-b9d8-5a55cb7110ca/Korembi-January-2024.jpg)` }}
+              ></div>
+            </div>
         {/* Embedded YouTube video */}
-        <iframe
+        {/* <iframe
           width="85%"
           height="400"
           src="https://www.youtube.com/embed/zFWPE9kfOZs?si=UxVTGdfNWPhNg_Nu"
@@ -101,14 +110,14 @@ export const CategoryProjects = () => {
           referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
           className="mb-4"
-        ></iframe>
+        ></iframe> */}
 
         {/* Project Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 px-4 mt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 px-4 mt-10">
           {AudioDesignProj.map((project, index) => (
             <div
               key={index}
-              className="bg-gray-400 bg-opacity-20 h-[300px] rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col"
+              className="bg-gray-400 bg-opacity-20 w-[200px] h-[200px] rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col"
               onClick={() => handleClick(project)}
             >
               {/* Thumbnail container */}
@@ -118,10 +127,9 @@ export const CategoryProjects = () => {
               ></div>
 
               {/* Project details */}
-              <div className="p-4 flex-grow">
+              {/* <div className="p-4 flex-grow">
                 <h3 className="text-white text-md font-semibold">{project.title}</h3>
-                <p className="text-gray-400 text-sm mt-2">{project.info}</p>
-              </div>
+              </div> */}
             </div>
           ))}
         </div>
