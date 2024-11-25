@@ -91,13 +91,14 @@ export const CategoryProjects = () => {
         </p>
 
         <div
-              className="bg-gray-400 bg-opacity-20 w-[400px] h-[200px] rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col"
+              className="bg-transparent w-[400px] h-[200px] rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col"
             >
               {/* Thumbnail container */}
               <div
                 className="h-full bg-center bg-cover overflow-hidden relative"
                 style={{ backgroundImage: `url(https://images.squarespace-cdn.com/content/v1/61c4da8eb1b30a201b9669f2/e2e0e62f-0064-4f86-b9d8-5a55cb7110ca/Korembi-January-2024.jpg)` }}
               ></div>
+              <h2 className="text-white text-center">The title of the image project here</h2>
             </div>
         {/* Embedded YouTube video */}
         {/* <iframe
@@ -114,24 +115,27 @@ export const CategoryProjects = () => {
 
         {/* Project Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 px-4 mt-10">
-          {AudioDesignProj.map((project, index) => (
-            <div
-              key={index}
-              className="bg-gray-400 bg-opacity-20 w-[200px] h-[200px] rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col"
-              onClick={() => handleClick(project)}
-            >
-              {/* Thumbnail container */}
-              <div
-                className="h-full bg-center bg-cover overflow-hidden relative"
-                style={{ backgroundImage: `url('${project.img}')` }}
-              ></div>
+        {AudioDesignProj.map((project, index) => (
+        <div
+          key={index}
+          className="relative bg-gray-400 bg-opacity-20 w-[200px] h-[200px] rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col"
+          onClick={() => handleClick(project)}
+        >
+          {/* Thumbnail container */}
+          <div
+            className="h-full bg-center bg-cover overflow-hidden"
+            style={{ backgroundImage: `url('${project.img}')` }}
+          ></div>
 
-              {/* Project details */}
-              {/* <div className="p-4 flex-grow">
-                <h3 className="text-white text-md font-semibold">{project.title}</h3>
-              </div> */}
-            </div>
-          ))}
+          {/* Title on hover */}
+          <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 flex items-center justify-center transition-opacity duration-300 hover:opacity-100">
+            <h3 className="text-white text-lg font-semibold text-center px-2">
+              {project.title}
+            </h3>
+          </div>
+        </div>
+      ))}
+
         </div>
       </div>
 
