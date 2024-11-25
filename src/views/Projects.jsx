@@ -25,32 +25,32 @@ export const Projects = () => {
     {
       title: "Audio Design",
       description: "Creating soundscapes and sound effects to enhance visual media, ensuring audio complements the intended mood and atmosphere.",
-      imgPath: "https://www.newaudiotechnology.com/wp-content/uploads/2021/10/banner-professional.jpg",
+      imgPath: "https://t4.ftcdn.net/jpg/09/75/87/07/360_F_975870783_zMp6geDpO5Vv7qyeXp1EfFFSAeV3f1N6.jpg",
     },
     {
       title: "Audio Postproduction",
       description: "Editing and refining recorded audio to achieve clarity and quality, including mixing, mastering, and adding effects for final production.",
-      imgPath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaaK9IP4ieFeSw7-8Xp5C8_BsNT9n5OPpFZQ&s",
+      imgPath: "https://t4.ftcdn.net/jpg/09/75/87/07/360_F_975870783_zMp6geDpO5Vv7qyeXp1EfFFSAeV3f1N6.jpg",
     },
     {
       title: "Audio Recording",
       description: "Capturing sound through various techniques and equipment, whether in a studio or live setting, to produce high-quality audio tracks.",
-      imgPath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTR1ZQ_mgMACsHoOJyyvfvxOjpSZ4hUBV6kQ&s",
+      imgPath: "https://t4.ftcdn.net/jpg/09/75/87/07/360_F_975870783_zMp6geDpO5Vv7qyeXp1EfFFSAeV3f1N6.jpg",
     },
     {
       title: "Composition / Film Scoring",
       description: "Writing original music for film, television, and other media, tailored to enhance storytelling and emotional impact.",
-      imgPath: "/src/assets/sink.jpg",
+      imgPath: "https://t4.ftcdn.net/jpg/09/75/87/07/360_F_975870783_zMp6geDpO5Vv7qyeXp1EfFFSAeV3f1N6.jpg",
     },
     {
       title: "Audio Engineering / Installations",
       description: "Designing and implementing audio systems for various environments, ensuring optimal sound quality for events, venues, or installations.",
-      imgPath: "/src/assets/sink.jpg",
+      imgPath: "https://t4.ftcdn.net/jpg/09/75/87/07/360_F_975870783_zMp6geDpO5Vv7qyeXp1EfFFSAeV3f1N6.jpg",
     },
   ];
 
   return (
-    <div className="bg-custom-gradient h-screen">
+    <div className="bg-custom-gradient min-h-screen">
 
       <div className="sm:flex justify-between gap-20 mr-4 sm:ml-10 sm:mr-10">
         <div className="ml-4 sm:ml-12">
@@ -62,11 +62,12 @@ export const Projects = () => {
         <SoundWaves />
       </div>
 
-      <div className="p-2">
+      <div className="p-2 mt-4">
         {categories.map((category, index) => (
           <Link to={`/projects/${index}`} key={index}>
             <motion.div
-              className={`bg-transparent rounded-lg shadow-md p-2 flex flex-col justify-between hover:border-2 border-white 
+              className={`bg-transparent rounded-lg shadow-md p-4 flex items-center 
+                ${index % 2 === 0 ? 'justify-start' : 'justify-end'} hover:border-2 border-white 
                 min-h-12 md:min-h-16 lg:min-h-24`}
               style={{
                 minHeight: '120px',
@@ -74,20 +75,21 @@ export const Projects = () => {
                 background: `
                   linear-gradient(
                     to ${index % 2 === 0 ? 'left' : 'right'}, 
-                    rgba(0, 0, 0, 0) 40%, 
-                    rgba(0, 0, 0, 0.7) 50%,
-                    rgba(0, 0, 0, 1) 60%
+                    rgba(0, 0, 0, 0) 20%, 
+                    rgba(0, 0, 0, 0.6) 30%,
+                    rgba(0, 0, 0, 0.9) 50%,
+                    rgba(0, 0, 0, 1) 100%
                   ),
                   url(${category.imgPath})
                 `,
-                backgroundSize: 'contain, cover',
+                backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
             }}
             
             >
               <h2
-                className={`text-lg text-white mb-1 ${index % 2 === 0 ? 'text-left' : 'text-right'}`} 
+                className={`text-xl text-white mb-1`} 
                 >{category.title}</h2>
             </motion.div>
           </Link>
