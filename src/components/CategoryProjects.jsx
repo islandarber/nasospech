@@ -91,7 +91,7 @@ export const CategoryProjects = () => {
         </p>
 
         <div
-              className="bg-transparent w-[400px] h-[200px] rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col"
+              className="bg-transparent w-[90%] sm:w-[600px] h-[300px] sm:h-[400px] rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col"
             >
               {/* Thumbnail container */}
               <div
@@ -114,11 +114,11 @@ export const CategoryProjects = () => {
         ></iframe> */}
 
         {/* Project Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 px-4 mt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 px-4 mt-10">
         {AudioDesignProj.map((project, index) => (
         <div
           key={index}
-          className="relative bg-gray-400 bg-opacity-20 w-[400px] h-[400px] rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col"
+          className="relative bg-gray-400 bg-opacity-20 w-[300px] h-[300px] rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col"
           onClick={() => handleClick(project)}
         >
           {/* Thumbnail container */}
