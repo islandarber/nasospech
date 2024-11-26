@@ -88,7 +88,7 @@ export const Projects = () => {
             
             >
               <h2
-                className={`text-xl text-white mb-1`} 
+                className={`text-4xl text-white mb-1`} 
                 >{category.title}</h2>
             </motion.div>
           </Link>

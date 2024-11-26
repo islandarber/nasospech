@@ -118,7 +118,7 @@ export const CategoryProjects = () => {
         {AudioDesignProj.map((project, index) => (
         <div
           key={index}
-          className="relative bg-gray-400 bg-opacity-20 w-[200px] h-[200px] rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col"
+          className="relative bg-gray-400 bg-opacity-20 w-[400px] h-[400px] rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col"
           onClick={() => handleClick(project)}
         >
           {/* Thumbnail container */}
