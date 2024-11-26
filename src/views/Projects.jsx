@@ -30,12 +30,12 @@ export const Projects = () => {
     {
       title: "Audio Postproduction",
       description: "Editing and refining recorded audio to achieve clarity and quality, including mixing, mastering, and adding effects for final production.",
-      imgPath: "https://t4.ftcdn.net/jpg/09/75/87/07/360_F_975870783_zMp6geDpO5Vv7qyeXp1EfFFSAeV3f1N6.jpg",
+      imgPath: "https://www.sheffieldav.com/sites/default/files/2021-11/Best-Audio-Engineering-Schools.jpg",
     },
     {
       title: "Audio Recording",
       description: "Capturing sound through various techniques and equipment, whether in a studio or live setting, to produce high-quality audio tracks.",
-      imgPath: "https://t4.ftcdn.net/jpg/09/75/87/07/360_F_975870783_zMp6geDpO5Vv7qyeXp1EfFFSAeV3f1N6.jpg",
+      imgPath: "https://fuze32.com/wp-content/uploads/sites/2/2024/01/audio-production-header-scaled-1-1024x683.jpg",
     },
     {
       title: "Composition / Film Scoring",
@@ -68,9 +68,8 @@ export const Projects = () => {
             <motion.div
               className={`bg-transparent rounded-lg shadow-md p-4 flex items-center 
                 ${index % 2 === 0 ? 'justify-start' : 'justify-end'} hover:border-2 border-white 
-                min-h-12 md:min-h-16 lg:min-h-24`}
+                min-h-12 md:min-h-36 lg:min-h-48`}
               style={{
-                minHeight: '120px',
                 cursor: "pointer",
                 background: `
                   linear-gradient(
