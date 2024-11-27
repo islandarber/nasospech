@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import soundDesignImage from "../assets/Categories/sounddesign4.jpg";
 import postProdImage from "../assets/Categories/postprod 2.jpg"
 import audioRecordImage from "../assets/Categories/rec 1.jpg"
+import compositionImage from "../assets/Categories/composition 2.jpg"
+import audioEngineerImage from "../assets/Categories/install 2.jpg"
 
 export const Projects = () => {
   const projects = [
@@ -43,12 +45,12 @@ export const Projects = () => {
     {
       title: "Composition / Film Scoring",
       description: "Writing original music for film, television, and other media, tailored to enhance storytelling and emotional impact.",
-      imgPath: "https://t4.ftcdn.net/jpg/09/75/87/07/360_F_975870783_zMp6geDpO5Vv7qyeXp1EfFFSAeV3f1N6.jpg",
+      imgPath: compositionImage,
     },
     {
       title: "Audio Engineering / Installations",
       description: "Designing and implementing audio systems for various environments, ensuring optimal sound quality for events, venues, or installations.",
-      imgPath: "https://t4.ftcdn.net/jpg/09/75/87/07/360_F_975870783_zMp6geDpO5Vv7qyeXp1EfFFSAeV3f1N6.jpg",
+      imgPath: audioEngineerImage,
     },
   ];
 
