@@ -38,7 +38,7 @@ export const Projects = () => {
   ];
 
   return (
-    <div className="bg-custom-gradient min-h-screen">
+    <div className="bg-custom-gradient min-h-screen font-poiretone">
 
       <div className="sm:flex justify-between gap-20 mr-4 sm:ml-10 sm:mr-10">
         <div className="ml-4 sm:ml-12">
