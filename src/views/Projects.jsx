@@ -1,6 +1,9 @@
 import SoundWaves from "../components/SoundWaves";
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import soundDesignImage from "../assets/Categories/sounddesign4.jpg";
+import postProdImage from "../assets/Categories/postprod 2.jpg"
+import audioRecordImage from "../assets/Categories/rec 1.jpg"
 
 export const Projects = () => {
   const projects = [
@@ -25,17 +28,17 @@ export const Projects = () => {
     {
       title: "Audio Design",
       description: "Creating soundscapes and sound effects to enhance visual media, ensuring audio complements the intended mood and atmosphere.",
-      imgPath: "https://t4.ftcdn.net/jpg/09/75/87/07/360_F_975870783_zMp6geDpO5Vv7qyeXp1EfFFSAeV3f1N6.jpg",
+      imgPath: soundDesignImage,
     },
     {
       title: "Audio Postproduction",
       description: "Editing and refining recorded audio to achieve clarity and quality, including mixing, mastering, and adding effects for final production.",
-      imgPath: "https://www.sheffieldav.com/sites/default/files/2021-11/Best-Audio-Engineering-Schools.jpg",
+      imgPath: postProdImage,
     },
     {
       title: "Audio Recording",
       description: "Capturing sound through various techniques and equipment, whether in a studio or live setting, to produce high-quality audio tracks.",
-      imgPath: "https://fuze32.com/wp-content/uploads/sites/2/2024/01/audio-production-header-scaled-1-1024x683.jpg",
+      imgPath: audioRecordImage,
     },
     {
       title: "Composition / Film Scoring",
@@ -67,7 +70,7 @@ export const Projects = () => {
           <Link to={`/projects/${index}`} key={index}>
             <motion.div
               className={`bg-transparent rounded-lg shadow-md p-4 flex items-center 
-                ${index % 2 === 0 ? 'justify-start' : 'justify-end'} hover:border-2 border-white 
+                ${index % 2 === 0 ? 'justify-start' : 'justify-end'}
                 min-h-12 md:min-h-36 lg:min-h-48`}
               style={{
                 cursor: "pointer",
@@ -84,6 +87,13 @@ export const Projects = () => {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
+            }}
+            whileHover={{
+              scale: 0.90, // Makes the div 5% larger on hover
+            }}
+            transition={{
+              duration: 0.2, // Smooth transition duration
+              ease: "easeInOut", // Easing effect
             }}
             
             >
