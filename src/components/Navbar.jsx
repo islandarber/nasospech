@@ -64,7 +64,7 @@ export const Navbar = () => {
         {["Projects", "About Me", "Contact"].map((item, index) => (
           <li key={index}>
             <NavLink 
-              to={`/${item.toLowerCase()}`} 
+              to={`/${item.toLowerCase().replace(/\s+/g, '')}`} 
               className="text-white text-md font-semibold"
             >
               <motion.span 
