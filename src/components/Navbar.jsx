@@ -61,7 +61,7 @@ export const Navbar = () => {
 
       {/* Normal Menu Links (Visible on larger screens) */}
       <ul className={`hidden md:flex md:flex-row space-x-10 mr-10 ${isOpen ? 'block' : 'hidden'}`}>
-        {["Projects", "Bio", "Contact"].map((item, index) => (
+        {["Projects", "About Me", "Contact"].map((item, index) => (
           <li key={index}>
             <NavLink 
               to={`/${item.toLowerCase()}`} 

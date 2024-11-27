@@ -11,7 +11,7 @@ import { CategoryProjects } from './components/CategoryProjects';
 function App() {
   return (
     <>
-      <div className="bg-cover bg-repeat custom-bg min-h-screen flex flex-col">
+      <div className="bg-cover font-montserrat bg-repeat custom-bg min-h-screen flex flex-col">
         <NightSky />
         <Navbar />
         <div className="flex-1">

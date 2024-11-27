@@ -8,23 +8,6 @@ import compositionImage from "../assets/Categories/composition 2.jpg"
 import audioEngineerImage from "../assets/Categories/install 2.jpg"
 
 export const Projects = () => {
-  const projects = [
-    {
-      title: "''Insektensterben - Alles wird gut'' \n @Natural History Museum of Bern / Exhibition",
-      info: "Audio design, Foley design, Ambience and Soundtrack\nImportant info: Exhibition running from 03.11.2023 to 31.05.2025",
-      video: "https://www.youtube.com/embed/N1AXKNIDlzg",
-    },
-    {
-      title: "A Pia (The Sink) [2023] Short film / Audio Postproduction",
-      info: "Audio cleanup, Audio and Foley design, Stereo and 5.1 Mixing/Mastering",
-      video: "https://player.vimeo.com/video/837296390",
-    },
-    {
-      title: "RIAS choir performance @ Philharmonie Berlin / Commercial video",
-      info: "Audio recording, Audio design and postproduction, Stereo and 5.1 Mixing/Mastering Important info: Aired in all Yorck Kinos Berlin for 2 months",
-      video: "https://www.youtube.com/watch?v=j5rS3qjs3aw&list=LL&index=17",
-    },
-  ];
 
   const categories = [
     {
