@@ -7,8 +7,8 @@ export default {
     extend: {
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif'],
-        bangers: ['Bangers', 'system-ui']
-
+        bangers: ['Bangers', 'system-ui'],
+        poiretone: ['Poiret One', 'sans-serif'],
       },
       backgroundImage: {
         'custom-gradient': 'linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 15%)',
