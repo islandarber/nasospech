@@ -84,10 +84,10 @@ export const Navbar = () => {
       </div>
         {/* Hamburger Menu Links (Visible on smaller screens) */}
         <ul className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}>
-        {["Projects", "Bio", "Contact"].map((item, index) => (
+        {["Projects", "About Me", "Contact"].map((item, index) => (
           <li key={index} className="text-white p-2">
             <NavLink 
-            to={`/${item.toLowerCase()}`}
+            to={`/${item.toLowerCase().replace(/\s+/g, '')}`}
             onClick={closeMenu}
             >{item}</NavLink>
           </li>

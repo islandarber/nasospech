@@ -26,7 +26,7 @@ export const Projects = () => {
       imgPath: audioRecordImage,
     },
     {
-      title: "Composition / Film Scoring",
+      title: "Film Scoring",
       description: "Writing original music for film, television, and other media, tailored to enhance storytelling and emotional impact.",
       imgPath: compositionImage,
     },
@@ -43,7 +43,7 @@ export const Projects = () => {
       <div className="sm:flex justify-between gap-20 mr-4 sm:ml-10 sm:mr-10">
         <div className="ml-4 sm:ml-12">
           <h1 className="text-white text-center sm:text-left text-4xl font-bold">Projects</h1>
-          <p className="text-white text-center sm:text-left text-md w-full mt-2">
+          <p className="text-white text-center sm:text-left text-md w-full mt-2 tracking-wider ">
           Explore my portfolio by browsing projects tailored to each of my specialized services.
           </p>
         </div>
