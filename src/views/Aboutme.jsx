@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import photo1 from "../assets/Aboutme/aboutme1.jpg";
-import photo2 from "../assets/Aboutme/aboutme2.jpg";
-import photo3 from "../assets/Aboutme/aboutme3.jpg";
-import photo4 from "../assets/Aboutme/aboutme4.png";
+import photo1 from "../assets/Aboutme/profilephoto.jpg";
+import photo2 from "../assets/Aboutme/3.jpg";
+import photo3 from "../assets/Aboutme/4.jpg";
+import photo4 from "../assets/Aboutme/5.jpg";
+import photo5 from "../assets/Aboutme/6.jpg";
+import photo6 from "../assets/Aboutme/7.jpg";
+import photo7 from "../assets/Aboutme/2.jpg";
+
 
 export const Aboutme = () => {
-  const photos = [photo1, photo2, photo3, photo4];
+  const photos = [photo1, photo2, photo3, photo4, photo5, photo6, photo7];
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -30,8 +34,11 @@ export const Aboutme = () => {
               <br />
               <br />
               My project list includes:
+              <br />
               designing soundscapes and foley for <strong>“Insektensterben – Alles wird gut” at the Natural History Museum of Bern</strong>,
+              <br />
               recording and mixing in 2nd order Ambisonics for <strong>“Mädchenmorde::Brunke”, VR theatre production of the Braunschweig State Theatre</strong>,
+              <br />
               being audio director for the promo of <strong>RIAS choir’s performance at the Berlin Philharmonie</strong>.
               <br />
               <br />
@@ -54,13 +61,13 @@ export const Aboutme = () => {
               />
             </div>
             {/* Thumbnails */}
-            <div className="flex justify-center space-x-4 mt-4">
+            <div className="flex flex-wrap justify-center space-x-4 mt-4">
               {photos.map((photo, index) => (
                 <img
                   key={index}
                   src={photo}
                   alt={`Thumbnail ${index + 1}`}
-                  className={`w-20 h-14 rounded-md cursor-pointer transition-transform duration-200 ${
+                  className={`w-20 h-16 rounded-md cursor-pointer transition-transform duration-200 ${
                     activeIndex === index ? "border-2 border-white scale-105" : "border border-gray-600"
                   }`}
                   onClick={() => setActiveIndex(index)}

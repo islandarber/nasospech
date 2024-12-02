@@ -8,6 +8,7 @@ import {Aboutme} from './views/Aboutme'
 import NightSky from './components/NightSky';
 import { Projects } from './views/Projects';
 import { CategoryProjects } from './components/CategoryProjects';
+import { Contact } from './views/Contact';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/:category" element={<CategoryProjects />} />
             <Route path="/aboutme" element={<Aboutme/>} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
         <Footer />
