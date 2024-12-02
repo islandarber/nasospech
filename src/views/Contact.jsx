@@ -45,7 +45,7 @@ export const Contact = () => {
       <div className="sm:w-1/3 flex flex-col justify-center items-center p-6">
         <div>
           <h2 className="text-4xl">Contact</h2>
-          <p className="mt-4">
+          <p className="text-lg mt-4">
             You can contact me via my social media, email, or the contact form, and I will make sure to get back to you asap.
           </p>
         </div>
@@ -55,7 +55,7 @@ export const Contact = () => {
               nasos@email.com
             </a>
           </p>
-          <div className="flex space-x-4 items-center sm:mb-16">
+          <div className="flex space-x-4 items-center sm:mb-24">
             <a
               href="https://www.instagram.com"
               className="hover:text-pink-500 transition-colors duration-200"
@@ -91,11 +91,11 @@ export const Contact = () => {
       {/* Right side - Contact Form */}
       <div className="sm:w-2/3 p-6 flex items-start justify-center">
         <form
-          className="w-full max-w-lg bg-transparent p-6 rounded-lg shadow-lg"
+          className="w-full max-w-2xl bg-transparent p-10 rounded-lg shadow-lg"
           onSubmit={handleSubmit}
         >
           <div className="mb-4">
-            <label className="block text-lg font-medium mb-2" htmlFor="name">
+            <label className="block text-xl font-medium mb-2" htmlFor="name">
               Name
             </label>
             <input
@@ -104,13 +104,13 @@ export const Contact = () => {
               type="text"
               value={formData.name}
               onChange={handleChange}
-              className="w-full p-2 text-black rounded-lg"
+              className="w-full p-10 text-black rounded-lg"
               required
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-lg font-medium mb-2" htmlFor="email">
+            <label className="block text-xl font-medium mb-2" htmlFor="email">
               Email
             </label>
             <input
@@ -119,13 +119,13 @@ export const Contact = () => {
               type="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full p-2 text-black rounded-lg"
+              className="w-full p-10 text-black rounded-lg"
               required
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-lg font-medium mb-2" htmlFor="message">
+            <label className="block text-xl font-medium mb-2" htmlFor="message">
               Message
             </label>
             <textarea
@@ -133,8 +133,8 @@ export const Contact = () => {
               name="message"
               value={formData.message}
               onChange={handleChange}
-              className="w-full p-2 text-black rounded-lg"
-              rows="4"
+              className="w-full p-10 text-black rounded-lg"
+              rows="6"
               required
             ></textarea>
           </div>
@@ -155,7 +155,7 @@ export const Contact = () => {
 
           <button
             type="submit"
-            className="bg-blue-500 text-white px-6 py-3 rounded-lg mt-4 w-full"
+            className="bg-blue-500 text-white px-8 py-4 rounded-lg mt-4 text-2xl w-full"
           >
             Send Message
           </button>
