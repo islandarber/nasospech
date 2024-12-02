@@ -50,7 +50,7 @@ export const Contact = () => {
           </p>
         </div>
         <div className="mt-6 sm:mt-auto flex flex-col justify-end">
-          <p className="text-lg">
+          <p className="text-xl">
             <a href="mailto:nasos@email.com" className="hover:underline">
               nasos@email.com
             </a>
@@ -60,19 +60,19 @@ export const Contact = () => {
               href="https://www.instagram.com"
               className="hover:text-pink-500 transition-colors duration-200"
             >
-              <FaInstagram size={30} />
+              <FaInstagram size={60} />
             </a>
             <a
               href="https://www.linkedin.com"
               className="hover:text-blue-600 transition-colors duration-200"
             >
-              <FaLinkedin size={30} />
+              <FaLinkedin size={60} />
             </a>
             <a
               href="https://www.youtube.com"
               className="hover:text-red-500 transition-colors duration-200"
             >
-              <FaYoutube size={30} />
+              <FaYoutube size={60} />
             </a>
             <a
               href="https://www.internationalsounddirectory.com"
@@ -81,7 +81,7 @@ export const Contact = () => {
               <img
                 src="https://www.international-sound-directory.com/wp-content/uploads/2024/01/logo.svg"
                 alt="International Sound Directory"
-                className="w-12 h-12 rounded"
+                className="w-24 h-24 rounded"
               />
             </a>
           </div>
