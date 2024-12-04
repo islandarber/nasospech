@@ -9,6 +9,8 @@ import NightSky from './components/NightSky';
 import { Projects } from './views/Projects';
 import { CategoryProjects } from './components/CategoryProjects';
 import { Contact } from './views/Contact';
+import { Admin } from './views/Admin';
+import CategoryAdd from './views/CategoryAdd';
 
 function App() {
   return (
@@ -23,6 +25,9 @@ function App() {
             <Route path="/projects/:category" element={<CategoryProjects />} />
             <Route path="/aboutme" element={<Aboutme/>} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/category/add" element={<CategoryAdd />} />
+
           </Routes>
         </div>
         <Footer />
