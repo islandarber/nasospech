@@ -13,7 +13,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
     tags: [],
     links: [],
     featured: false,
-    priority: 0,
+    priority: 1,
   });
 
   const [categories, setCategories] = useState([]);
@@ -110,36 +110,36 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white p-6 rounded-md w-full max-w-2xl max-h-[90vh] overflow-y-auto relative">
+    <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center z-50">
+      <div className="bg-black p-6 rounded-md w-full max-w-2xl max-h-[90vh] overflow-y-auto relative">
         <button
           onClick={closeModal}
-          className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold text-xl"
+          className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold text-2xl"
         >
           &times;
         </button>
 
-        <h2 className="text-2xl font-semibold mb-4">{project ? 'Edit Project' : 'Create Project'}</h2>
+        <h2 className="text-4xl font-semibold mb-4">{project ? 'Edit Project' : 'Create Project'}</h2>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}  className="p-6">
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Title</label>
+            <label className="block text-xl font-medium text-white">Title</label>
             <input
               type="text"
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+              className="mt-1 p-6 border border-gray-300 rounded-md w-full text-black"
             />
-            {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
+            {errors.title && <p className="text-red-500 text-xl">{errors.title}</p>}
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Upload Image</label>
+            <label className="block text-lg font-medium text-white">Upload Image</label>
             <input
               name:img
               type="file"
               onChange={handleImageChange}
-              className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+              className="mt-1 p-6 border border-gray-300 rounded-md w-full text-black"
             />
             {formData.img && formData.img instanceof File && (
               <div className="mt-2">
@@ -151,25 +151,25 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
                 />
               </div>
             )}
-            {errors.img && <p className="text-red-500 text-sm">{errors.img}</p>}
+            {errors.img && <p className="text-red-500 text-lg">{errors.img}</p>}
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Video Link</label>
+            <label className="block text-xl font-medium text-white">Video Link</label>
             <input
               type="text"
               value={formData.video}
               onChange={(e) => setFormData({ ...formData, video: e.target.value })}
-              className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+              className="mt-1 p-6 border border-gray-300 rounded-md w-full text-black"
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Category</label>
+            <label className="block text-xl font-medium text-white">Category</label>
             <select
               value={formData.category}
               onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-              className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+              className="mt-1 p-6 border text-black border-gray-300 rounded-md w-full"
             >
               <option value="">Select Category</option>
               {categories.map((cat) => (
@@ -178,60 +178,60 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
                 </option>
               ))}
             </select>
-            {errors.category && <p className="text-red-500 text-sm">{errors.category}</p>}
+            {errors.category && <p className="text-red-500 text-lg">{errors.category}</p>}
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Roles</label>
+            <label className="block text-xl font-medium text-white">Roles</label>
             <input
               type="text"
               value={formData.roles}
               onChange={(e) => setFormData({ ...formData, roles: e.target.value })}
-              className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+              className="mt-1 p-6 text-black border border-gray-300 rounded-md w-full"
             />
-            {errors.roles && <p className="text-red-500 text-sm">{errors.roles}</p>}
+            {errors.roles && <p className="text-red-500 text-lg">{errors.roles}</p>}
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Information</label>
+            <label className="block text-xl font-medium text-white">Information</label>
             <textarea
               value={formData.info}
               onChange={(e) => setFormData({ ...formData, info: e.target.value })}
-              className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+              className="mt-1 p-6 text-black border border-gray-300 rounded-md w-full"
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Additional Media</label>
+            <label className="block text-xl font-medium text-white">Additional Media</label>
             <input
               type="text"
               value={formData.additionalMedia}
               onChange={(e) =>
                 setFormData({ ...formData, additionalMedia: e.target.value.split(',') })
               }
-              className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+              className="mt-1 p-6 text-black border border-gray-300 rounded-md w-full"
               placeholder="Comma separated media links"
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Tags</label>
+            <label className="block text-xl font-medium text-white">Tags</label>
             <input
               type="text"
               value={formData.tags}
               onChange={(e) => setFormData({ ...formData, tags: e.target.value.split(',') })}
-              className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+              className="mt-1 p-6 text-black border border-gray-300 rounded-md w-full"
               placeholder="Comma separated tags"
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Links</label>
+            <label className="block text-xl font-medium text-white">Links</label>
             <input
               type="text"
               value={formData.links}
               onChange={(e) => setFormData({ ...formData, links: e.target.value.split(',') })}
-              className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+              className="mt-1 p-6 text-black border border-gray-300 rounded-md w-full"
               placeholder="Comma separated links"
             />
           </div>
@@ -243,22 +243,24 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
               onChange={() => setFormData({ ...formData, featured: !formData.featured })}
               className="mr-2"
             />
-            <label className="text-sm text-gray-700">Featured</label>
+            <label className="text-xl text-black">Featured</label>
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Priority</label>
+            <label className="block text-xl font-medium text-white">Priority (3 : low, 2: Medium, 1: High)</label>
             <input
               type="number"
               value={formData.priority}
-              onChange={(e) => setFormData({ ...formData, priority: parseInt(e.target.value, 10) })}
-              className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+              min="1"
+              max="3"
+              onChange={(e) => setFormData({ ...formData, priority: Math.max(1, parseInt(e.target.value, 10) || 1) })}
+              className="mt-1 p-6 border text-black border-gray-300 rounded-md w-full"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+            className="w-full bg-blue-500 text-white p-6 rounded-md hover:bg-blue-600"
           >
             {project ? 'Save Project' : 'Create Project'}
           </button>
