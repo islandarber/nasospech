@@ -18,6 +18,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
 
   const [categories, setCategories] = useState([]);
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -80,9 +81,10 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
     }
 
     try {
+      setLoading(true);
       // Send data to your existing /projects route
       if (project) {
-        await axios.put(`http://localhost:8000/projects/${project.id}`, requestData, {
+        await axios.put(`http://localhost:8000/projects/${project._id}`, requestData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
       } else {
@@ -90,15 +92,16 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
       }
-
-      setProjects((prev) =>
-        project
-          ? prev.map((p) => (p.id === project.id ? { ...p, ...formData } : p))
-          : [...prev, formData]
-      );
+      
+      const response = await axios.get('http://localhost:8000/projects');
+    setProjects(response.data);
+    
       closeModal();
     } catch (error) {
       console.error('Error submitting project:', error);
+      setErrors(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -237,13 +240,13 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
           </div>
 
           <div className="mb-4 flex items-center">
+          <label className="text-xl text-white">Featured</label>
             <input
               type="checkbox"
               checked={formData.featured}
               onChange={() => setFormData({ ...formData, featured: !formData.featured })}
-              className="mr-2"
+              className="ml-2 mt-2"
             />
-            <label className="text-xl text-black">Featured</label>
           </div>
 
           <div className="mb-4">
@@ -260,12 +263,16 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
 
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white p-6 rounded-md hover:bg-blue-600"
+            className={`w-full p-6 rounded-md text-white ${
+              loading ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'
+            }`}
+            disabled={loading} // Disable the button while loading
           >
-            {project ? 'Save Project' : 'Create Project'}
+            {loading ? (project ? 'Saving...' : 'Creating...') : (project ? 'Save Project' : 'Create Project')}
           </button>
+          {errors.title && <p className="text-red-500 text-lg">{errors.title}</p>}
         </form>
       </div>
     </div>
-  );
+  )
 };
