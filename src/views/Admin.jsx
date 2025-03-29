@@ -7,21 +7,25 @@ export const Admin = () => {
   const [categories, setCategories] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
-  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
-  const [categoryName, setCategoryName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   // Fetch projects and categories on mount
   useEffect(() => {
-    axios.get('http://localhost:8000/projects')
-      .then(response => setProjects(response.data))
-      .catch(error => console.error('Error fetching projects:', error));
-
-    axios.get('http://localhost:8000/categories')
-      .then(response => setCategories(response.data))
-      .catch(error => console.error('Error fetching categories:', error));
-  }, []);
+    setLoading(true);
+  
+    Promise.all([
+      axios.get('http://localhost:8000/projects'),
+      axios.get('http://localhost:8000/categories')
+    ])
+      .then(([projectsRes, categoriesRes]) => {
+        setProjects(projectsRes.data);
+        setCategories(categoriesRes.data);
+      })
+      .catch(error => console.error('Error fetching data:', error))
+      .finally(() => setLoading(false));
+  
+  }, []);  
 
   console.log(projects);
   
@@ -52,13 +56,8 @@ export const Admin = () => {
     }
   };
 
-  const handleAddCategory = () => {
-    setIsCategoryModalOpen(true);
-  };
-
   // Close modals
   const closeModal = () => setIsModalOpen(false);
-  const closeCategoryModal = () => setIsCategoryModalOpen(false);
 
   
 
@@ -73,6 +72,14 @@ export const Admin = () => {
       {/* Project Overview */}
 <div className="mt-10">
   <h1 className="text-5xl">Project Overview per Category</h1>
+  {loading && (
+  <div className="flex space-x-1 justify-center items-center mt-10 mb-4">
+    <div className="h-5 w-1 bg-white animate-wave"></div>
+    <div className="h-8 w-1 bg-white animate-wave delay-150"></div>
+    <div className="h-3 w-1 bg-white animate-wave delay-300"></div>
+  </div>
+)}
+  {error && <p className="text-red-500">{error}</p>}
   {categories.map(category => (
     <div key={category.id} className="mb-8 mt-8">
       <h2 className="text-2xl font-semibold">{category.name}</h2>
@@ -118,35 +125,6 @@ export const Admin = () => {
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
             <ProjectForm project={selectedProject} closeModal={closeModal} setProjects={setProjects} />
-          </div>
-        </div>
-      )}
-
-      {/* Category Modal */}
-      {isCategoryModalOpen && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-            <h2 className="text-2xl font-semibold mb-6 text-center">Create New Category</h2>
-            {error && <div className="text-red-500 text-center mb-4">{error}</div>}
-            <form onSubmit={handleSubmitCategory}>
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">Category Name</label>
-                <input
-                  type="text"
-                  value={categoryName}
-                  onChange={(e) => setCategoryName(e.target.value)}
-                  className="mt-1 p-2 border border-gray-300 rounded-md w-full text-black"
-                  placeholder="Enter category name"
-                  required
-                />
-              </div>
-              <button type="submit" disabled={loading} className={`w-full py-2 px-4 rounded-md ${loading ? 'bg-gray-500' : 'bg-blue-500'} text-white font-semibold`}>
-                {loading ? 'Creating...' : 'Create Category'}
-              </button>
-              <button type="button" onClick={closeCategoryModal} className="w-full mt-2 py-2 px-4 rounded-md bg-gray-500 text-white font-semibold">
-                Cancel
-              </button>
-            </form>
           </div>
         </div>
       )}
