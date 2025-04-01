@@ -61,7 +61,7 @@ export const Navbar = () => {
 
       {/* Normal Menu Links (Visible on larger screens) */}
       <ul className={`hidden md:flex md:flex-row space-x-10 mr-10 ${isOpen ? 'block' : 'hidden'}`}>
-        {["Projects", "About Me", "Contact"].map((item, index) => (
+        {["Projects", "About Me", "Contact", "Admin"].map((item, index) => (
           <li key={index}>
             <NavLink 
               to={`/${item.toLowerCase().replace(/\s+/g, '')}`} 
@@ -84,7 +84,7 @@ export const Navbar = () => {
       </div>
         {/* Hamburger Menu Links (Visible on smaller screens) */}
         <ul className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}>
-        {["Projects", "About Me", "Contact"].map((item, index) => (
+        {["Projects", "About Me", "Contact", "Admin"].map((item, index) => (
           <li key={index} className="text-white p-2">
             <NavLink 
             to={`/${item.toLowerCase().replace(/\s+/g, '')}`}
