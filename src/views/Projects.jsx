@@ -59,7 +59,16 @@ export const Projects = () => {
         <SoundWaves />
       </div>
 
-      <div className="p-2 mt-4">
+      {loading ? (
+          <div className="flex space-x-1 justify-center items-center mt-10 mb-4">
+            <div className="h-5 w-1 bg-white animate-wave"></div>
+            <div className="h-8 w-1 bg-white animate-wave delay-150"></div>
+            <div className="h-3 w-1 bg-white animate-wave delay-300"></div>
+          </div>
+        ) : error ? (
+          <p className="text-red-500">{error}</p>
+        ) : (
+        <div className="p-2 mt-4">
         {categories.map((category, index) => (
           <Link to={`/projects/${category._id}`} key={index}>
             <motion.div
@@ -94,7 +103,7 @@ export const Projects = () => {
             </motion.div>
           </Link>
         ))}
-      </div>
+      </div>)}
     </div>
   );
 };
