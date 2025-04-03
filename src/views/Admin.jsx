@@ -21,13 +21,13 @@ export const Admin = () => {
       .then(([projectsRes, categoriesRes]) => {
         setProjects(projectsRes.data);
         setCategories(categoriesRes.data);
+        console.log(projectsRes.data);
+        console.log(categoriesRes.data);
       })
       .catch(error => console.error('Error fetching data:', error))
       .finally(() => setLoading(false));
   
   }, []);  
-
-  console.log(projects);
   
   // Open modals
   const handleAddProject = () => {
@@ -84,7 +84,7 @@ export const Admin = () => {
     <div key={category.id} className="mb-8 mt-8">
       <h2 className="text-2xl font-semibold">{category.name}</h2>
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-        {projects.filter(project => project.category === category.name).map(project => (
+        {projects.filter(project => project.category._id === category._id).map(project => (
           <li key={project.id} className="border rounded-md shadow-md hover:shadow-lg cursor-pointer overflow-hidden">
             <div className="relative">
               {/* Project Image */}

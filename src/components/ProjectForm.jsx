@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 export const ProjectForm = ({ project, closeModal, setProjects }) => {
@@ -19,6 +19,13 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
   const [categories, setCategories] = useState([]);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+
+  // Refs for form fields for focus when errored
+  const titleRef = useRef(null);
+  const imgRef = useRef(null);
+  const categoryRef = useRef(null);
+  const rolesRef = useRef(null);
+  const videoRef = useRef(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -57,10 +64,18 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
     if (!formData.img) validationErrors.img = 'Image is required';
     if (!formData.category) validationErrors.category = 'Category is required';
     if (!formData.roles) validationErrors.roles = 'Roles are required';
+    if (!formData.video) validationErrors.video = 'Video link is required';
 
     setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length > 0) return;
+    if (Object.keys(validationErrors).length > 0) {
+      if (validationErrors.title) titleRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      else if (validationErrors.img) imgRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      else if (validationErrors.category) categoryRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      else if (validationErrors.roles) rolesRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      else if (validationErrors.video) videoRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+  }
 
     const requestData = new FormData();
 
@@ -83,6 +98,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
     try {
       setLoading(true);
       // Send data to your existing /projects route
+      console.log(formData);
       if (project) {
         await axios.put(`http://localhost:8000/projects/${project._id}`, requestData, {
           headers: { 'Content-Type': 'multipart/form-data' },
@@ -95,7 +111,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
       
       const response = await axios.get('http://localhost:8000/projects');
     setProjects(response.data);
-    
+    console.log(response.data);
       closeModal();
     } catch (error) {
       console.error('Error submitting project:', error);
@@ -131,6 +147,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
               type="text"
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              ref={titleRef}
               className="mt-1 p-6 border border-gray-300 rounded-md w-full text-black"
             />
             {errors.title && <p className="text-red-500 text-xl">{errors.title}</p>}
@@ -142,6 +159,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
               name:img
               type="file"
               onChange={handleImageChange}
+              ref={imgRef}
               className="mt-1 p-6 border border-gray-300 rounded-md w-full text-black"
             />
             {formData.img && formData.img instanceof File && (
@@ -163,6 +181,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
               type="text"
               value={formData.video}
               onChange={(e) => setFormData({ ...formData, video: e.target.value })}
+              ref={videoRef}
               className="mt-1 p-6 border border-gray-300 rounded-md w-full text-black"
             />
           </div>
@@ -172,11 +191,12 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
             <select
               value={formData.category}
               onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+              ref={categoryRef}
               className="mt-1 p-6 border text-black border-gray-300 rounded-md w-full"
             >
               <option value="">Select Category</option>
               {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
+                <option key={cat._id} value={cat._id}>
                   {cat.name}
                 </option>
               ))}
@@ -190,6 +210,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
               type="text"
               value={formData.roles}
               onChange={(e) => setFormData({ ...formData, roles: e.target.value })}
+              ref={rolesRef}
               className="mt-1 p-6 text-black border border-gray-300 rounded-md w-full"
             />
             {errors.roles && <p className="text-red-500 text-lg">{errors.roles}</p>}
