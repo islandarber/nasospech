@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom"; // Import useParams
-import { ProjectInfoModal } from "./ProjectInfoModal";
+import { ProjectInfoModal } from "../components/ProjectInfoModal";
 import axios from "axios";
 
 export const CategoryProjects = () => {
