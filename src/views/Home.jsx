@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { ProjectInfoModal } from "../components/ProjectInfoModal";
+import axios from 'axios';
 
 export const Home = () => {
+  const [slideInfo, setSlideInfo] = useState([]); // Ensure slideInfo is initialized as an empty array
   const [clickedSlide, setClickedSlide] = useState(null);
 
   // Responsive settings for the carousel
@@ -26,24 +28,18 @@ export const Home = () => {
     },
   };
 
-  const slideInfo = [
-    {
-      title:
-        "''Insektensterben - Alles wird gut'' \n @Natural History Museum of Bern / Exhibition",
-      info: "Audio design, Foley design, Ambience and Soundtrack\nImportant info: Exhibition running from 03.11.2023 to 31.05.2025",
-      video: "https://www.youtube.com/embed/N1AXKNIDlzg",
-    },
-    {
-      title: "A Pia (The Sink) [2023]  Short film / Audio Postproduction",
-      info: "Audio cleanup, Audio and Foley design, Stereo and 5.1 Mixing/Mastering",
-      video: "https://player.vimeo.com/video/837296390",
-    },
-    {
-      title: "RIAS choir performance @ Philharmonie Berlin / Commercial video",
-      info: "Audio recording, Audio design and postproduction, Stereo and 5.1 Mixing/Mastering Important info: Aired in all Yorck Kinos Berlin for 2 months",
-      video: "https://www.youtube.com/watch?v=j5rS3qjs3aw&list=LL&index=17",
-    },
-  ];
+  useEffect(() => {
+    const fetchSlides = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/projects/featured");
+        setSlideInfo(response.data);
+      } catch (error) {
+        console.error("Error fetching slides:", error);
+      }
+    };
+
+    fetchSlides();
+  }, []);
 
   const handleSlideClick = (index) => {
     setClickedSlide(index);
@@ -67,30 +63,27 @@ export const Home = () => {
           className="shadow-lg ml-4 mr-4 rounded-lg"
         >
           {slideInfo.map((slide, index) => (
-
             <div
               key={index}
               className="relative flex flex-col items-center justify-center h-[70vh] cursor-pointer"
               onClick={() => handleSlideClick(index)}
             >
-              
               <div className="relative w-full h-full overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1563860429-8a9ee43167bc?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8MTYlM0E5fGVufDB8fDB8fHww"
+                  src={slide.img} // Use the image from the slide data
                   alt="proj"
                   className="absolute top-0 left-0 w-full h-full object-cover"
                 />
               </div>
 
               <h3 className="text-white text-xs p-1 text-center">
-                {slide.title}
+                {slide.title} {/* Display the title of the slide */}
               </h3>
-
             </div>
           ))}
         </Carousel>
       ) : (
-        //After clicking to show details of the featured project
+        // After clicking to show details of the featured project
         <ProjectInfoModal project={slideInfo[clickedSlide]} handleCloseCard={handleCloseCard} />
       )}
     </div>
