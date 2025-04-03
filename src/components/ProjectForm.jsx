@@ -20,6 +20,8 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
+  const api_url = import.meta.env.VITE_BACKEND_URL;
+
   // Refs for form fields for focus when errored
   const titleRef = useRef(null);
   const imgRef = useRef(null);
@@ -30,7 +32,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/categories');
+        const response = await axios.get(`${api_url}/categories`);
         setCategories(response.data);
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -44,7 +46,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
         title: project.title,
         img: project.img || null,
         video: project.video,
-        category: project.category,
+        category: project.category?._id || project.category || '',
         roles: project.roles,
         info: project.info,
         additionalMedia: project.additionalMedia || [],
@@ -100,16 +102,16 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
       // Send data to your existing /projects route
       console.log(formData);
       if (project) {
-        await axios.put(`http://localhost:8000/projects/${project._id}`, requestData, {
+        await axios.put(`${api_url}/projects/${project._id}`, requestData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
       } else {
-        await axios.post('http://localhost:8000/projects', requestData, {
+        await axios.post(`${api_url}/projects`, requestData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
       }
       
-      const response = await axios.get('http://localhost:8000/projects');
+      const response = await axios.get(`${api_url}/projects`);
     setProjects(response.data);
     console.log(response.data);
       closeModal();
@@ -154,7 +156,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-lg font-medium text-white">Upload Image</label>
+            <label className="block text-lg font-medium text-white">{project ? 'Upload another image' : 'Upload Image'}</label>
             <input
               name:img
               type="file"
@@ -184,6 +186,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
               ref={videoRef}
               className="mt-1 p-6 border border-gray-300 rounded-md w-full text-black"
             />
+            {errors.video && <p className="text-red-500 text-lg">{errors.video}</p>}
           </div>
 
           <div className="mb-4">

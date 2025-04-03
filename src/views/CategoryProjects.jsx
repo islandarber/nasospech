@@ -12,6 +12,8 @@ export const CategoryProjects = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const api_url = import.meta.env.VITE_BACKEND_URL;
+
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -21,7 +23,7 @@ export const CategoryProjects = () => {
 
         // Fetch projects for the specific category
         const response = await axios.get(
-          `http://localhost:8000/projects/category/${categoryId}`
+          `${api_url}/projects/category/${categoryId}`
         );
         setProjects(response.data);
         console.log(response.data); // Log the fetched projects

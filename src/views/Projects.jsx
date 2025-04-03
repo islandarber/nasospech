@@ -14,6 +14,8 @@ export const Projects = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const api_url = import.meta.env.VITE_BACKEND_URL;
+
   // Map category names to their corresponding images
   const categoryImages = {
     "Audio Design": soundDesignImage,
@@ -27,7 +29,7 @@ export const Projects = () => {
     const fetchCategories = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('http://localhost:8000/categories');
+        const response = await axios.get(`${api_url}/categories`);
 
         // Add the corresponding image to each category
         const categoriesWithImages = response.data.map((category) => ({

@@ -8,6 +8,8 @@ export const Home = () => {
   const [slideInfo, setSlideInfo] = useState([]); // Ensure slideInfo is initialized as an empty array
   const [clickedSlide, setClickedSlide] = useState(null);
 
+  const api_url = import.meta.env.VITE_BACKEND_URL; 
+
   // Responsive settings for the carousel
   const responsive = {
     superLargeDesktop: {
@@ -31,7 +33,7 @@ export const Home = () => {
   useEffect(() => {
     const fetchSlides = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/projects/featured");
+        const response = await axios.get(`${api_url}/projects/featured`); 
         setSlideInfo(response.data);
       } catch (error) {
         console.error("Error fetching slides:", error);

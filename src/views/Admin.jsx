@@ -10,13 +10,15 @@ export const Admin = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const api_url = import.meta.env.VITE_BACKEND_URL;
+
   // Fetch projects and categories on mount
   useEffect(() => {
     setLoading(true);
   
     Promise.all([
-      axios.get('http://localhost:8000/projects'),
-      axios.get('http://localhost:8000/categories')
+      axios.get(`${api_url}/projects`),
+      axios.get(`${api_url}/categories`),
     ])
       .then(([projectsRes, categoriesRes]) => {
         setProjects(projectsRes.data);
@@ -48,7 +50,7 @@ export const Admin = () => {
     setProjects((prevProjects) => prevProjects.filter(project => project._id !== projectId));
   
     try {
-      await axios.delete(`http://localhost:8000/projects/${projectId}`);
+      await axios.delete(`${api_url}/projects/${projectId}`);
       console.log('Project deleted successfully');
     } catch (error) {
       console.error('Error deleting project:', error);
