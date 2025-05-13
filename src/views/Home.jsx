@@ -67,7 +67,7 @@ export const Home = () => {
           {slideInfo.map((slide, index) => (
             <div
               key={index}
-              className="relative flex flex-col items-center justify-center h-[90vh] cursor-pointer"
+              className="relative flex flex-col items-center justify-center h-[80vh] cursor-pointer"
               onClick={() => handleSlideClick(index)}
             >
               <div className="relative w-full h-full overflow-hidden">
