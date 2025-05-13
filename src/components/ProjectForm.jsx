@@ -52,8 +52,9 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
         img: project.img || null,
         video: project.video,
         categories: Array.isArray(project.categories)
-      ? project.categories.map(cat => cat._id || cat)
-      : [project.category?._id || project.category || ''],
+  ? project.categories.map(cat => cat._id || cat).filter(Boolean) // Filter out falsy values like empty strings
+  : [project.category?._id || project.category].filter(Boolean), // Ensure only valid category ID is pushed
+
         roles: project.roles,
         info: project.info,
         additionalMedia: "",
