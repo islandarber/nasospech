@@ -67,14 +67,14 @@ export const Home = () => {
           {slideInfo.map((slide, index) => (
             <div
               key={index}
-              className="relative flex flex-col items-center justify-center h-[70vh] cursor-pointer"
+              className="relative flex flex-col items-center justify-center h-[90vh] cursor-pointer"
               onClick={() => handleSlideClick(index)}
             >
               <div className="relative w-full h-full overflow-hidden">
                 <img
                   src={slide.img} // Use the image from the slide data
                   alt="proj"
-                  className="absolute top-0 left-0 w-full h-full object-cover"
+                  className="absolute top-0 left-0 w-full h-full object-contained transition-transform duration-500 ease-in-out transform hover:scale-105"
                 />
               </div>
 

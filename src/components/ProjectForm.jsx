@@ -6,12 +6,12 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
     title: '',
     img: null,
     video: '',
-    category: '',
+    categories: [],
     roles: '',
     info: '',
-    additionalMedia: [],
-    tags: [],
-    links: [],
+    additionalMedia: '',
+    tags: '',
+    links: '',
     featured: false,
     priority: 1,
   });
@@ -22,12 +22,17 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
 
   const api_url = import.meta.env.VITE_BACKEND_URL;
 
+  
   // Refs for form fields for focus when errored
   const titleRef = useRef(null);
-  const imgRef = useRef(null);
-  const categoryRef = useRef(null);
+  const categoriesRef = useRef(null);
   const rolesRef = useRef(null);
-  const videoRef = useRef(null);
+
+  const refs = {
+    title: titleRef,
+    categories: categoriesRef,
+    roles: rolesRef,
+  };
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -46,12 +51,14 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
         title: project.title,
         img: project.img || null,
         video: project.video,
-        category: project.category?._id || project.category || '',
+        categories: Array.isArray(project.categories)
+      ? project.categories.map(cat => cat._id || cat)
+      : [project.category?._id || project.category || ''],
         roles: project.roles,
         info: project.info,
-        additionalMedia: project.additionalMedia || [],
-        tags: project.tags || [],
-        links: project.links || [],
+        additionalMedia: "",
+        tags: '',
+        links: '',
         featured: project.featured,
         priority: project.priority,
       });
@@ -60,38 +67,41 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData);
 
     const validationErrors = {};
     if (!formData.title) validationErrors.title = 'Title is required';
-    if (!formData.img) validationErrors.img = 'Image is required';
-    if (!formData.category) validationErrors.category = 'Category is required';
+    if (!formData.categories || formData.categories.length === 0) {
+      validationErrors.categories = 'Categories are required';
+    }    
     if (!formData.roles) validationErrors.roles = 'Roles are required';
-    if (!formData.video) validationErrors.video = 'Video link is required';
 
     setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length > 0) {
-      if (validationErrors.title) titleRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      else if (validationErrors.img) imgRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      else if (validationErrors.category) categoryRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      else if (validationErrors.roles) rolesRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      else if (validationErrors.video) videoRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
-  }
-
+    for (const [field, errorMessage] of Object.entries(validationErrors)) {
+      if (errorMessage) {
+        const ref = refs[field]?.current;
+        if (ref) {
+          ref.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        break;
+      }
+    }    
+    
     const requestData = new FormData();
-
-    // Append form fields to FormData object
     requestData.append('title', formData.title);
     requestData.append('video', formData.video);
-    requestData.append('category', formData.category);
+    formData.categories.forEach((cat) => {
+      requestData.append('categories[]', cat);
+    });    
     requestData.append('roles', formData.roles);
     requestData.append('info', formData.info);
-    requestData.append('additionalMedia', JSON.stringify(formData.additionalMedia));
-    requestData.append('tags', JSON.stringify(formData.tags));
-    requestData.append('links', JSON.stringify(formData.links));
+    requestData.append('additionalMedia', JSON.stringify(formData.additionalMedia ? formData.additionalMedia.split(',').map(item => item.trim()) : []));
+    requestData.append('tags', JSON.stringify(formData.tags ? formData.tags.split(',').map(item => item.trim()) : []));
+    requestData.append('links', JSON.stringify(formData.links ? formData.links.split(',').map(item => item.trim()) : []));
     requestData.append('featured', formData.featured);
     requestData.append('priority', formData.priority);
+
 
     if (formData.img && formData.img instanceof File) {
       requestData.append('img', formData.img);
@@ -158,10 +168,9 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
           <div className="mb-4">
             <label className="block text-lg font-medium text-white">{project ? 'Upload another image' : 'Upload Image'}</label>
             <input
-              name:img
+              name="img"
               type="file"
               onChange={handleImageChange}
-              ref={imgRef}
               className="mt-1 p-6 border border-gray-300 rounded-md w-full text-black"
             />
             {formData.img && formData.img instanceof File && (
@@ -183,28 +192,33 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
               type="text"
               value={formData.video}
               onChange={(e) => setFormData({ ...formData, video: e.target.value })}
-              ref={videoRef}
               className="mt-1 p-6 border border-gray-300 rounded-md w-full text-black"
             />
             {errors.video && <p className="text-red-500 text-lg">{errors.video}</p>}
           </div>
 
           <div className="mb-4">
-            <label className="block text-xl font-medium text-white">Category</label>
-            <select
-              value={formData.category}
-              onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-              ref={categoryRef}
-              className="mt-1 p-6 border text-black border-gray-300 rounded-md w-full"
-            >
-              <option value="">Select Category</option>
+            <label className="block text-xl font-medium text-white">Categories</label>
+            <div ref={categoriesRef}>
               {categories.map((cat) => (
-                <option key={cat._id} value={cat._id}>
+                <label key={cat._id} className="block text-white">
+                  <input
+                    type="checkbox"
+                    value={cat._id}
+                    checked={formData.categories.includes(cat._id)}
+                    onChange={(e) => {
+                      const newCategories = e.target.checked
+                        ? [...formData.categories, cat._id]
+                        : formData.categories.filter((id) => id !== cat._id);
+                      setFormData({ ...formData, categories: newCategories });
+                    }}
+                    className="mr-2"
+                  />
                   {cat.name}
-                </option>
+                </label>
               ))}
-            </select>
-            {errors.category && <p className="text-red-500 text-lg">{errors.category}</p>}
+            </div>
+            {errors.categories && <p className="text-red-500 text-lg">{errors.categories}</p>}
           </div>
 
           <div className="mb-4">
@@ -234,7 +248,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
               type="text"
               value={formData.additionalMedia}
               onChange={(e) =>
-                setFormData({ ...formData, additionalMedia: e.target.value.split(',') })
+                setFormData({ ...formData, additionalMedia: e.target.value })
               }
               className="mt-1 p-6 text-black border border-gray-300 rounded-md w-full"
               placeholder="Comma separated media links"
@@ -246,7 +260,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
             <input
               type="text"
               value={formData.tags}
-              onChange={(e) => setFormData({ ...formData, tags: e.target.value.split(',') })}
+              onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
               className="mt-1 p-6 text-black border border-gray-300 rounded-md w-full"
               placeholder="Comma separated tags"
             />
@@ -257,7 +271,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
             <input
               type="text"
               value={formData.links}
-              onChange={(e) => setFormData({ ...formData, links: e.target.value.split(',') })}
+              onChange={(e) => setFormData({ ...formData, links: e.target.value })}
               className="mt-1 p-6 text-black border border-gray-300 rounded-md w-full"
               placeholder="Comma separated links"
             />
@@ -294,7 +308,6 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
           >
             {loading ? (project ? 'Saving...' : 'Creating...') : (project ? 'Save Project' : 'Create Project')}
           </button>
-          {errors.title && <p className="text-red-500 text-lg">{errors.title}</p>}
         </form>
       </div>
     </div>

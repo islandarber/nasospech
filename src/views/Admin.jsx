@@ -83,43 +83,44 @@ export const Admin = () => {
 )}
   {error && <p className="text-red-500">{error}</p>}
   {categories.map(category => (
-    <div key={category.id} className="mb-8 mt-8">
-      <h2 className="text-2xl font-semibold">{category.name}</h2>
-      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-        {projects.filter(project => project.category._id === category._id).map(project => (
-          <li key={project.id} className="border rounded-md shadow-md hover:shadow-lg cursor-pointer overflow-hidden">
-            <div className="relative">
-              {/* Project Image */}
-              <img
-                src={project.img}
-                alt={project.title}
-                className="w-full h-48 object-cover"
-              />
-              {/* Overlay with Buttons */}
-              <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity">
-                <button
-                  onClick={() => handleEditProject(project)}
-                  className="bg-yellow-500 text-white py-1 px-3 rounded-md hover:bg-yellow-600 mr-2"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() =>handleDeleteProject(project._id)}
-                  className="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600"
-                >
-                  Delete
-                </button>
-              </div>
+  <div key={category._id} className="mb-8 mt-8">
+    <h2 className="text-2xl font-semibold">{category.name}</h2>
+    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+      {projects.filter(project => project.categories.some(cat => cat._id === category._id)).map(project => (
+        <li key={project._id} className="border rounded-md shadow-md hover:shadow-lg cursor-pointer overflow-hidden">
+          <div className="relative">
+            {/* Project Image */}
+            <img
+              src={project.img}
+              alt={project.title}
+              className="w-full h-48 object-cover"
+            />
+            {/* Overlay with Buttons */}
+            <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity">
+              <button
+                onClick={() => handleEditProject(project)}
+                className="bg-yellow-500 text-white py-1 px-3 rounded-md hover:bg-yellow-600 mr-2"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDeleteProject(project._id)}
+                className="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600"
+              >
+                Delete
+              </button>
             </div>
-            {/* Project Title */}
-            <div className="p-4">
-              <h3 className="font-medium text-lg">{project.title}</h3>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  ))}
+          </div>
+          {/* Project Title */}
+          <div className="p-4">
+            <h3 className="font-medium text-lg">{project.title}</h3>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+))}
+
 </div>
 
       {/* Project Modal */}
