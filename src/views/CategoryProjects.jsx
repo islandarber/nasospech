@@ -74,28 +74,27 @@ export const CategoryProjects = () => {
           <p className="text-red-500">{error}</p>
         ) : (
 
-          <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 px-4 mt-10">
-            {projects && projects.map((project, index) => (
-              <div
-                key={index}
-                className="relative bg-gray-400 bg-opacity-20 w-[300px] h-[300px] rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col"
-                onClick={() => handleClick(project)}
-              >
-                {/* Thumbnail container */}
-                <div
-                  className="h-full bg-center bg-cover overflow-hidden"
-                  style={{ backgroundImage: `url('${project.img}')` }}
-                ></div>
+          <div className="flex flex-wrap justify-center gap-4 mt-10 px-4">
+  {projects.map((project, index) => (
+    <div
+      key={index}
+      className="relative bg-gray-400 bg-opacity-20 rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col items-center"
+      onClick={() => handleClick(project)}
+    >
+      <img
+        src={project.img}
+        alt={project.title}
+        className="object-contain rounded"
+      />
+      <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 flex items-center justify-center transition-opacity duration-300 hover:opacity-100">
+        <h3 className="text-white text-lg font-semibold text-center px-2">
+          {project.title}
+        </h3>
+      </div>
+    </div>
+  ))}
+</div>
 
-                {/* Title on hover */}
-                <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 flex items-center justify-center transition-opacity duration-300 hover:opacity-100">
-                  <h3 className="text-white text-lg font-semibold text-center px-2">
-                    {project.title}
-                  </h3>
-                </div>
-              </div>
-            ))}
-          </div>
         )}
       </div>
 

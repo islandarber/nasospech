@@ -76,7 +76,7 @@ export const Home = () => {
                 <img
                   src={slide.img} // Use the image from the slide data
                   alt="proj"
-                  className="absolute top-0 left-0 w-full h-full object-contained transition-transform duration-500 ease-in-out transform hover:scale-105"
+                  className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 ease-in-out transform hover:scale-105"
                 />
               </div>
 
