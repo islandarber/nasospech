@@ -54,13 +54,13 @@ export const Home = () => {
   };
 
   return (
-    <div className="bg-custom-gradient h-screen">
+    <div className="md:bg-custom-gradient h-screen">
       {clickedSlide === null ? (
         <Carousel
           responsive={responsive}
           infinite={true} // Allows infinite scrolling
           autoPlay={true} // Enable autoplay
-          autoPlaySpeed={3000} // Speed of autoplay
+          autoPlaySpeed={5000} // Speed of autoplay
           arrows={true} // Show arrows
           swipeable={true} // Allow swipe gestures
           draggable={true} // Allow drag gestures
@@ -69,14 +69,14 @@ export const Home = () => {
           {slideInfo.map((slide, index) => (
             <div
               key={index}
-              className="relative flex flex-col items-center justify-center h-[80vh] cursor-pointer"
+              className="md:relative flex flex-col md:items-center justify-center h-[60vh] md:h-[80vh] cursor-pointer md:mt-4"
               onClick={() => handleSlideClick(index)}
             >
               <div className="relative w-full h-full overflow-hidden">
                 <img
                   src={slide.img} // Use the image from the slide data
                   alt="proj"
-                  className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 ease-in-out transform hover:scale-105"
+                  className="md:absolute top-0 left-0 w-full h-full object-contain md:object-cover transition-transform duration-500 ease-in-out transform hover:scale-105"
                 />
               </div>
 
