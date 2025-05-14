@@ -79,7 +79,7 @@ export const CategoryProjects = () => {
             <div
               key={index}
               onClick={() => handleClick(project)}
-              className="relative bg-transparent rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col items-center w-[500px] h-[500px]"
+              className="relative bg-transparent rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col items-center w-[350px] h-[350px]"
             >
               <div className="w-full h-full flex items-center justify-center">
                 <img
