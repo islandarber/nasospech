@@ -49,7 +49,7 @@ export const CategoryProjects = () => {
   };
 
   return (
-    <div className="bg-custom-gradient min-h-screen relative">
+    <div className="bg-transparent min-h-screen relative">
       <button
         onClick={() => navigate("/projects")}
         className="text-white text-xs sm:text-sm font-semibold transition-opacity duration-200 hover:opacity-70 ml-2"
@@ -75,25 +75,29 @@ export const CategoryProjects = () => {
         ) : (
 
           <div className="flex flex-wrap justify-center gap-4 mt-10 px-4">
-  {projects.map((project, index) => (
-    <div
-      key={index}
-      className="relative bg-gray-400 bg-opacity-20 rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col items-center"
-      onClick={() => handleClick(project)}
-    >
-      <img
-        src={project.img}
-        alt={project.title}
-        className="object-contain rounded"
-      />
-      <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 flex items-center justify-center transition-opacity duration-300 hover:opacity-100">
-        <h3 className="text-white text-lg font-semibold text-center px-2">
-          {project.title}
-        </h3>
-      </div>
-    </div>
-  ))}
-</div>
+          {projects.map((project, index) => (
+            <div
+              key={index}
+              onClick={() => handleClick(project)}
+              className="relative bg-transparent rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col items-center w-[500px] h-[500px]"
+            >
+              <div className="w-full h-full flex items-center justify-center">
+                <img
+                  src={project.img}
+                  alt={project.title}
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+
+              {/* Optional overlay on hover */}
+              <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 flex items-center justify-center transition-opacity duration-300 hover:opacity-100">
+                <h3 className="text-white text-lg font-semibold text-center px-2">
+                  {project.title}
+                </h3>
+              </div>
+            </div>
+          ))}
+        </div>
 
         )}
       </div>
