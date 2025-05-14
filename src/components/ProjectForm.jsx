@@ -165,7 +165,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
 
         <form onSubmit={handleSubmit}  className="p-6">
           <div className="mb-4">
-            <label className="block text-xl font-medium text-white">Title</label>
+            <label className="block text-xl font-medium text-white">Title <span className="text-red-500">*</span></label>
             <input
               type="text"
               value={formData.title}
@@ -209,7 +209,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-xl font-medium text-white">Categories</label>
+            <label className="block text-xl font-medium text-white">Categories <span className="text-red-500">*</span></label>
             <div ref={categoriesRef}>
               {categories.map((cat) => (
                 <label key={cat._id} className="block text-white">
@@ -233,7 +233,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-xl font-medium text-white">Roles</label>
+            <label className="block text-xl font-medium text-white">Roles <span className="text-red-500">*</span></label>
             <input
               type="text"
               value={formData.roles}
