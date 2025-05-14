@@ -3,6 +3,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { ProjectInfoModal } from "../components/ProjectInfoModal";
 import axios from 'axios';
+import { processProjects } from "../utils/thumbnailUtils"; 
 
 export const Home = () => {
   const [slideInfo, setSlideInfo] = useState([]); // Ensure slideInfo is initialized as an empty array
@@ -31,17 +32,18 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    const fetchSlides = async () => {
-      try {
-        const response = await axios.get(`${api_url}/projects/featured`); 
-        setSlideInfo(response.data);
-      } catch (error) {
-        console.error("Error fetching slides:", error);
-      }
-    };
+  const fetchSlides = async () => {
+    try {
+      const response = await axios.get(`${api_url}/projects/featured`);
+      const processedSlides = processProjects(response.data); // 👈 apply utility
+      setSlideInfo(processedSlides);
+    } catch (error) {
+      console.error("Error fetching slides:", error);
+    }
+  };
 
-    fetchSlides();
-  }, []);
+  fetchSlides();
+}, []);
 
   const handleSlideClick = (index) => {
     setClickedSlide(index);

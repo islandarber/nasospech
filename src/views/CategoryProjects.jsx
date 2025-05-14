@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom"; // Import useParams
 import { ProjectInfoModal } from "../components/ProjectInfoModal";
 import axios from "axios";
+import { processProjects } from "../utils/thumbnailUtils";
 
 export const CategoryProjects = () => {
   const navigate = useNavigate();
@@ -25,8 +26,9 @@ export const CategoryProjects = () => {
         const response = await axios.get(
           `${api_url}/projects/category/${categoryId}`
         );
-        setProjects(response.data);
-        console.log(response.data); // Log the fetched projects
+        const processedProjects = processProjects(response.data);  // Process projects to ensure they have thumbnails
+        setProjects(processedProjects);  // Set processed projects
+        console.log(processedProjects); // Log the processed projects
       } catch (error) {
         console.error("Error fetching projects:", error);
         setError(error.message);

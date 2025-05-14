@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import {processProjects} from '../utils/thumbnailUtils';
 
 export const ProjectForm = ({ project, closeModal, setProjects }) => {
   const [formData, setFormData] = useState({
@@ -116,14 +117,23 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
         await axios.put(`${api_url}/projects/${project._id}`, requestData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
+
+        // Optional: update entire list if project was edited
+        const response = await axios.get(`${api_url}/projects`);
+        setProjects(response.data);
       } else {
-        await axios.post(`${api_url}/projects`, requestData, {
+        const response = await axios.post(`${api_url}/projects`, requestData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
+
+        // Now re-fetch projects to get the new image from Cloudinary
+        const updatedProjects = await axios.get(`${api_url}/projects`);
+        setProjects(processProjects(updatedProjects.data));
       }
+
       
       const response = await axios.get(`${api_url}/projects`);
-    setProjects(response.data);
+    setProjects(processProjects(response.data));
     console.log(response.data);
       closeModal();
     } catch (error) {

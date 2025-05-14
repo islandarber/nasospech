@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ProjectForm } from '../components/ProjectForm';
+import { processProjects } from '../utils/thumbnailUtils';
 
 export const Admin = () => {
   const [projects, setProjects] = useState([]);
@@ -14,22 +15,21 @@ export const Admin = () => {
 
   // Fetch projects and categories on mount
   useEffect(() => {
-    setLoading(true);
-  
-    Promise.all([
-      axios.get(`${api_url}/projects`),
-      axios.get(`${api_url}/categories`),
-    ])
-      .then(([projectsRes, categoriesRes]) => {
-        setProjects(projectsRes.data);
-        setCategories(categoriesRes.data);
-        console.log(projectsRes.data);
-        console.log(categoriesRes.data);
-      })
-      .catch(error => console.error('Error fetching data:', error))
-      .finally(() => setLoading(false));
-  
-  }, []);  
+  setLoading(true);
+
+  Promise.all([
+    axios.get(`${api_url}/projects`),
+    axios.get(`${api_url}/categories`),
+  ])
+    .then(([projectsRes, categoriesRes]) => {
+      const processedProjects = processProjects(projectsRes.data); // 👈 use the util here
+      setProjects(processedProjects);
+      setCategories(categoriesRes.data);
+    })
+    .catch(error => console.error('Error fetching data:', error))
+    .finally(() => setLoading(false));
+}, []);
+;  
   
   // Open modals
   const handleAddProject = () => {
