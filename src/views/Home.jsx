@@ -80,7 +80,7 @@ export const Home = () => {
                 />
               </div>
 
-              <h3 className="text-white text-xs p-1 text-center">
+              <h3 className="text-white text-lg md:text-xs p-1 text-center">
                 {slide.title} {/* Display the title of the slide */}
               </h3>
             </div>
