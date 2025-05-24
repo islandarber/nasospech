@@ -104,7 +104,7 @@ export const Contact = () => {
               type="text"
               value={formData.name}
               onChange={handleChange}
-              className="w-full p-10 text-black rounded-lg"
+              className="w-full p-4 md:p-10 text-black rounded-lg"
               required
             />
           </div>
@@ -119,7 +119,7 @@ export const Contact = () => {
               type="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full p-10 text-black rounded-lg"
+              className="w-full p-4 md:p-10 text-black rounded-lg"
               required
             />
           </div>

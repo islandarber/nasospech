@@ -40,6 +40,7 @@ export const CategoryProjects = () => {
     fetchProjects();
   }, [categoryId]); // Re-run when categoryName changes
 
+
   const handleClick = (project) => {
     setSelectedProject(project); // Set selected project on click
   };
@@ -59,9 +60,9 @@ export const CategoryProjects = () => {
 
       <div className="flex flex-col items-center mt-2">
         {projects[0] && <>
-          <h1 className="text-white text-4xl font-bold mb-6">{projects[0].categories.name}</h1>
+          <h1 className="text-white text-4xl font-bold mb-6">{projects[0].categories[0].name}</h1>
           <p className="text-gray-300 w-[250px] sm:w-full text-md max-w-lg text-center mb-8">
-            Explore a selection of projects in the {projects[0].categories.name} category.
+            Explore a selection of projects in the {projects[0].categories[0].name} category.
           </p>
         </>}
         {loading ? (
