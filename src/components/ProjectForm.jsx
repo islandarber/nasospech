@@ -158,7 +158,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
 
         <h2 className="text-4xl font-semibold mb-6 text-white">{project ? 'Edit Project' : 'Create Project'}</h2>
 
-        <form onSubmit={handleSubmit} className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <form onSubmit={handleSubmit} className="p-6 grid grid-cols-1 md:grid-cols-2 gap-16">
           <div className="space-y-6">
             <div>
               <label className="block text-xl font-medium text-white">Title <span className="text-red-500">*</span></label>
@@ -229,10 +229,8 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
                 ))}
               </div>
             </div>
-          </div>
 
-          <div className="space-y-6">
-            <div>
+             <div>
               <label className="block text-xl font-medium text-white">Categories <span className="text-red-500">*</span></label>
               <div ref={categoriesRef}>
                 {categories.map((cat) => (
@@ -255,7 +253,9 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
               </div>
               {errors.categories && <p className="text-red-500 text-lg">{errors.categories}</p>}
             </div>
+          </div>
 
+          <div className="space-y-6">
             <div>
               <label className="block text-xl font-medium text-white">Roles <span className="text-red-500">*</span></label>
               <input
