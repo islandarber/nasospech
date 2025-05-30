@@ -24,13 +24,15 @@ export const CategoryProjects = () => {
           `${api_url}/projects/category/${categoryId}`
         );
 
-        const updatedProjects = response.data.map(project => {
-          const firstImage = project.media.find(item => item.type === 'image');
-          return {
-            ...project,
-            img: firstImage ? firstImage.url : null
-          };
-        });
+        const updatedProjects = response.data
+          .map(project => {
+            const firstImage = project.media.find(item => item.type === 'image');
+            return {
+              ...project,
+              img: firstImage ? firstImage.url : null
+            };
+          })
+          .sort((a, b) => a.priority - b.priority); // Sort by priority (1-highest)
 
         setProjects(updatedProjects);
       } catch (error) {
