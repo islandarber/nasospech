@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom"; // Import useParams
+import { useNavigate, useParams } from "react-router-dom";
 import { ProjectInfoModal } from "../components/ProjectInfoModal";
 import axios from "axios";
-import { processProjects } from "../utils/thumbnailUtils";
 
 export const CategoryProjects = () => {
   const navigate = useNavigate();
@@ -15,20 +14,25 @@ export const CategoryProjects = () => {
 
   const api_url = import.meta.env.VITE_BACKEND_URL;
 
-
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         setLoading(true);
-        if (!categoryId) return; // Ensure categoryId is available
+        if (!categoryId) return;
 
-        // Fetch projects for the specific category
         const response = await axios.get(
           `${api_url}/projects/category/${categoryId}`
         );
-        const processedProjects = processProjects(response.data);  // Process projects to ensure they have thumbnails
-        setProjects(processedProjects);  // Set processed projects
-        console.log(processedProjects); // Log the processed projects
+
+        const updatedProjects = response.data.map(project => {
+          const firstImage = project.media.find(item => item.type === 'image');
+          return {
+            ...project,
+            img: firstImage ? firstImage.url : null
+          };
+        });
+
+        setProjects(updatedProjects);
       } catch (error) {
         console.error("Error fetching projects:", error);
         setError(error.message);
@@ -38,15 +42,14 @@ export const CategoryProjects = () => {
     };
 
     fetchProjects();
-  }, [categoryId]); // Re-run when categoryName changes
-
+  }, [categoryId]);
 
   const handleClick = (project) => {
-    setSelectedProject(project); // Set selected project on click
+    setSelectedProject(project);
   };
 
   const handleCloseCard = () => {
-    setSelectedProject(null); // Close modal by clearing selected project
+    setSelectedProject(null);
   };
 
   return (
@@ -74,32 +77,33 @@ export const CategoryProjects = () => {
         ) : error ? (
           <p className="text-red-500">{error}</p>
         ) : (
-
           <div className="flex flex-wrap justify-center gap-4 mt-10 px-4">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              onClick={() => handleClick(project)}
-              className="relative bg-transparent rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col items-center w-[350px] h-[350px]"
-            >
-              <div className="w-full h-full flex items-center justify-center">
-                <img
-                  src={project.img}
-                  alt={project.title}
-                  className="max-w-full max-h-full object-contain"
-                />
-              </div>
+            {projects.map((project, index) => (
+              <div
+                key={index}
+                onClick={() => handleClick(project)}
+                className="relative bg-transparent rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col items-center w-[350px] h-[350px]"
+              >
+                <div className="w-full h-full flex items-center justify-center">
+                  {project.img ? (
+                    <img
+                      src={project.img}
+                      alt={project.title}
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  ) : (
+                    <div className="text-white text-center">No Image</div>
+                  )}
+                </div>
 
-              {/* Optional overlay on hover */}
-              <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 flex items-center justify-center transition-opacity duration-300 hover:opacity-100">
-                <h3 className="text-white text-lg font-semibold text-center px-2">
-                  {project.title}
-                </h3>
+                <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 flex items-center justify-center transition-opacity duration-300 hover:opacity-100">
+                  <h3 className="text-white text-lg font-semibold text-center px-2">
+                    {project.title}
+                  </h3>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-
+            ))}
+          </div>
         )}
       </div>
 
