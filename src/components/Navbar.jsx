@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
@@ -94,7 +94,7 @@ export const Navbar = () => {
             </li>
           ))}
 
-          {token ? (
+          {token && (
             <>
               <li>
                 <NavLink to="/admin/dashboard" className="text-white text-md font-semibold">
@@ -107,15 +107,6 @@ export const Navbar = () => {
                 </button>
               </li>
             </>
-          ) : (
-            <li>
-              <NavLink
-                to="/admin/login"
-                className="text-white text-xs font-semibold opacity-30 hover:opacity-100 transition duration-200"
-              >
-                Admin Login
-              </NavLink>
-            </li>
           )}
         </ul>
       </div>
@@ -136,7 +127,7 @@ export const Navbar = () => {
           </li>
         ))}
 
-        {token ? (
+        {token && (
           <>
             <li className="text-white p-2">
               <NavLink to="/admin/dashboard" onClick={closeMenu}>
@@ -147,12 +138,6 @@ export const Navbar = () => {
               <button onClick={() => { logout(); closeMenu(); }}>Logout</button>
             </li>
           </>
-        ) : (
-          <li className="text-white p-2">
-            <NavLink to="/admin/login" onClick={closeMenu}>
-              Admin Login
-            </NavLink>
-          </li>
         )}
       </motion.ul>
     </nav>
