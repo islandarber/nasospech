@@ -26,13 +26,16 @@ export const Admin = () => {
           const videoMedia = project.media?.find(item => item.type === 'video');
           return {
             ...project,
-            img: imageMedia?.url || getThumbnail(videoMedia?.url)
+            preview: imageMedia?.url || getThumbnail(videoMedia?.url)
           };
         });
         setProjects(enhancedProjects);
         setCategories(categoriesRes.data);
       })
-      .catch(error => console.error('Error fetching data:', error))
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setError("Something went wrong while loading the data.");
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -55,6 +58,7 @@ export const Admin = () => {
       await axios.delete(`${api_url}/projects/${projectId}`);
     } catch (error) {
       console.error('Error deleting project:', error);
+      setError("Failed to delete project. Please try again.");
       setProjects(previousProjects);
     }
   };
@@ -78,32 +82,38 @@ export const Admin = () => {
             <div className="h-3 w-1 bg-white animate-wave delay-300"></div>
           </div>
         )}
-        {error && <p className="text-red-500">{error}</p>}
-        {categories.map(category => (
-          <div key={category._id} className="mb-8 mt-8">
-            <h2 className="text-2xl font-semibold">{category.name}</h2>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-              {projects.filter(p => p.categories.some(cat => cat._id === category._id)).map(project => (
-                <li key={project._id} className="border rounded-md shadow-md hover:shadow-lg cursor-pointer overflow-hidden">
-                  <div className="relative">
-                    <img src={project.img} alt={project.title} className="w-full h-48 object-cover" />
-                    <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity">
-                      <button onClick={() => handleEditProject(project)} className="bg-yellow-500 text-white py-1 px-3 rounded-md hover:bg-yellow-600 mr-2">
-                        Edit
-                      </button>
-                      <button onClick={() => handleDeleteProject(project._id)} className="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600">
-                        Delete
-                      </button>
+        {error && <p className="text-red-500 text-center mt-6">{error}</p>}
+        {categories.map(category => {
+          const filteredProjects = projects.filter(p => p.categories.some(cat => cat._id === category._id));
+          return (
+            <div key={category._id} className="mb-8 mt-8">
+              <h2 className="text-2xl font-semibold">{category.name}</h2>
+              {filteredProjects.length === 0 && !loading && (
+                <p className="text-gray-400 mt-2">No projects in this category.</p>
+              )}
+              <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+                {filteredProjects.map(project => (
+                  <li key={project._id} className="border rounded-md shadow-md hover:shadow-lg cursor-pointer overflow-hidden">
+                    <div className="relative">
+                      <img src={project.preview} alt={project.title || 'Project preview'} className="w-full h-48 object-cover" />
+                      <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity">
+                        <button onClick={() => handleEditProject(project)} className="bg-yellow-500 text-white py-1 px-3 rounded-md hover:bg-yellow-600 mr-2">
+                          Edit
+                        </button>
+                        <button onClick={() => handleDeleteProject(project._id)} className="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600">
+                          Delete
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-medium text-lg">{project.title}</h3>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+                    <div className="p-4">
+                      <h3 className="font-medium text-lg">{project.title}</h3>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
       </div>
 
       {isModalOpen && (

@@ -6,6 +6,7 @@ const NightSky = () => {
     <div className="night-sky">
       <motion.div 
         className="stars" 
+        aria-hidden="true"
         animate={{ backgroundPosition: ["0 0", "-500px 500px"], opacity: [0.8, 1, 0.8] }} 
         transition={{ duration: 300, repeat: Infinity, ease: "linear" }} 
       />

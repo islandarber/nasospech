@@ -7,6 +7,8 @@ import axios from 'axios';
 export const Home = () => {
   const [slideInfo, setSlideInfo] = useState([]);
   const [clickedSlide, setClickedSlide] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const api_url = import.meta.env.VITE_BACKEND_URL;
 
@@ -36,6 +38,9 @@ export const Home = () => {
         setSlideInfo(response.data);
       } catch (error) {
         console.error("Error fetching slides:", error);
+        setError("Something went wrong while loading projects.");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -58,7 +63,15 @@ export const Home = () => {
 
   return (
     <div className="md:bg-custom-gradient h-screen">
-      {clickedSlide === null ? (
+      {loading ? (
+        <div className="flex space-x-1 justify-center items-center mt-10 mb-4">
+            <div className="h-5 w-1 bg-white animate-wave"></div>
+            <div className="h-8 w-1 bg-white animate-wave delay-150"></div>
+            <div className="h-3 w-1 bg-white animate-wave delay-300"></div>
+          </div>
+      ) : error ? (
+        <div className="text-red-500 text-center mt-10">{error}</div>
+      ) : clickedSlide === null ? (
         <Carousel
           responsive={responsive}
           infinite={true}
@@ -81,7 +94,8 @@ export const Home = () => {
                   {imageUrl ? (
                     <img
                       src={imageUrl}
-                      alt={slide.title}
+                      alt={`Image of ${slide.title}`}
+                      loading="lazy"
                       className="md:absolute top-0 left-0 w-full h-full object-contain md:object-cover transition-transform duration-500 ease-in-out transform hover:scale-105"
                     />
                   ) : (

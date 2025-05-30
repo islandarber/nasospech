@@ -7,14 +7,13 @@ import photo5 from "../assets/Aboutme/6.jpg";
 import photo6 from "../assets/Aboutme/7.jpg";
 import photo7 from "../assets/Aboutme/2.jpg";
 
-
 export const Aboutme = () => {
   const photos = [photo1, photo2, photo3, photo4, photo5, photo6, photo7];
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <div className="bg-custom-gradient flex flex-col items-center text-white ml-10 mr-10 font-poiretone tracking-wider">
-      <div className="flex flex-col sm:justify-between w-full px-4">
+      <div className="w-full max-w-6xl mx-auto px-4">
         {/* First Paragraph: On Top */}
         <div className="flex flex-col gap-6 sm:w-full mb-6">
           <h1 className="text-3xl font-bold">About Me</h1>
@@ -27,7 +26,7 @@ export const Aboutme = () => {
         <div className="flex flex-col sm:flex-row w-full items-start">
           {/* Second Paragraph */}
           <div className="flex flex-col sm:w-1/2">
-            <p className="text-lg leading-relaxed">
+            <p className="text-lg leading-loose">
               Coming from Thessaloniki in Greece, I started my audio journey by playing bass guitar and producing trip hop and lo-fi instrumentals, self-tutoring on audio design, mixing and mastering techniques. I moved to Berlin, Germany, where I studied <strong>Audio Design at SRH Berlin</strong>, expanding my vision, technique, creativity, and goals.
               <br />
               Since then, I started connecting with filmmakers and worked in various projects as <strong>recordist, audio designer, and foley artist</strong>.
@@ -56,17 +55,17 @@ export const Aboutme = () => {
             <div className="main-image-container mb-4">
               <img
                 src={photos[activeIndex]}
-                alt={`Slide ${activeIndex + 1}`}
+                alt={`About me photo ${activeIndex + 1}`}
                 className="main-image rounded-lg shadow-md max-w-full h-auto"
               />
             </div>
             {/* Thumbnails */}
-            <div className="flex flex-wrap justify-center space-x-4 mt-4">
+            <div className="flex flex-wrap justify-center gap-2 mt-4">
               {photos.map((photo, index) => (
                 <img
                   key={index}
                   src={photo}
-                  alt={`Thumbnail ${index + 1}`}
+                  alt={`About me photo ${index + 1}`}
                   className={`w-20 h-16 rounded-md cursor-pointer transition-transform duration-200 ${
                     activeIndex === index ? "border-2 border-white scale-105" : "border border-gray-600"
                   }`}

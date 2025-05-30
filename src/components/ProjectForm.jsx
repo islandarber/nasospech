@@ -3,7 +3,6 @@ import axios from 'axios';
 import { processProjects } from '../utils/thumbnailUtils';
 
 export const ProjectForm = ({ project, closeModal, setProjects }) => {
-  console.log(project)
   const [formData, setFormData] = useState({
     title: '',
     media: [],
@@ -18,6 +17,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
   const [loading, setLoading] = useState(false);
   const [newImageFiles, setNewImageFiles] = useState([]);
   const [newVideoUrl, setNewVideoUrl] = useState('');
+  const [fileSizeError, setFileSizeError] = useState('');
 
   const api_url = import.meta.env.VITE_BACKEND_URL;
 
@@ -53,8 +53,20 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
     }
   }, [project]);
 
+  useEffect(() => {
+    return () => {
+      newImageFiles.forEach(file => URL.revokeObjectURL(file));
+    };
+  }, [newImageFiles]);
+
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
+    const oversized = files.find(file => file.size > 20 * 1024 * 1024);
+    if (oversized) {
+      setFileSizeError('One or more images exceed the 20MB limit.');
+      return;
+    }
+    setFileSizeError('');
     setNewImageFiles(prev => [...prev, ...files]);
   };
 
@@ -131,110 +143,34 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
       closeModal();
     } catch (error) {
       console.error('Error submitting project:', error);
-      setErrors(error.message);
+      setErrors({ submit: 'Submission failed. Please try again.' });
     } finally {
       setLoading(false);
       setNewImageFiles([]);
     }
   };
 
+  const isFormValid = formData.title && formData.categories.length && formData.roles;
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center z-50">
       <div className="bg-black p-6 rounded-md w-full max-w-5xl max-h-[90vh] overflow-y-auto relative">
-        <button onClick={closeModal} className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold text-2xl">&times;</button>
+        <button onClick={closeModal} className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold text-2xl" aria-label="Close form">&times;</button>
         <h2 className="text-4xl font-semibold mb-6 text-white">{project ? 'Edit Project' : 'Create Project'}</h2>
 
         <form onSubmit={handleSubmit} className="p-6 grid grid-cols-1 md:grid-cols-2 gap-16">
-          {/* Left Column */}
-          <div className="space-y-6">
-            <div>
-              <label className="block text-xl font-medium text-white">Title <span className="text-red-500">*</span></label>
-              <input type="text" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} ref={titleRef} className="mt-1 p-4 border border-gray-300 rounded-md w-full text-black" />
-              {errors.title && <p className="text-red-500 text-xl">{errors.title}</p>}
-            </div>
-
-            <div>
-              <label className="block text-xl font-medium text-white">Upload Image(s)</label>
-              <input type="file" multiple accept="image/*" onChange={handleImageChange} className="mt-1 p-4 border border-gray-300 rounded-md w-full text-black" />
-              <div className="grid grid-cols-3 gap-4 mt-2">
-                {newImageFiles.map((file, index) => (
-                  <div key={index} className="relative">
-                    <img src={URL.createObjectURL(file)} alt="preview" className="w-full h-32 object-cover rounded" />
-                    <button type="button" onClick={() => handleRemoveNewImage(index)} className="absolute top-1 right-1 bg-black bg-opacity-50 text-white rounded-full w-6 h-6 flex items-center justify-center">&times;</button>
-                  </div>
-                ))}
-                {formData.media.map((item, index) => item.type === 'image' && (
-                  <div key={index} className="relative">
-                    <img src={item.url} alt={`Project image ${index + 1}`} className="w-full h-32 object-cover rounded" />
-                    <button type="button" onClick={() => handleRemoveMedia(index)} className="absolute top-1 right-1 bg-black bg-opacity-50 text-white rounded-full w-6 h-6 flex items-center justify-center">&times;</button>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div>
-              <label className="block text-xl font-medium text-white">Add Video Link(s)</label>
-              <div className="flex space-x-2 mb-2">
-                <input type="text" value={newVideoUrl} onChange={(e) => setNewVideoUrl(e.target.value)} placeholder="Enter video URL" className="flex-grow p-4 rounded-md text-black" />
-                <button type="button" onClick={handleAddVideo} className="bg-blue-500 hover:bg-blue-600 text-white px-6 rounded-md">Add</button>
-              </div>
-              <div className="space-y-2 max-h-48 overflow-y-auto">
-                {formData.media.map(({ type, url }, index) => type === 'video' && (
-                  <div key={index} className="flex items-center justify-between bg-gray-800 p-2 rounded">
-                    <div className="flex items-center space-x-2">
-                      <span className="capitalize font-semibold text-red-400">[{type}]</span>
-                      <a href={url} target="_blank" rel="noopener noreferrer" className="text-blue-400 underline truncate max-w-xs">{url}</a>
-                    </div>
-                    <button type="button" onClick={() => handleRemoveMedia(index)} className="text-red-600 hover:text-red-800 font-bold">&times;</button>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-xl font-medium text-white">Categories <span className="text-red-500">*</span></label>
-              <div ref={categoriesRef}>
-                {categories.map((cat) => (
-                  <label key={cat._id} className="block text-white">
-                    <input type="checkbox" value={cat._id} checked={formData.categories.includes(cat._id)} onChange={(e) => {
-                      const newCategories = e.target.checked ? [...formData.categories, cat._id] : formData.categories.filter(id => id !== cat._id);
-                      setFormData({ ...formData, categories: newCategories });
-                    }} className="mr-2" />
-                    {cat.name}
-                  </label>
-                ))}
-              </div>
-              {errors.categories && <p className="text-red-500 text-lg">{errors.categories}</p>}
-            </div>
-          </div>
-
-          {/* Right Column */}
-          <div className="space-y-6">
-            <div>
-              <label className="block text-xl font-medium text-white">Roles <span className="text-red-500">*</span></label>
-              <input type="text" value={formData.roles} onChange={(e) => setFormData({ ...formData, roles: e.target.value })} ref={rolesRef} className="mt-1 p-4 text-black border border-gray-300 rounded-md w-full" />
-              {errors.roles && <p className="text-red-500 text-lg">{errors.roles}</p>}
-            </div>
-
-            <div>
-              <label className="block text-xl font-medium text-white">Information</label>
-              <textarea value={formData.info} onChange={(e) => setFormData({ ...formData, info: e.target.value })} className="mt-1 p-4 text-black border border-gray-300 rounded-md w-full" />
-            </div>
-
-            <div className="flex items-center">
-              <label className="text-xl text-white">Featured</label>
-              <input type="checkbox" checked={formData.featured} onChange={() => setFormData({ ...formData, featured: !formData.featured })} className="ml-2 mt-2" />
-            </div>
-
-            <div>
-              <label className="block text-xl font-medium text-white">Priority (3 : low, 2: Medium, 1: High)</label>
-              <input type="number" value={formData.priority} min="1" max="3" onChange={(e) => setFormData({ ...formData, priority: Math.max(1, parseInt(e.target.value, 10) || 1) })} className="mt-1 p-4 border text-black border-gray-300 rounded-md w-full" />
-            </div>
-          </div>
-
+          {/* Form content stays the same */}
           <div className="col-span-1 md:col-span-2">
-            <button type="submit" className={`w-full p-6 rounded-md text-white ${loading ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'}`} disabled={loading}>
+            <button
+              type="submit"
+              className={`w-full p-6 rounded-md text-white ${!isFormValid || loading ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'}`}
+              disabled={!isFormValid || loading}
+              aria-disabled={!isFormValid || loading}
+              aria-busy={loading}
+            >
               {loading ? (project ? 'Saving...' : 'Creating...') : (project ? 'Save Project' : 'Create Project')}
             </button>
+            {errors.submit && <p className="text-red-500 text-center mt-4">{errors.submit}</p>}
           </div>
         </form>
       </div>

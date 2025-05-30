@@ -15,9 +15,14 @@ export const AuthProvider = ({ children }) => {
 
   // Helper function to check if token is expired
   const isTokenExpired = (token) => {
-    const decoded = jwtDecode(token);
-    const currentTime = Date.now() / 1000; // Current time in seconds
-    return decoded.exp < currentTime;
+    try {
+      const decoded = jwtDecode(token);
+      const currentTime = Date.now() / 1000; // Current time in seconds
+      return decoded.exp < currentTime;
+    } catch (err) {
+      console.error("Invalid token:", err);
+      return true;
+    }
   };
 
   // Login function
@@ -65,6 +70,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       const getUser = async () => {
+        setLoading(true);
         const api_url = import.meta.env.VITE_BACKEND_URL;
         try {
           const response = await axios.get(`${api_url}/user/me`, {
@@ -77,6 +83,8 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
           console.error('Error fetching user data:', error);
           logout();
+        } finally {
+          setLoading(false);
         }
       };
       getUser();

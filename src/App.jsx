@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { NotFound } from './views/NotFound';
@@ -15,7 +14,7 @@ function App() {
     <div className="bg-cover bg-repeat custom-bg min-h-screen flex flex-col">
       <NightSky />
       <Navbar />
-      <div className="flex-1">
+      <main role='main' className="flex-1">
         <Routes>
           {/* Public Routes (always accessible) */}
           {publicRoutes.map(({ path, element }) => (
@@ -30,7 +29,7 @@ function App() {
           {/* Catch-all for 404 pages */}
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </div>
+      </main>
       <Footer />
     </div>
   );

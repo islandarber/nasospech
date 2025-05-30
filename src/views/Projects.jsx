@@ -16,7 +16,6 @@ export const Projects = () => {
 
   const api_url = import.meta.env.VITE_BACKEND_URL;
 
-  // Map category names to their corresponding images
   const categoryImages = {
     "Audio Design": soundDesignImage,
     "Audio Postproduction": postProdImage,
@@ -30,13 +29,10 @@ export const Projects = () => {
       setLoading(true);
       try {
         const response = await axios.get(`${api_url}/categories`);
-
-        // Add the corresponding image to each category
         const categoriesWithImages = response.data.map((category) => ({
           ...category,
-          imgPath: categoryImages[category.name] || "", // Add the image or leave empty if not found
+          imgPath: categoryImages[category.name] || "",
         }));
-
         setCategories(categoriesWithImages);
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -45,7 +41,6 @@ export const Projects = () => {
         setLoading(false);
       }
     };
-
     fetchCategories();
   }, []);
 
@@ -54,7 +49,7 @@ export const Projects = () => {
       <div className="sm:flex justify-between gap-20 mr-4 sm:ml-10 sm:mr-10">
         <div className="ml-4 sm:ml-12">
           <h1 className="text-white text-center sm:text-left text-4xl font-bold">Projects</h1>
-          <p className="text-white text-center sm:text-left text-md w-full mt-2 tracking-wider ">
+          <p className="text-white text-center sm:text-left text-md w-full mt-2 tracking-wider">
             Explore my portfolio by browsing projects tailored to each of my specialized services.
           </p>
         </div>
@@ -62,50 +57,52 @@ export const Projects = () => {
       </div>
 
       {loading ? (
-          <div className="flex space-x-1 justify-center items-center mt-10 mb-4">
-            <div className="h-5 w-1 bg-white animate-wave"></div>
-            <div className="h-8 w-1 bg-white animate-wave delay-150"></div>
-            <div className="h-3 w-1 bg-white animate-wave delay-300"></div>
-          </div>
-        ) : error ? (
-          <p className="text-red-500">{error}</p>
-        ) : (
+        <div className="flex space-x-1 justify-center items-center mt-10 mb-4" aria-label="Loading...">
+          <div className="h-5 w-1 bg-white animate-wave"></div>
+          <div className="h-8 w-1 bg-white animate-wave delay-150"></div>
+          <div className="h-3 w-1 bg-white animate-wave delay-300"></div>
+        </div>
+      ) : error ? (
+        <p className="text-red-500 text-center mt-10" role="alert">{error}</p>
+      ) : (
         <div className="p-2 mt-4">
-        {categories.map((category, index) => (
-          <Link to={`/projects/${category._id}`} key={index}>
-            <motion.div
-              className={`bg-transparent rounded-lg shadow-md p-4 flex items-center 
-                ${index % 2 === 0 ? 'justify-start' : 'justify-end'}
-                min-h-12 md:min-h-36 lg:min-h-48`}
-              style={{
-                cursor: "pointer",
-                background: `
-                  linear-gradient(
-                    to ${index % 2 === 0 ? 'left' : 'right'}, 
-                    rgba(0, 0, 0, 0) 20%, 
-                    rgba(0, 0, 0, 0.6) 30%,
-                    rgba(0, 0, 0, 0.9) 50%,
-                    rgba(0, 0, 0, 1) 100%
-                  ),
-                  url(${category.imgPath})
-                `,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-              }}
-              whileHover={{
-                scale: 0.90, // Makes the div 5% larger on hover
-              }}
-              transition={{
-                duration: 0.2, // Smooth transition duration
-                ease: "easeInOut", // Easing effect
-              }}
-            >
-              <h2 className={`text-4xl text-white mb-1`}>{category.name}</h2>
-            </motion.div>
-          </Link>
-        ))}
-      </div>)}
+          {categories.map((category, index) => (
+            <Link to={`/projects/${category._id}`} key={index} aria-label={`View projects in ${category.name}`} tabIndex={0}>
+              <motion.div
+                className={`bg-transparent rounded-lg shadow-md p-4 flex items-center 
+                  ${index % 2 === 0 ? 'justify-start' : 'justify-end'}
+                  min-h-12 md:min-h-36 lg:min-h-48`}
+                style={{
+                  cursor: "pointer",
+                  background: `
+                    linear-gradient(
+                      to ${index % 2 === 0 ? 'left' : 'right'}, 
+                      rgba(0, 0, 0, 0) 20%, 
+                      rgba(0, 0, 0, 0.6) 30%,
+                      rgba(0, 0, 0, 0.9) 50%,
+                      rgba(0, 0, 0, 1) 100%
+                    ),
+                    url(${category.imgPath})
+                  `,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                }}
+                whileHover={{
+                  scale: 0.90,
+                }}
+                transition={{
+                  duration: 0.2,
+                  ease: "easeInOut",
+                }}
+                role="button"
+              >
+                <h2 className="text-4xl text-white mb-1" aria-label={category.name}>{category.name}</h2>
+              </motion.div>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

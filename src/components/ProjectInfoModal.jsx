@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getThumbnail } from '../utils/thumbnailUtils';
 
 export const ProjectInfoModal = ({ project, handleCloseCard }) => {
   if (!project || !project.media || project.media.length === 0) return null;
 
   const [activeIndex, setActiveIndex] = useState(0);
+  const modalRef = useRef(null);
 
   const goToPrevious = () => {
     setActiveIndex((prevIndex) =>
@@ -18,8 +19,32 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
     );
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      handleCloseCard();
+    } else if (e.key === 'ArrowLeft') {
+      goToPrevious();
+    } else if (e.key === 'ArrowRight') {
+      goToNext();
+    }
+  };
+
+  useEffect(() => {
+    const current = modalRef.current;
+    if (current) {
+      current.focus();
+    }
+  }, []);
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 p-4 z-50 overflow-y-auto">
+    <div
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 p-4 z-50 overflow-y-auto"
+      role="dialog"
+      aria-modal="true"
+      onKeyDown={handleKeyDown}
+      tabIndex={-1}
+      ref={modalRef}
+    >
       <div className="flex flex-col md:flex-row max-w-6xl mx-auto bg-black bg-opacity-90 p-4 rounded-lg relative w-full">
         <button
           className="absolute top-2 right-2 text-white text-2xl font-bold z-50"
@@ -28,7 +53,6 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
           ×
         </button>
 
-        {/* Media display */}
         <div className="w-full md:w-2/3 flex flex-col items-center justify-center">
           <div className="relative main-image-container mb-4 w-full max-h-[400px] flex justify-center items-center">
             {project.media[activeIndex].type === 'image' ? (
@@ -47,7 +71,6 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
                 title={`video-${activeIndex}`}
               />
             )}
-            {/* Arrow Buttons */}
             <button
               className="absolute left-0 top-1/2 transform -translate-y-1/2 text-white text-3xl px-2 z-30"
               onClick={goToPrevious}
@@ -62,7 +85,6 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
             </button>
           </div>
 
-          {/* Thumbnails */}
           <div className="flex flex-wrap justify-center gap-2 mt-4">
             {project.media.map((item, index) => (
               <div
@@ -99,7 +121,6 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
           </div>
         </div>
 
-        {/* Text Info */}
         <div className="w-full md:w-1/3 flex flex-col justify-start text-left mt-6 md:mt-0 md:ml-4 space-y-3 text-sm sm:text-base">
           <h3 className="text-xl sm:text-2xl text-white font-bold">
             {project.title}
@@ -119,4 +140,3 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
     </div>
   );
 };
-

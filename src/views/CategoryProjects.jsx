@@ -78,7 +78,10 @@ export const CategoryProjects = () => {
           </div>
         ) : error ? (
           <p className="text-red-500">{error}</p>
-        ) : (
+        ) : projects.length === 0 ? (
+          <p className="text-gray-300 text-center mt-10">No projects found in this category.</p>
+        ) :
+         (
           <div className="flex flex-wrap justify-center gap-4 mt-10 px-4">
             {projects.map((project, index) => (
               <div
@@ -91,6 +94,7 @@ export const CategoryProjects = () => {
                     <img
                       src={project.img}
                       alt={project.title}
+                      loading="lazy"
                       className="max-w-full max-h-full object-contain"
                     />
                   ) : (
