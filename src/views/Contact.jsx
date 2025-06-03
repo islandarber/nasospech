@@ -56,7 +56,7 @@ export const Contact = () => {
   };
 
   return (
-    <div className="bg-custom-gradient min-h-screen font-poiretone sm:flex text-white">
+    <div className="bg-transparent min-h-screen font-poiretone sm:flex text-white">
       <div className="sm:w-1/3 flex flex-col justify-center items-center p-6">
         <div>
           <h2 className="text-4xl">Contact</h2>
@@ -66,8 +66,11 @@ export const Contact = () => {
         </div>
         <div className="mt-6 sm:mt-auto flex flex-col justify-end">
           <p className="text-xl">
-            <a href="mailto:nasos@email.com" className="hover:underline">
-              nasos@email.com
+            <a href="mailto:nasospechlivanidis@gmail.com" className="hover:underline">
+              nasospechlivanidis@gmail.com
+            </a>
+            <a href="mailto:nasos@sonnenstudio.film">
+              nasos@sonnenstudio.film
             </a>
           </p>
           <div className="flex space-x-4 items-center sm:mb-24">
