@@ -92,9 +92,6 @@ export const Contact = () => {
               <a href="mailto:nasospechlivanidis@gmail.com" className="hover:underline">
                 nasospechlivanidis@gmail.com
               </a>
-              <a href="mailto:nasos@sonnenstudio.film" className="hover:underline">
-                nasos@sonnenstudio.film
-              </a>
             </p>
           </div>
         </div>
