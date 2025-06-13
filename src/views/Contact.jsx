@@ -81,10 +81,10 @@ export const Contact = () => {
     <div className="bg-transparent font-poiretone text-white">
       <div className="w-full max-w-6xl sm:flex flex-col sm:items-center">
         {/* Left Column */}
-        <div className="w-full flex justify-center p-6">
+        <div className="w-full flex justify-center p-2">
           <div>
             <h2 className="text-5xl text-center mb-4">Contact</h2>
-            <p className="text-lg mt-4 text-center">
+            <p className="text-lg mt-2 text-center">
               You can contact me via my social media, email, or the contact form, and I will make sure to get back to you asap.
             </p>
           </div>
@@ -93,7 +93,7 @@ export const Contact = () => {
         {/* Right Column */}
         <div className="sm:w-2/3 p-6 pt-0 flex items-start justify-center">
           <form
-            className="w-full max-w-2xl bg-transparent p-10 rounded-lg shadow-lg"
+            className="w-full max-w-2xl bg-transparent rounded-lg shadow-lg"
             onSubmit={handleSubmit}
           >
             {status && (
