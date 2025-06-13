@@ -78,7 +78,7 @@ export const Contact = () => {
   };
 
   return (
-    <div className="bg-transparent min-h-screen font-poiretone text-white flex flex-col items-center justify-start px-4 pt-4">
+    <div className="bg-transparent font-poiretone text-white flex flex-col items-center justify-start">
       <div className="w-full max-w-6xl sm:flex sm:items-start">
         {/* Left Column */}
         <div className="sm:w-1/3 flex flex-col justify-start p-6">
@@ -87,7 +87,7 @@ export const Contact = () => {
             <p className="text-lg mt-4">
               You can contact me via my social media, email, or the contact form, and I will make sure to get back to you asap.
             </p>
-            <div className="mt-16">
+            <div className="mt-18">
               <p className="text-xl space-y-2 flex flex-col">
                 <a href="mailto:nasospechlivanidis@gmail.com" className="hover:underline">
                   nasospechlivanidis@gmail.com
