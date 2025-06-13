@@ -80,7 +80,7 @@ export const Contact = () => {
   return (
     <div className="bg-transparent min-h-screen font-poiretone sm:flex text-white">
       {/* Left Column */}
-      <div className="sm:w-1/3 flex flex-col justify-between p-6">
+      <div className="sm:w-1/3 flex flex-col justify-between p-6 ml-8">
         <div>
           <h2 className="text-4xl">Contact</h2>
           <p className="text-lg mt-4">
@@ -142,7 +142,7 @@ export const Contact = () => {
               autoComplete="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full p-4 md:p-10 text-black rounded-lg"
+              className="w-full p-2 md:p-4 text-black rounded-lg"
               required
             />
           </div>
@@ -157,7 +157,7 @@ export const Contact = () => {
               autoComplete="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full p-4 md:p-10 text-black rounded-lg"
+              className="w-full p-2 md:p-4 text-black rounded-lg"
               required
             />
           </div>
@@ -191,7 +191,7 @@ export const Contact = () => {
 
           <button
             type="submit"
-            className="bg-blue-500 text-white px-8 py-4 rounded-lg mt-4 text-2xl w-full"
+            className="bg-blue-500 text-white px-6 py-4 rounded-lg mt-4 text-2xl w-full"
           >
             Send Message
           </button>
