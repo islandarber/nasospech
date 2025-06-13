@@ -3,7 +3,6 @@ import axios from 'axios';
 import { processProjects } from '../utils/thumbnailUtils';
 
 export const ProjectForm = ({ project, closeModal, setProjects }) => {
-  console.log(project)
   const [formData, setFormData] = useState({
     title: '',
     media: [],
@@ -53,13 +52,43 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
     }
   }, [project]);
 
+  useEffect(() => {
+    return () => {
+      newImageFiles.forEach(file => {
+        if (file.preview) URL.revokeObjectURL(file.preview);
+      });
+    };
+  }, [newImageFiles]);
+
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
-    setNewImageFiles(prev => [...prev, ...files]);
+    const MAX_SIZE = 20 * 1024 * 1024; // 20MB
+    const newValidFiles = [];
+
+    files.forEach(file => {
+      const isDuplicate = newImageFiles.some(existing =>
+        existing.name === file.name && existing.size === file.size
+      );
+      if (isDuplicate) return;
+      if (file.size > MAX_SIZE) {
+        alert(`"${file.name}" is too large (max 20MB).`);
+        return;
+      }
+      file.preview = URL.createObjectURL(file);
+      newValidFiles.push(file);
+    });
+
+    setNewImageFiles(prev => [...prev, ...newValidFiles]);
   };
 
   const handleRemoveNewImage = (index) => {
-    setNewImageFiles(prev => prev.filter((_, i) => i !== index));
+    setNewImageFiles(prev => {
+      const fileToRemove = prev[index];
+      if (fileToRemove?.preview) {
+        URL.revokeObjectURL(fileToRemove.preview);
+      }
+      return prev.filter((_, i) => i !== index);
+    });
   };
 
   const handleAddVideo = () => {
@@ -159,7 +188,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
               <div className="grid grid-cols-3 gap-4 mt-2">
                 {newImageFiles.map((file, index) => (
                   <div key={index} className="relative">
-                    <img src={URL.createObjectURL(file)} alt="preview" className="w-full h-32 object-cover rounded" />
+                    <img src={file.preview} alt="preview" className="w-full h-32 object-cover rounded" />
                     <button type="button" onClick={() => handleRemoveNewImage(index)} className="absolute top-1 right-1 bg-black bg-opacity-50 text-white rounded-full w-6 h-6 flex items-center justify-center">&times;</button>
                   </div>
                 ))}

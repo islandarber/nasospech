@@ -16,7 +16,7 @@ export const Aboutme = () => {
       <div className="w-full max-w-6xl mx-auto px-4">
         {/* First Paragraph: On Top */}
         <div className="flex flex-col gap-6 sm:w-full mb-6">
-          <h1 className="text-3xl font-bold">About Me</h1>
+          <h1 className="text-3xl font-bold item-center">About Me</h1>
           <p className="text-lg">
             Audio recording, editing, dialogue clean-up, sound design, film scoring, mixing and mastering for music, films, commercials, and any other audio material.
           </p>
