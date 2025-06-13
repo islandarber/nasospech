@@ -54,16 +54,17 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
         </button>
 
         <div className="w-full md:w-2/3 flex flex-col items-center justify-center">
-          <div className="relative main-image-container mb-4 w-full max-h-[400px] flex justify-center items-center">
+          <div className="relative main-image-container mb-4 w-full max-h-[400px] md:max-h-[700px] lg:max-h-[800px] flex justify-center items-center">
             {project.media[activeIndex].type === 'image' ? (
               <img
                 src={project.media[activeIndex].url}
                 alt={`media-${activeIndex}`}
-                className="rounded-lg shadow-md max-w-full h-auto max-h-[400px] object-contain"
+                className="rounded-lg shadow-md max-w-full h-auto max-h-[400px] md:max-h-[700px] lg:max-h-[800px] object-contain"
+                loading="lazy"
               />
             ) : (
               <iframe
-                className="w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px]"
+                className="w-full h-[300px] sm:h-[400px] md:h-[600px] lg:h-[700px]"
                 src={project.media[activeIndex].url}
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -98,10 +99,11 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
                   <img
                     src={item.url}
                     alt={`thumb-${index}`}
-                    className="w-20 h-16 object-cover"
+                    className="w-20 h-16 sm:w-32 sm:h-24"
+                    loading="lazy"
                   />
                 ) : (
-                  <div className="relative w-20 h-16">
+                  <div className="relative w-20 h-16 sm:w-32 sm:h-24">
                     <img
                       src={getThumbnail(item.url)}
                       alt={`thumb-${index}`}
@@ -121,8 +123,8 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
           </div>
         </div>
 
-        <div className="w-full md:w-1/3 flex flex-col justify-start text-left mt-6 md:mt-0 md:ml-4 space-y-3 text-sm sm:text-base">
-          <h3 className="text-xl sm:text-2xl text-white font-bold">
+        <div className="w-full md:w-1/3 flex flex-col justify-start text-left mt-6 md:mt-0 md:ml-4 space-y-3 text-base md:text-xl lg:text-2xl">
+          <h3 className="text-2xl md:text-4xl text-white font-bold">
             {project.title}
           </h3>
 
