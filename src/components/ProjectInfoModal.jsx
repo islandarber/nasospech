@@ -38,7 +38,7 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 p-4 z-50 overflow-auto"
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 p-4 z-50 overflow-auto font-montserrat"
       role="dialog"
       aria-modal="true"
       onKeyDown={handleKeyDown}
@@ -138,7 +138,7 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
 
           <div>
             <h4 className="text-gray-300 font-semibold mb-1">Roles</h4>
-            <p className="text-white italic whitespace-pre-wrap break-words">{project.roles}</p>
+            <p className="text-white whitespace-pre-wrap break-words">{project.roles}</p>
           </div>
         </div>
       </div>
