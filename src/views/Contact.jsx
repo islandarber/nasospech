@@ -78,22 +78,15 @@ export const Contact = () => {
   };
 
   return (
-    <div className="bg-transparent font-poiretone text-white flex flex-col items-center justify-start">
-      <div className="w-full max-w-6xl sm:flex sm:items-start">
+    <div className="bg-transparent font-poiretone text-white flex items-center justify-start">
+      <div className="w-full max-w-6xl sm:flex flex-col sm:items-center">
         {/* Left Column */}
-        <div className="sm:w-1/3 flex flex-col justify-start p-6">
+        <div className="w-full flex justify-center p-6">
           <div>
             <h2 className="text-5xl text-center mb-4">Contact</h2>
-            <p className="text-lg mt-4">
+            <p className="text-lg mt-4 text-center">
               You can contact me via my social media, email, or the contact form, and I will make sure to get back to you asap.
             </p>
-            <div className="mt-18">
-              <p className="text-xl space-y-2 flex flex-col">
-                <a href="mailto:nasospechlivanidis@gmail.com" className="hover:underline">
-                  nasospechlivanidis@gmail.com
-                </a>
-              </p>
-            </div>
           </div>
         </div>
 
@@ -197,6 +190,13 @@ export const Contact = () => {
               >
                 Send Message
               </button>
+            </div>
+          <div className="mt-16">
+              <p className="text-xl">
+                <a href="mailto:nasospechlivanidis@gmail.com" className="hover:underline">
+                  nasospechlivanidis@gmail.com
+                </a>
+              </p>
             </div>
           </form>
         </div>
