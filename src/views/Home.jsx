@@ -62,7 +62,7 @@ export const Home = () => {
   };
 
   return (
-    <div className="md:bg-custom-gradient">
+    <div className="md:bg-custom-gradient focus:outline-none outline-none">
       {loading ? (
         <div className="flex space-x-1 justify-center items-center mt-10 mb-4">
             <div className="h-5 w-1 bg-white animate-wave"></div>

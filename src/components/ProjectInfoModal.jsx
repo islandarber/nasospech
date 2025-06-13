@@ -38,7 +38,7 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 p-4 z-50 overflow-auto font-montserrat"
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 p-4 z-50 overflow-auto font-montserrat outline-none focus:outline-none"
       role="dialog"
       aria-modal="true"
       onKeyDown={handleKeyDown}
@@ -105,11 +105,11 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
                   />
                 ) : (
                   <div className="relative w-16 h-14 md:w-20 md:h-16">
-                    <img
-                      src={getThumbnail(item.url)}
-                      alt={`thumb-${index}`}
-                      className="w-full h-full object-cover"
-                    />
+                    <div className="w-full h-full bg-gray-800 flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="bg-white bg-opacity-75 rounded-full p-1">
                         <svg className="w-3 h-3 text-black" fill="currentColor" viewBox="0 0 24 24">
