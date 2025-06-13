@@ -45,7 +45,7 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
       tabIndex={-1}
       ref={modalRef}
     >
-      <div className="flex flex-col md:flex-row max-w-6xl mx-auto bg-black bg-opacity-90 p-4 rounded-lg relative w-full">
+      <div className="flex flex-col md:flex-row w-[95vw] max-w-[1600px] bg-black bg-opacity-90 p-6 gap-8 rounded-lg relative">
         <button
           className="absolute top-2 right-2 text-white text-2xl font-bold z-50"
           onClick={handleCloseCard}
