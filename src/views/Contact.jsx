@@ -10,7 +10,7 @@ export const Contact = () => {
   });
 
   const [status, setStatus] = useState("");
-  const [statusType, setStatusType] = useState(""); // 'success' or 'error'
+  const [statusType, setStatusType] = useState("");
 
   useEffect(() => {
     if (statusType === "success") {
@@ -30,7 +30,7 @@ export const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (formData.honeypot) {
@@ -45,74 +45,99 @@ export const Contact = () => {
       return;
     }
 
-    setStatus("Thank you for your message! We'll get back to you shortly.");
-    setStatusType("success");
-    setFormData({
-      name: "",
-      email: "",
-      message: "",
-      honeypot: "",
-    });
+    try {
+      const response = await fetch("https://formspree.io/f/xblyovzp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+
+      if (response.ok) {
+        setStatus("Thank you for your message! We'll get back to you shortly.");
+        setStatusType("success");
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+          honeypot: "",
+        });
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (error) {
+      console.error("Error sending form:", error);
+      setStatus("Something went wrong. Please try again later.");
+      setStatusType("error");
+    }
   };
 
   return (
     <div className="bg-transparent min-h-screen font-poiretone sm:flex text-white">
-      <div className="sm:w-1/3 flex flex-col justify-center items-center p-6">
+      {/* Left Column */}
+      <div className="sm:w-1/3 flex flex-col justify-between p-6">
         <div>
           <h2 className="text-4xl">Contact</h2>
           <p className="text-lg mt-4">
             You can contact me via my social media, email, or the contact form, and I will make sure to get back to you asap.
           </p>
-        </div>
-        <div className="mt-6 sm:mt-auto flex flex-col justify-end">
-          <p className="text-xl">
-            <a href="mailto:nasospechlivanidis@gmail.com" className="hover:underline">
-              nasospechlivanidis@gmail.com
-            </a>
-            <a href="mailto:nasos@sonnenstudio.film">
-              nasos@sonnenstudio.film
-            </a>
-          </p>
-          <div className="flex space-x-4 items-center sm:mb-24">
-            <a href="https://www.instagram.com" aria-label="Instagram" className="hover:text-pink-500 transition-colors duration-200">
-              <FaInstagram size={60} />
-            </a>
-            <a href="https://www.linkedin.com" aria-label="LinkedIn" className="hover:text-blue-600 transition-colors duration-200">
-              <FaLinkedin size={60} />
-            </a>
-            <a href="https://www.youtube.com" aria-label="YouTube" className="hover:text-red-500 transition-colors duration-200">
-              <FaYoutube size={60} />
-            </a>
-            <a
-              href="https://www.internationalsounddirectory.com"
-              aria-label="International Sound Directory"
-              className="transition-opacity duration-200 hover:opacity-50"
-            >
-              <img
-                src="https://www.international-sound-directory.com/wp-content/uploads/2024/01/logo.svg"
-                alt="International Sound Directory"
-                className="w-24 h-24 rounded"
-              />
-            </a>
+
+          <div className="mt-6">
+            <p className="text-xl space-y-2 flex flex-col">
+              <a href="mailto:nasospechlivanidis@gmail.com" className="hover:underline">
+                nasospechlivanidis@gmail.com
+              </a>
+              <a href="mailto:nasos@sonnenstudio.film" className="hover:underline">
+                nasos@sonnenstudio.film
+              </a>
+            </p>
           </div>
+        </div>
+
+        <div className="mt-10 flex space-x-4 items-center sm:mb-24">
+          <a href="https://www.instagram.com" aria-label="Instagram" className="hover:text-pink-500 transition-colors duration-200">
+            <FaInstagram size={60} />
+          </a>
+          <a href="https://www.linkedin.com" aria-label="LinkedIn" className="hover:text-blue-600 transition-colors duration-200">
+            <FaLinkedin size={60} />
+          </a>
+          <a href="https://www.youtube.com" aria-label="YouTube" className="hover:text-red-500 transition-colors duration-200">
+            <FaYoutube size={60} />
+          </a>
+          <a
+            href="https://www.international-sound-directory.com"
+            aria-label="International Sound Directory"
+            className="transition-opacity duration-200 hover:opacity-50"
+          >
+            <img
+              src="https://www.international-sound-directory.com/wp-content/uploads/2024/01/logo.svg"
+              alt="International Sound Directory"
+              className="w-24 h-24 rounded"
+            />
+          </a>
         </div>
       </div>
 
+      {/* Right Column */}
       <div className="sm:w-2/3 p-6 flex items-start justify-center">
         <form
           className="w-full max-w-2xl bg-transparent p-10 rounded-lg shadow-lg"
           onSubmit={handleSubmit}
         >
           {status && (
-            <p className={`text-center mb-4 text-lg font-semibold ${statusType === 'success' ? 'text-green-400' : 'text-red-400'}`}>
+            <p className={`text-center mb-4 text-lg font-semibold ${statusType === "success" ? "text-green-400" : "text-red-400"}`}>
               {status}
             </p>
           )}
 
+          {/* Name */}
           <div className="mb-4">
-            <label className="block text-xl font-medium mb-2" htmlFor="name">
-              Name
-            </label>
+            <label className="block text-xl font-medium mb-2" htmlFor="name">Name</label>
             <input
               id="name"
               name="name"
@@ -125,10 +150,9 @@ export const Contact = () => {
             />
           </div>
 
+          {/* Email */}
           <div className="mb-4">
-            <label className="block text-xl font-medium mb-2" htmlFor="email">
-              Email
-            </label>
+            <label className="block text-xl font-medium mb-2" htmlFor="email">Email</label>
             <input
               id="email"
               name="email"
@@ -141,10 +165,9 @@ export const Contact = () => {
             />
           </div>
 
+          {/* Message */}
           <div className="mb-4">
-            <label className="block text-xl font-medium mb-2" htmlFor="message">
-              Message
-            </label>
+            <label className="block text-xl font-medium mb-2" htmlFor="message">Message</label>
             <textarea
               id="message"
               name="message"
@@ -156,10 +179,9 @@ export const Contact = () => {
             ></textarea>
           </div>
 
+          {/* Honeypot (hidden) */}
           <div style={{ display: "none" }}>
-            <label htmlFor="honeypot" className="text-white">
-              Leave this field empty
-            </label>
+            <label htmlFor="honeypot" className="text-white">Leave this field empty</label>
             <input
               id="honeypot"
               name="honeypot"
