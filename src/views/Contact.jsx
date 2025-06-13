@@ -78,7 +78,8 @@ export const Contact = () => {
   };
 
   return (
-    <div className="bg-transparent font-poiretone text-white w-full max-w-6xl flex flex-col items-center">
+    <div className="bg-transparent font-poiretone text-white w-full flex justify-center">
+      <div className="w-full max-w-6xl flex flex-col items-center">
         {/* Left Column */}
         <div className="w-full flex justify-center p-2">
           <div>
@@ -200,5 +201,6 @@ export const Contact = () => {
           </form>
         </div>
       </div>
+    </div>
   );
 };
