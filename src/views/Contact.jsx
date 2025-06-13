@@ -79,7 +79,7 @@ export const Contact = () => {
 
   return (
     <div className="bg-transparent font-poiretone text-white">
-      <div className="w-full max-w-6xl sm:flex flex-col sm:items-center">
+      <div className="w-full max-w-6xl flex flex-col items-center">
         {/* Left Column */}
         <div className="w-full flex justify-center p-2">
           <div>
@@ -91,7 +91,7 @@ export const Contact = () => {
         </div>
 
         {/* Right Column */}
-        <div className="sm:w-2/3 p-6 pt-0 flex items-start justify-center">
+        <div className="w-full flex justify-center p-6 pt-0">
           <form
             className="w-full max-w-2xl bg-transparent rounded-lg shadow-lg"
             onSubmit={handleSubmit}
