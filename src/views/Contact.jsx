@@ -191,7 +191,7 @@ export const Contact = () => {
                 Send Message
               </button>
             </div>
-          <div className="mt-16">
+          <div className="mt-4">
               <p className="text-xl">
                 <a href="mailto:nasospechlivanidis@gmail.com" className="hover:underline">
                   nasospechlivanidis@gmail.com
