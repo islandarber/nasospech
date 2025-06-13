@@ -78,7 +78,7 @@ export const Contact = () => {
   };
 
   return (
-    <div className="bg-transparent font-poiretone text-white flex items-center justify-start">
+    <div className="bg-transparent font-poiretone text-white">
       <div className="w-full max-w-6xl sm:flex flex-col sm:items-center">
         {/* Left Column */}
         <div className="w-full flex justify-center p-6">
