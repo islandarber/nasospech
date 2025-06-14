@@ -162,17 +162,35 @@ export const Contact = () => {
             {/* Icons + Submit button inline */}
             <div className="flex flex-wrap items-center justify-between mt-6 gap-4">
               <div className="flex space-x-4 items-center">
-                <a href="https://www.instagram.com" aria-label="Instagram" className="hover:text-pink-500 transition-colors duration-200">
+                <a 
+                href="https://www.instagram.com/nasos.nocturn/" 
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram" 
+                className="hover:text-pink-500 transition-colors duration-200">
                   <FaInstagram size={50} />
                 </a>
-                <a href="https://www.linkedin.com" aria-label="LinkedIn" className="hover:text-blue-600 transition-colors duration-200">
+                <a 
+                href="https://www.linkedin.com/in/nasos-pechlivanidis-40a917177/"
+                target="_blank"
+                rel="noopener noreferrer" 
+                aria-label="LinkedIn" 
+                className="hover:text-blue-600 transition-colors duration-200" >
                   <FaLinkedin size={50} />
                 </a>
-                <a href="https://www.youtube.com" aria-label="YouTube" className="hover:text-red-500 transition-colors duration-200">
+                <a 
+                href="https://www.youtube.com/@NocturnalAudioWorks" 
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube" 
+                className="hover:text-red-500 transition-colors duration-200"
+                >
                   <FaYoutube size={50} />
                 </a>
                 <a
-                  href="https://www.international-sound-directory.com"
+                  href="https://www.international-sound-directory.com/talent/athanasios-pechlivanidis/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label="International Sound Directory"
                   className="transition-opacity duration-200 hover:opacity-50"
                 >

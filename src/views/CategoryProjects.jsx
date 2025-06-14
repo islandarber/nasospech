@@ -64,12 +64,17 @@ export const CategoryProjects = () => {
       </button>
 
       <div className="flex flex-col items-center mt-2">
-        {projects[0] && <>
-          <h1 className="text-white text-4xl font-bold mb-6">{projects[0].categories[0].name}</h1>
-          <p className="text-gray-300 w-[250px] sm:w-full text-lg max-w-lg text-center mb-8">
-            Explore a selection of projects in the {projects[0].categories[0].name} category.
-          </p>
-        </>}
+        {projects[0] && (
+          <>
+            <h1 className="text-white text-4xl font-bold mb-6">
+              {projects[0].categories[0].name}
+            </h1>
+            <p className="text-gray-300 w-[250px] sm:w-full text-lg max-w-lg text-center mb-8">
+              Explore a selection of projects in the {projects[0].categories[0].name} category.
+            </p>
+          </>
+        )}
+
         {loading ? (
           <div className="flex space-x-4 justify-center items-center mt-10 mb-4">
             <div className="h-5 w-1 bg-white animate-wave"></div>
@@ -80,14 +85,13 @@ export const CategoryProjects = () => {
           <p className="text-red-500">{error}</p>
         ) : projects.length === 0 ? (
           <p className="text-gray-300 text-center mt-10">No projects found in this category.</p>
-        ) :
-         (
-          <div className="flex flex-wrap justify-center gap-4 mt-10 px-4">
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-10 px-4 max-w-7xl mx-auto">
             {projects.map((project, index) => (
               <div
                 key={index}
                 onClick={() => handleClick(project)}
-                className="relative bg-transparent rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col items-center w-[350px] h-[350px]"
+                className="relative bg-transparent rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 hover:cursor-pointer flex flex-col items-center w-full h-[350px]"
               >
                 <div className="w-full h-full flex items-center justify-center">
                   {project.img ? (

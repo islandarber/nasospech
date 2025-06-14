@@ -6,7 +6,7 @@ export const Footer = () => {
     <footer className="bg-black p-4 font-montserrat text-center" aria-label="Footer">
       <div className="flex justify-center gap-6 mb-2 text-white text-xl">
         <a
-          href="https://www.instagram.com/nasos_pechlivanidis"
+          href="https://www.instagram.com/nasos.nocturn/"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Instagram"
@@ -14,14 +14,16 @@ export const Footer = () => {
           <FaInstagram />
         </a>
         <a
-          href="https://www.linkedin.com/in/nasos-pechlivanidis-4b5602234/"
+          href="https://www.linkedin.com/in/nasos-pechlivanidis-40a917177/"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn"
         >
           <FaLinkedin />
         </a>
-        <a href="mailto:nasospechlivanidis@gmail.com" aria-label="Email">
+        <a 
+        href="mailto:nasospechlivanidis@gmail.com" 
+        aria-label="Email">
           <FaEnvelope />
         </a>
       </div>
