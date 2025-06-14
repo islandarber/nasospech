@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ProjectInfoModal } from "../components/ProjectInfoModal";
 import axios from "axios";
+import { getThumbnail } from "../utils/thumbnailUtils";
 
 export const CategoryProjects = () => {
   const navigate = useNavigate();
@@ -27,12 +28,15 @@ export const CategoryProjects = () => {
         const updatedProjects = response.data
           .map(project => {
             const firstImage = project.media.find(item => item.type === 'image');
+            const firstVideo = project.media.find(item => item.type === 'video');
+            const fallbackThumbnail = firstVideo ? getThumbnail(firstVideo.url) : null;
+
             return {
               ...project,
-              img: firstImage ? firstImage.url : null
+              img: firstImage ? firstImage.url : fallbackThumbnail
             };
           })
-          .sort((a, b) => a.priority - b.priority); // Sort by priority (1-highest)
+          .sort((a, b) => a.priority - b.priority);
 
         setProjects(updatedProjects);
       } catch (error) {

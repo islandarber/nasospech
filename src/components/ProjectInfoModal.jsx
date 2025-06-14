@@ -97,12 +97,14 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
                 onClick={() => setActiveIndex(index)}
               >
                 {item.type === 'image' ? (
-                  <img
-                    src={item.url}
-                    alt={`thumb-${index}`}
-                    className="w-16 h-14 md:w-20 md:h-16"
-                    loading="lazy"
-                  />
+                  <div className="w-20 h-16 flex items-center justify-center bg-black">
+                    <img
+                      src={item.url}
+                      alt={`thumb-${index}`}
+                      className="max-w-full max-h-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
                 ) : (
                   <div className="relative w-16 h-14 md:w-20 md:h-16">
                     <div className="w-full h-full bg-gray-800 flex items-center justify-center">
@@ -130,7 +132,7 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
             <h3 className="text-lg flex flex-col md:text-2xl text-white font-bold">
               {project.title}
             </h3>
-            <div className='mt-12'>
+            <div className="mt-12">
               <h4 className="text-gray-300 font-semibold mb-1">About</h4>
               <p className="text-white leading-relaxed whitespace-pre-wrap break-words">{project.info}</p>
             </div>
