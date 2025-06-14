@@ -55,7 +55,7 @@ export const CategoryProjects = () => {
   };
 
   return (
-    <div className="bg-transparent min-h-screen relative">
+    <div className="bg-transparent min-h-screen relative font-poiretone">
       <button
         onClick={() => navigate("/projects")}
         className="text-white text-xs sm:text-sm font-semibold transition-opacity duration-200 hover:opacity-70 ml-2"
@@ -66,12 +66,12 @@ export const CategoryProjects = () => {
       <div className="flex flex-col items-center mt-2">
         {projects[0] && <>
           <h1 className="text-white text-4xl font-bold mb-6">{projects[0].categories[0].name}</h1>
-          <p className="text-gray-300 w-[250px] sm:w-full text-md max-w-lg text-center mb-8">
+          <p className="text-gray-300 w-[250px] sm:w-full text-lg max-w-lg text-center mb-8">
             Explore a selection of projects in the {projects[0].categories[0].name} category.
           </p>
         </>}
         {loading ? (
-          <div className="flex space-x-1 justify-center items-center mt-10 mb-4">
+          <div className="flex space-x-4 justify-center items-center mt-10 mb-4">
             <div className="h-5 w-1 bg-white animate-wave"></div>
             <div className="h-8 w-1 bg-white animate-wave delay-150"></div>
             <div className="h-3 w-1 bg-white animate-wave delay-300"></div>

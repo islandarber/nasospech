@@ -62,58 +62,60 @@ export const Home = () => {
   };
 
   return (
-    <div className="md:bg-custom-gradient focus:outline-none outline-none">
+    <>
       {loading ? (
         <div className="flex space-x-1 justify-center items-center mt-10 mb-4">
-            <div className="h-5 w-1 bg-white animate-wave"></div>
-            <div className="h-8 w-1 bg-white animate-wave delay-150"></div>
-            <div className="h-3 w-1 bg-white animate-wave delay-300"></div>
-          </div>
+          <div className="h-5 w-1 bg-white animate-wave"></div>
+          <div className="h-8 w-1 bg-white animate-wave delay-150"></div>
+          <div className="h-3 w-1 bg-white animate-wave delay-300"></div>
+        </div>
       ) : error ? (
         <div className="text-red-500 text-center mt-10">{error}</div>
       ) : clickedSlide === null ? (
-        <Carousel
-          responsive={responsive}
-          infinite={true}
-          autoPlay={true}
-          autoPlaySpeed={5000}
-          arrows={true}
-          swipeable={true}
-          draggable={true}
-          className="shadow-lg ml-4 mr-4 rounded-lg"
-        >
-          {slideInfo.map((slide, index) => {
-            const imageUrl = getFirstImage(slide.media);
-            return (
-              <div
-                key={index}
-                className="md:relative flex flex-col md:items-center justify-center h-[60vh] md:h-[80vh] cursor-pointer md:mt-4"
-                onClick={() => handleSlideClick(index)}
-              >
-                <div className="relative w-full h-full overflow-hidden">
-                  {imageUrl ? (
-                    <img
-                      src={imageUrl}
-                      alt={`Image of ${slide.title}`}
-                      loading="lazy"
-                      className="md:absolute top-0 left-0 w-full h-full object-contain md:object-cover transition-transform duration-500 ease-in-out transform hover:scale-105"
-                    />
-                  ) : (
-                    <div className="text-white text-center w-full h-full flex items-center justify-center bg-gray-800">
-                      No Image
+        <div className="md:bg-custom-gradient focus:outline-none outline-none">
+          <Carousel
+            responsive={responsive}
+            infinite={true}
+            autoPlay={true}
+            autoPlaySpeed={5000}
+            arrows={true}
+            swipeable={true}
+            draggable={true}
+          >
+            {slideInfo.map((slide, index) => {
+              const imageUrl = getFirstImage(slide.media);
+              return (
+                <div key={index} className="flex justify-center items-center">
+                  <div
+                    className="md:relative flex flex-col md:items-center justify-center h-[60vh] md:h-[70vh] w-full max-w-[1350px] cursor-pointer md:mt-4"
+                    onClick={() => handleSlideClick(index)}
+                  >
+                    <div className="relative w-full h-full overflow-hidden">
+                      {imageUrl ? (
+                        <img
+                          src={imageUrl}
+                          alt={`Image of ${slide.title}`}
+                          loading="lazy"
+                          className="md:absolute top-0 left-0 w-full h-full object-contain md:object-cover transition-transform duration-500 ease-in-out transform hover:scale-105"
+                        />
+                      ) : (
+                        <div className="text-white text-center w-full h-full flex items-center justify-center bg-gray-800">
+                          No Image
+                        </div>
+                      )}
                     </div>
-                  )}
+                    <h3 className="text-white text-lg p-2 text-center">
+                      {slide.title}
+                    </h3>
+                  </div>
                 </div>
-                <h3 className="text-white text-lg md:text-xs p-1 text-center">
-                  {slide.title}
-                </h3>
-              </div>
-            );
-          })}
-        </Carousel>
+              );
+            })}
+          </Carousel>
+        </div>
       ) : (
         <ProjectInfoModal project={slideInfo[clickedSlide]} handleCloseCard={handleCloseCard} />
       )}
-    </div>
+    </>
   );
 };
