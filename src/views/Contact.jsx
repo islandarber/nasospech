@@ -83,7 +83,7 @@ export const Contact = () => {
         {/* Left Column */}
         <div className="w-full flex justify-center p-2">
           <div>
-            <h2 className="text-5xl text-center mb-4">Contact</h2>
+            <h1 className="text-3xl font-bold text-center mb-6">Contact</h1>
             <p className="text-lg mt-2 text-center">
               You can contact me via my social media, email, or the contact form, and I will make sure to get back to you asap.
             </p>

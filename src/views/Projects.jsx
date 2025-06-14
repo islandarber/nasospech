@@ -45,19 +45,26 @@ export const Projects = () => {
   }, []);
 
   return (
-    <div className="bg-custom-gradient min-h-screen font-poiretone">
-      <div className="sm:flex justify-between gap-20 mr-4 sm:ml-10 sm:mr-10">
-        <div className="ml-4 sm:ml-12">
-          <h1 className="text-white text-center sm:text-left text-4xl font-bold">Projects</h1>
-          <p className="text-white text-center sm:text-left text-md w-full mt-2 tracking-wider">
+    <div className="bg-custom-gradient font-poiretone">
+      {/* Header Section */}
+      <div className="sm:mx-10 px-4 py-6">
+        {/* Centered title */}
+        <h1 className="text-white text-3xl font-bold text-center mb-6">
+          Projects
+        </h1>
+
+        {/* Text and SoundWaves */}
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-32">
+          <p className="text-white text-md tracking-wider text-center sm:text-left sm:max-w-xl">
             Explore my portfolio by browsing projects tailored to each of my specialized services.
           </p>
+          <SoundWaves />
         </div>
-        <SoundWaves />
       </div>
 
+      {/* Category List */}
       {loading ? (
-        <div className="flex space-x-1 justify-center items-center mt-10 mb-4" aria-label="Loading...">
+        <div className="flex space-x-1 justify-center items-center mb-4" aria-label="Loading...">
           <div className="h-5 w-1 bg-white animate-wave"></div>
           <div className="h-8 w-1 bg-white animate-wave delay-150"></div>
           <div className="h-3 w-1 bg-white animate-wave delay-300"></div>

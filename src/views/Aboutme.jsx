@@ -14,10 +14,12 @@ export const Aboutme = () => {
   return (
     <div className="bg-custom-gradient flex flex-col items-center text-white ml-10 mr-10 font-poiretone tracking-wider">
       <div className="w-full max-w-6xl mx-auto px-4">
+        {/* Title */}
+        <h1 className="text-3xl font-bold text-center mb-6">About Me</h1>
+
         {/* First Paragraph: On Top */}
         <div className="flex flex-col gap-6 sm:w-full mb-6">
-          <h1 className="text-3xl font-bold item-center">About Me</h1>
-          <p className="text-lg">
+          <p className="text-lg text-center sm:text-left">
             Audio recording, editing, dialogue clean-up, sound design, film scoring, mixing and mastering for music, films, commercials, and any other audio material.
           </p>
         </div>
@@ -41,7 +43,7 @@ export const Aboutme = () => {
               being audio director for the promo of <strong>RIAS choir’s performance at the Berlin Philharmonie</strong>.
               <br />
               <br />
-              I work proficiently on Ableton Live 11 Suite, Pro Tools Studio, Reaper, RX 11 Advanced and WaveLab- depending on the project’s needs-, at my mixing desk and/or at SRH Berlin SOPA studios, using plugins from UA, SSL, Waves, Izotope, NI, Soundtoys, and others.
+              I work proficiently on Ableton Live 11 Suite, Pro Tools Studio, Reaper, RX 11 Advanced and WaveLab—depending on the project’s needs—at my mixing desk and/or at SRH Berlin SOPA studios, using plugins from UA, SSL, Waves, Izotope, NI, Soundtoys, and others.
               <br />
               <br />
               Recording: Zoom F8n Pro, Neumann KMR81i shotgun mic, 2 Sennheiser G4 lavalier systems, Neumann TLM 102 condenser.
