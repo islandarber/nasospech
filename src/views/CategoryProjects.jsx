@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ProjectInfoModal } from "../components/ProjectInfoModal";
-import axios from "axios";
+import api from "../api/axios";
 import { getThumbnail } from "../utils/thumbnailUtils";
 
 export const CategoryProjects = () => {
@@ -13,17 +13,13 @@ export const CategoryProjects = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const api_url = import.meta.env.VITE_BACKEND_URL;
-
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         setLoading(true);
         if (!categoryId) return;
 
-        const response = await axios.get(
-          `${api_url}/projects/category/${categoryId}`
-        );
+        const response = await api.get(`/projects/category/${categoryId}`);
 
         const updatedProjects = response.data
           .map(project => {
@@ -110,8 +106,8 @@ export const CategoryProjects = () => {
                   )}
                 </div>
 
-                <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 flex items-center justify-center transition-opacity duration-300 hover:opacity-100">
-                  <h3 className="text-white text-lg font-semibold text-center px-2">
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent pt-10 pb-3 px-2 flex items-end justify-center">
+                  <h3 className="text-white text-lg font-semibold text-center">
                     {project.title}
                   </h3>
                 </div>

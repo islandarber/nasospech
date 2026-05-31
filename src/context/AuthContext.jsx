@@ -1,5 +1,5 @@
-import axios from 'axios';
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import api from '../api/axios';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
@@ -12,6 +12,9 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showAll, setShowAll] = useState(true);
+
+  // Note: the JWT is attached to requests automatically by the axios
+  // interceptor in src/api/axios.js, so no header wiring is needed here.
 
   // Helper function to check if token is expired
   const isTokenExpired = (token) => {
@@ -31,13 +34,8 @@ export const AuthProvider = ({ children }) => {
     setShowAll(true);
     setError(null); // Clear previous errors
 
-    const api_url = import.meta.env.VITE_BACKEND_URL;
     try {
-      const response = await axios.post(`${api_url}/user/login`, formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await api.post(`/user/login`, formData);
 
       const { token, user } = response.data;
       localStorage.setItem("jwt", token);
@@ -53,13 +51,13 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Logout function
-  const logout = () => {
+  // Logout function (memoized so it can safely be an effect dependency)
+  const logout = useCallback(() => {
     localStorage.removeItem("jwt");
     setToken(null);
     setUser(null);
     navigate("/admin/login");
-  };
+  }, [navigate]);
 
   // Fetch user data if token exists and isn't expired
   useEffect(() => {
@@ -71,14 +69,8 @@ export const AuthProvider = ({ children }) => {
 
       const getUser = async () => {
         setLoading(true);
-        const api_url = import.meta.env.VITE_BACKEND_URL;
         try {
-          const response = await axios.get(`${api_url}/user/me`, {
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`,
-            },
-          });
+          const response = await api.get(`/user/me`);
           setUser(response.data);
         } catch (error) {
           console.error('Error fetching user data:', error);
@@ -89,7 +81,7 @@ export const AuthProvider = ({ children }) => {
       };
       getUser();
     }
-  }, [token]);
+  }, [token, logout]);
 
   // Auto-logout after a period of inactivity or token expiration
   useEffect(() => {
@@ -99,7 +91,7 @@ export const AuthProvider = ({ children }) => {
       }
     }, 60000); // Check every minute
     return () => clearInterval(interval);
-  }, [token]);
+  }, [token, logout]);
 
   return (
     <AuthContext.Provider value={{ token, user, login, logout, loading, error, showAll, setShowAll }}>

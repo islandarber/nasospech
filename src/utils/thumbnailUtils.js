@@ -22,12 +22,41 @@ export const getThumbnail = (videoUrl) => {
   return null;
 };
 
-export const processProjects = (projects) => {
-  return projects.map((project) => {
-    if (!project.img && project.video) {
-      const thumbnail = getThumbnail(project.video);
-      project.img = thumbnail;
-    }
-    return project;
-  });
+// Converts a YouTube/Vimeo link (in any common form) into an embeddable URL
+// that works inside an <iframe>. Accepts normal "watch" links, short links,
+// shorts, or already-embed links. Unknown URLs are returned unchanged.
+export const toEmbedUrl = (url) => {
+  if (!url) return url;
+
+  // If a full <iframe ...> embed snippet was pasted, pull the src out of it.
+  const iframeSrc = url.match(/<iframe[^>]*\ssrc=["']([^"']+)["']/i);
+  if (iframeSrc) url = iframeSrc[1];
+
+  // Already an embed/player URL — leave it as-is.
+  if (/youtube\.com\/embed\//.test(url) || /player\.vimeo\.com\/video\//.test(url)) {
+    return url;
+  }
+
+  // YouTube: watch?v=ID, youtu.be/ID, shorts/ID, v/ID
+  const yt = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|v\/))([\w-]+)/);
+  if (yt) return `https://www.youtube.com/embed/${yt[1]}`;
+
+  // Vimeo: vimeo.com/123456789
+  const vimeo = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  if (vimeo) return `https://player.vimeo.com/video/${vimeo[1]}`;
+
+  // Unknown provider — return unchanged (may already be embeddable).
+  return url;
 };
+
+// Adds a `preview` thumbnail URL to each project (first image, else a video
+// thumbnail). Used wherever the admin list is (re)set so images stay visible.
+export const withPreviews = (projects = []) =>
+  projects.map((project) => {
+    const imageMedia = project.media?.find((item) => item.type === 'image');
+    const videoMedia = project.media?.find((item) => item.type === 'video');
+    return {
+      ...project,
+      preview: imageMedia?.url || getThumbnail(videoMedia?.url),
+    };
+  });

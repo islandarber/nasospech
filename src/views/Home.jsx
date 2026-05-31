@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { ProjectInfoModal } from "../components/ProjectInfoModal";
-import axios from 'axios';
+import api from '../api/axios';
 
 export const Home = () => {
   const [slideInfo, setSlideInfo] = useState([]);
   const [clickedSlide, setClickedSlide] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const api_url = import.meta.env.VITE_BACKEND_URL;
 
   const responsive = {
     superLargeDesktop: {
@@ -34,7 +32,7 @@ export const Home = () => {
   useEffect(() => {
     const fetchSlides = async () => {
       try {
-        const response = await axios.get(`${api_url}/projects/featured`);
+        const response = await api.get(`/projects/featured`);
         setSlideInfo(response.data);
       } catch (error) {
         console.error("Error fetching slides:", error);
@@ -73,6 +71,11 @@ export const Home = () => {
         <div className="text-red-500 text-center mt-10">{error}</div>
       ) : clickedSlide === null ? (
         <div className="md:bg-custom-gradient focus:outline-none outline-none">
+          {slideInfo.length === 0 ? (
+            <p className="text-gray-300 text-center py-16 px-4">
+              Featured projects will appear here soon.
+            </p>
+          ) : (
           <Carousel
             responsive={responsive}
             infinite={true}
@@ -112,6 +115,7 @@ export const Home = () => {
               );
             })}
           </Carousel>
+          )}
         </div>
       ) : (
         <ProjectInfoModal project={slideInfo[clickedSlide]} handleCloseCard={handleCloseCard} />

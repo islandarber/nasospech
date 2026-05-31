@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-import { processProjects } from '../utils/thumbnailUtils';
+import api from '../api/axios';
+import { withPreviews } from '../utils/thumbnailUtils';
 
 export const ProjectForm = ({ project, closeModal, setProjects }) => {
   const [formData, setFormData] = useState({
@@ -18,8 +18,6 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
   const [newImageFiles, setNewImageFiles] = useState([]);
   const [newVideoUrl, setNewVideoUrl] = useState('');
 
-  const api_url = import.meta.env.VITE_BACKEND_URL;
-
   const titleRef = useRef(null);
   const categoriesRef = useRef(null);
   const rolesRef = useRef(null);
@@ -29,7 +27,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${api_url}/categories`);
+        const response = await api.get(`/categories`);
         setCategories(response.data);
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -59,6 +57,14 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
       });
     };
   }, [newImageFiles]);
+
+  // Lock background scroll while the form modal is open.
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
@@ -91,11 +97,19 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
     });
   };
 
+  // Prepend https:// if the user pasted a link without a protocol, otherwise
+  // the backend silently drops it (it only keeps URLs starting with "http").
+  const normalizeUrl = (url) => {
+    const trimmed = url.trim();
+    if (!trimmed) return trimmed;
+    return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+  };
+
   const handleAddVideo = () => {
     if (!newVideoUrl.trim()) return;
     setFormData((prev) => ({
       ...prev,
-      media: [...prev.media, { type: 'video', url: newVideoUrl.trim() }],
+      media: [...prev.media, { type: 'video', url: normalizeUrl(newVideoUrl) }],
     }));
     setNewVideoUrl('');
   };
@@ -132,7 +146,12 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
     requestData.append('featured', formData.featured);
     requestData.append('priority', formData.priority);
 
-    formData.media.forEach(item => {
+    // Include a video link that was typed but not yet "Added", so it isn't lost.
+    const pendingVideo = newVideoUrl.trim()
+      ? [{ type: 'video', url: normalizeUrl(newVideoUrl) }]
+      : [];
+
+    [...formData.media, ...pendingVideo].forEach(item => {
       if (item.type === 'video') {
         requestData.append('media', item.url);
       } else if (item.type === 'image' && item.url) {
@@ -145,17 +164,17 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
     try {
       setLoading(true);
       if (project) {
-        await axios.put(`${api_url}/projects/${project._id}`, requestData, {
+        await api.put(`/projects/${project._id}`, requestData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
-        const response = await axios.get(`${api_url}/projects`);
-        setProjects(response.data);
+        const response = await api.get(`/projects`);
+        setProjects(withPreviews(response.data));
       } else {
-        await axios.post(`${api_url}/projects`, requestData, {
+        await api.post(`/projects`, requestData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
-        const updatedProjects = await axios.get(`${api_url}/projects`);
-        setProjects(processProjects(updatedProjects.data));
+        const updatedProjects = await api.get(`/projects`);
+        setProjects(withPreviews(updatedProjects.data));
       }
       closeModal();
     } catch (error) {
@@ -203,8 +222,8 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
             <div>
               <label className="block text-xl font-medium text-white">Add Video Link(s)</label>
               <div className="flex space-x-2 mb-2">
-                <input type="text" value={newVideoUrl} onChange={(e) => setNewVideoUrl(e.target.value)} placeholder="Enter video URL" className="flex-grow p-4 rounded-md text-black" />
-                <button type="button" onClick={handleAddVideo} className="bg-blue-500 hover:bg-blue-600 text-white px-6 rounded-md">Add</button>
+                <input type="text" value={newVideoUrl} onChange={(e) => setNewVideoUrl(e.target.value)} placeholder="Paste a YouTube or Vimeo link" className="flex-grow p-4 rounded-md text-black" />
+                <button type="button" onClick={handleAddVideo} className="bg-orange-500 hover:bg-orange-600 text-white px-6 rounded-md">Add</button>
               </div>
               <div className="space-y-2 max-h-48 overflow-y-auto">
                 {formData.media.map(({ type, url }, index) => type === 'video' && (
@@ -261,7 +280,7 @@ export const ProjectForm = ({ project, closeModal, setProjects }) => {
           </div>
 
           <div className="col-span-1 md:col-span-2">
-            <button type="submit" className={`w-full p-6 rounded-md text-white ${loading ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'}`} disabled={loading}>
+            <button type="submit" className={`w-full p-6 rounded-md text-white transition-colors duration-200 ${loading ? 'bg-gray-500 cursor-not-allowed' : 'bg-orange-500 hover:bg-orange-600'}`} disabled={loading}>
               {loading ? (project ? 'Saving...' : 'Creating...') : (project ? 'Save Project' : 'Create Project')}
             </button>
           </div>

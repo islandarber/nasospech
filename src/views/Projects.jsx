@@ -6,29 +6,30 @@ import postProdImage from "../assets/Categories/postprod 2.jpg";
 import audioRecordImage from "../assets/Categories/rec 1.jpg";
 import compositionImage from "../assets/Categories/composition 2.jpg";
 import audioEngineerImage from "../assets/Categories/install 2.jpg";
-import axios from 'axios';
+import api from '../api/axios';
 import { useState, useEffect } from 'react';
+
+// Static mapping from category name -> header image (defined once, outside the
+// component). Keys MUST exactly match the category names in the database, or
+// that category shows with no header image.
+const categoryImages = {
+  "Sound Design": soundDesignImage,
+  "Audio Post-Production": postProdImage,
+  "Recording": audioRecordImage,
+  "Engineering": audioEngineerImage,
+  "Film Scoring": compositionImage,
+};
 
 export const Projects = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const api_url = import.meta.env.VITE_BACKEND_URL;
-
-  const categoryImages = {
-    "Audio Design": soundDesignImage,
-    "Audio Postproduction": postProdImage,
-    "Audio Recording": audioRecordImage,
-    "Film Scoring": compositionImage,
-    "Audio Engineering / Installations": audioEngineerImage,
-  };
-
   useEffect(() => {
     const fetchCategories = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`${api_url}/categories`);
+        const response = await api.get(`/categories`);
         const categoriesWithImages = response.data.map((category) => ({
           ...category,
           imgPath: categoryImages[category.name] || "",

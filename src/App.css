@@ -45,6 +45,17 @@
 
 
 
+/* Homepage carousel: show the prev/next arrows only when hovering the carousel.
+   (On touch devices there's no hover, but the carousel is swipeable.)
+   Selectors are scoped to the list to outrank the library's own opacity:1. */
+.react-multi-carousel-list .react-multiple-carousel__arrow {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.react-multi-carousel-list:hover .react-multiple-carousel__arrow {
+  opacity: 1;
+}
+
 @keyframes wave {
   0%, 100% { transform: scaleY(1); }
   50% { transform: scaleY(1.9); }

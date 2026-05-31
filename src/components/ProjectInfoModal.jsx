@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { getThumbnail } from '../utils/thumbnailUtils';
+import { useEffect, useRef, useState } from 'react';
+import { toEmbedUrl } from '../utils/thumbnailUtils';
 
 export const ProjectInfoModal = ({ project, handleCloseCard }) => {
-  if (!project || !project.media || project.media.length === 0) return null;
-
   const [activeIndex, setActiveIndex] = useState(0);
   const modalRef = useRef(null);
 
@@ -36,6 +34,17 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
     }
   }, []);
 
+  // Lock background scroll while the modal is open.
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
+  // Guard runs AFTER all hooks so hook order stays stable on every render.
+  if (!project || !project.media || project.media.length === 0) return null;
+
   return (
     <div
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 p-4 z-50 overflow-auto font-montserrat outline-none focus:outline-none"
@@ -66,7 +75,7 @@ export const ProjectInfoModal = ({ project, handleCloseCard }) => {
             ) : (
               <iframe
                 className="w-full h-[200px] md:h-[350px] lg:h-[500px]"
-                src={project.media[activeIndex].url}
+                src={toEmbedUrl(project.media[activeIndex].url)}
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 loading="lazy"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 
 export const Contact = () => {
@@ -204,7 +204,7 @@ export const Contact = () => {
 
               <button
                 type="submit"
-                className="bg-blue-500 text-white px-6 py-4 rounded-lg text-xl"
+                className="bg-orange-500 hover:bg-orange-600 transition-colors duration-200 text-white px-6 py-4 rounded-lg text-xl"
               >
                 Send Message
               </button>
